@@ -3,6 +3,7 @@ import FundContract from "./contracts/Fund.json";
 import { ethers } from "ethers";
 
 import "./App.css";
+import Navbar from "./components/Navbar";
 
 // to get the contract address
 const contractAddress = FundContract.networks['5777'].address;
@@ -132,7 +133,9 @@ class App extends Component {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
-          <h1 className="text-3xl font-bold underline">      Hello world!    </h1>
+
+      <Navbar/>
+          // <h1 className="text-3xl font-bold underline">      Hello world!    </h1>
     );
   }
 }

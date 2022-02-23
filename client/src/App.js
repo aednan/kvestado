@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 
 import "./App.css";
 import Navbar1 from "./components/navbar/Navbar1";
+import Navbar from "./components/navbar/Navbar";
 
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;

@@ -14,12 +14,13 @@ import {
 } from "react-icons/md";
 
 import "./Navbar.css";
+import PopoverComponent from "../popover/PopoverComponent";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  //   { name: "Dashboard", href: "#", current: true },
+  { name: "Create", href: "#", current: false },
+  //   { name: "Projects", href: "#", current: false },
+  //   { name: "Calendar", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -58,7 +59,9 @@ export default function Navbar1() {
                   />
                 </div>
                 <div className=" hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
+                  <div className=" flex space-x-4">
+                    <PopoverComponent />
+
                     {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -67,7 +70,7 @@ export default function Navbar1() {
                           item.current
                             ? "bg-gray-900 text-white "
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "text-md rounded-md px-3 py-2 font-bold"
+                          "rounded-md px-3 py-2 text-lg font-bold"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >

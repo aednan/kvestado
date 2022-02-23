@@ -6,6 +6,13 @@ import {
   AiFillTwitterCircle,
   AiFillRedditCircle,
 } from "react-icons/ai";
+import {
+  MdOutlineAccountBalanceWallet,
+  MdAccountCircle,
+  MdMenu,
+  MdClose,
+} from "react-icons/md";
+
 import "./Navbar.css";
 
 const navigation = [
@@ -28,12 +35,12 @@ export default function Navbar1() {
             <div className="relative flex h-16 items-center justify-between px-[1.2rem]">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    <MdClose className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black" />
                   ) : (
-                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    <MdMenu className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black" />
                   )}
                 </Disclosure.Button>
               </div>
@@ -70,25 +77,21 @@ export default function Navbar1() {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+              <div className="absolute inset-y-0 right-0 flex items-center gap-5 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {/* <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                </button> */}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex ">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      <MdAccountCircle className="hidden cursor-pointer text-3xl  font-black text-[#8a939b] hover:text-black sm:block " />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -143,6 +146,8 @@ export default function Navbar1() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
+
+                <MdOutlineAccountBalanceWallet className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black" />
               </div>
             </div>
           </div>

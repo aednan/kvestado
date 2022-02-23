@@ -149,8 +149,48 @@ class App extends Component {
     // }
     return (
       <>
-        <div className=" h-screen w-screen bg-red-300">
-          <Navbar1 />
+        <Navbar1 className=" overflow-hidden " />
+        <div className="   bg-red-300">
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
+          <h1 className="text-3xl font-bold underline"> web3 </h1>
         </div>
       </>
       // <h1 className="text-3xl font-bold underline"> web3 </h1>

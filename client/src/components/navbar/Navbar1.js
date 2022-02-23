@@ -1,6 +1,12 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import {
+  AiFillGithub,
+  AiFillTwitterCircle,
+  AiFillRedditCircle,
+} from "react-icons/ai";
+import "./Navbar.css";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -142,14 +148,16 @@ export default function Navbar1() {
           </div>
 
           <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
-            <div className=" space-y-1 px-2 pt-2 pb-3">
+            <div className="space-y-1 px-2 pt-2 pb-3 text-center">
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? "justify-center " : "  hover:text-black",
+                    item.current
+                      ? "justify-center text-black "
+                      : "  hover:text-black",
                     "block h-16 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
                   )}
                   aria-current={item.current ? "page" : undefined}
@@ -165,7 +173,15 @@ export default function Navbar1() {
                   </button>
                 </div>
                 <div className=" absolute h-16 w-screen bg-gray-400 blur-sm"></div>
-                <div className=" relative h-16 w-screen bg-white "></div>
+                <div className="relative flex h-16 w-screen items-center justify-evenly bg-white ">
+                  <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                  <AiFillTwitterCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                  <AiFillRedditCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+
+                  {/* <span className="ml-3 font-bold">&#169; KVESTAGO</span>
+                  <span className="font-bold">Privacy Policy</span>
+                  <span className="mr-3 font-bold">Terms of Service</span> */}
+                </div>
               </div>
             </div>
           </Disclosure.Panel>

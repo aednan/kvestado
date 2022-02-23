@@ -159,8 +159,8 @@ export default function Navbar1() {
               ))}
 
               <div className="absolute bottom-0 left-0  ">
-                <div className=" mb-3 flex justify-center ">
-                  <button className=" h-14 w-96 rounded-lg bg-orange-400 text-lg font-bold">
+                <div className="  mb-3 flex justify-center ">
+                  <button className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold">
                     Connect Wallet
                   </button>
                 </div>

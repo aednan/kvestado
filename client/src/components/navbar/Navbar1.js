@@ -158,7 +158,12 @@ export default function Navbar1() {
                 </Disclosure.Button>
               ))}
 
-              <div className="absolute bottom-0 left-0">
+              <div className="absolute bottom-0 left-0  ">
+                <div className=" mb-3 flex justify-center ">
+                  <button className=" h-14 w-96 rounded-lg bg-orange-400 text-lg font-bold">
+                    Connect Wallet
+                  </button>
+                </div>
                 <div className=" absolute h-16 w-screen bg-gray-400 blur-sm"></div>
                 <div className=" relative h-16 w-screen bg-white "></div>
               </div>

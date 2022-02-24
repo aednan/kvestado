@@ -67,7 +67,10 @@ function classNames(...classes) {
 
 export default function Navbar1() {
   return (
-    <Disclosure as="nav" className="fixed w-full overflow-hidden bg-gray-800">
+    <Disclosure
+      as="nav"
+      className="fixed w-full overflow-hidden bg-transparent"
+    >
       {({ open }) => (
         <>
           <div className=" fixed mx-auto w-full bg-white px-2 shadow-md sm:px-6 lg:px-8">
@@ -196,40 +199,50 @@ export default function Navbar1() {
             </div>
           </div>
 
-          <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
-            <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? " text-black " : "  hover:text-black",
-                    "group flex h-16 items-center gap-2 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {/* <MdNewLabel className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " /> */}
-                  {item.icon}
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+          {/* <Transition.Root> */}
+          <Transition
+            enter="transition ease-in-out duration-[650ms] transform"
+            enterFrom="-translate-y-full opacity-0"
+            enterTo="translate-y-0 opacity-100"
+            leave="transition ease-in-out duration-[650ms] transform"
+            leaveFrom="translate-y-0 opacity-100"
+            leaveTo="-translate-y-full opacity-0"
+          >
+            <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
+              <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
+                {navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      item.current ? " text-black " : "  hover:text-black",
+                      "group flex h-16 items-center gap-2 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {/* <MdNewLabel className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " /> */}
+                    {item.icon}
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
 
-              <div className="absolute bottom-0 left-0  ">
-                <div className="  mb-3 flex justify-center ">
-                  <button className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold">
-                    Connect Wallet
-                  </button>
-                </div>
-                <div className=" absolute h-16 w-screen bg-gray-400 blur-sm"></div>
-                <div className="relative flex h-16 w-screen items-center justify-evenly bg-white ">
-                  <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
-                  <AiFillTwitterCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
-                  <AiFillRedditCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                <div className="absolute bottom-0 left-0  ">
+                  <div className="  mb-3 flex justify-center ">
+                    <button className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold">
+                      Connect Wallet
+                    </button>
+                  </div>
+                  <div className=" absolute h-16 w-screen bg-gray-400 blur-sm"></div>
+                  <div className="relative flex h-16 w-screen items-center justify-evenly bg-white ">
+                    <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                    <AiFillTwitterCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                    <AiFillRedditCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Disclosure.Panel>
+            </Disclosure.Panel>
+          </Transition>
         </>
       )}
     </Disclosure>

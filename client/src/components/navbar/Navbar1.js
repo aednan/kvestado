@@ -197,7 +197,7 @@ export default function Navbar1() {
           </div>
 
           <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3 text-center">
+            <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}

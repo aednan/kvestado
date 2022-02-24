@@ -11,6 +11,10 @@ import {
   MdAccountCircle,
   MdMenu,
   MdClose,
+  MdAddCircleOutline,
+  MdLibraryBooks,
+  MdAppRegistration,
+  MdModeNight,
 } from "react-icons/md";
 
 import "./Navbar.css";
@@ -18,10 +22,43 @@ import PopoverComponent from "../popover/PopoverComponent";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
-  { name: "Create", href: "#", current: false },
-  { name: "Campaign", href: "#", current: false },
+  {
+    name: "Create",
+    href: "#",
+    current: false,
+    icon: (
+      <MdAddCircleOutline className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
+    ),
+    mobileOnly: false,
+  },
+  {
+    name: "Campaign",
+    href: "#",
+    current: false,
+    icon: (
+      <MdAppRegistration className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
+    ),
+    mobileOnly: false,
+  },
   // docs how the contract works
-  { name: "Resources", href: "#", current: false },
+  {
+    name: "Resources",
+    href: "#",
+    current: false,
+    icon: (
+      <MdLibraryBooks className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
+    ),
+    mobileOnly: false,
+  },
+  {
+    name: "Night mode",
+    href: "#",
+    current: false,
+    icon: (
+      <MdModeNight className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
+    ),
+    mobileOnly: true,
+  },
 ];
 
 function classNames(...classes) {
@@ -63,21 +100,24 @@ export default function Navbar1() {
                   <div className=" flex space-x-4">
                     <PopoverComponent />
 
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white "
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-lg font-bold"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {navigation
+                      .filter((item) => !item.mobileOnly)
+                      .map((item) => (
+                        <a
+                          // hidden={item.mobile}
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white "
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-lg font-bold"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </a>
+                      ))}
                   </div>
                 </div>
               </div>
@@ -165,11 +205,12 @@ export default function Navbar1() {
                   href={item.href}
                   className={classNames(
                     item.current ? " text-black " : "  hover:text-black",
-                    "group flex h-16 items-center gap-1 rounded-md px-3 py-2 text-xl font-bold text-gray-600"
+                    "group flex h-16 items-center gap-2 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
-                  <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " />
+                  {/* <MdNewLabel className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " /> */}
+                  {item.icon}
                   {item.name}
                 </Disclosure.Button>
               ))}

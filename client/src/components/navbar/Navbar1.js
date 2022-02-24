@@ -19,8 +19,9 @@ import PopoverComponent from "../popover/PopoverComponent";
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
   { name: "Create", href: "#", current: false },
-  //   { name: "Projects", href: "#", current: false },
-  //   { name: "Calendar", href: "#", current: false },
+  { name: "Campaign", href: "#", current: false },
+  // docs how the contract works
+  { name: "Resources", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -163,13 +164,12 @@ export default function Navbar1() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current
-                      ? "justify-center text-black "
-                      : "  hover:text-black",
-                    "block h-16 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
+                    item.current ? " text-black " : "  hover:text-black",
+                    "group flex h-16 items-center gap-1 rounded-md px-3 py-2 text-xl font-bold text-gray-600"
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
+                  <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " />
                   {item.name}
                 </Disclosure.Button>
               ))}

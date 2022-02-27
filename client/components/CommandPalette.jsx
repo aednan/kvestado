@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dialog, Combobox } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
 export default function CommandPalette({ cPData }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
 
   const filteredData = query
@@ -20,6 +20,19 @@ export default function CommandPalette({ cPData }) {
   //   { id: 4, title: "Python", description: "Lorem Lorem Lorem Lorem" },
   // ];
   // const cPData = [1, 2, 3, 4];
+
+  useEffect(() => {
+    function onKeyDown(event) {
+      if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
+        setIsOpen(!isOpen);
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
 
   return (
     <Dialog

@@ -129,15 +129,13 @@ export default function Navbar() {
                         onClick={() => {
                           //TODO: open the commandPalette
                         }}
-                        className="h-10 w-full  bg-transparent text-xl font-bold 
-            text-gray-800 placeholder:text-lg placeholder:text-gray-400
-             focus:border-none focus:outline-none focus:ring-0 "
+                        className="h-10 w-full bg-transparent text-xl font-bold 
+            text-gray-800 placeholder:text-base placeholder:text-gray-400
+             focus:border-none focus:outline-none focus:ring-0 lg:placeholder:text-lg "
                         placeholder="Search"
                       />
 
-                      <span className="text-xs font-bold text-gray-400">
-                        Ctrl+Z
-                      </span>
+                      <span className="text-xs text-gray-400">Ctrl+Z</span>
                     </div>
                   </div>
                 </div>
@@ -240,9 +238,7 @@ export default function Navbar() {
                     placeholder="Search"
                   />
 
-                  <span className="text-xs font-bold text-gray-400 ">
-                    Ctrl+Z
-                  </span>
+                  <span className="text-xs text-gray-400 ">Ctrl+Z</span>
                 </div>
 
                 {navigation.map((item) => (

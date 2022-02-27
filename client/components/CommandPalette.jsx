@@ -74,7 +74,9 @@ export default function CommandPalette({ cPData }) {
                 placeholder="Search"
               />
 
-              <span className="text-xs font-bold text-gray-400">Ctrl+Z</span>
+              <span className="cursor-pointer rounded-md border p-1 text-xs font-bold  text-gray-400 hover:drop-shadow-md">
+                ESC
+              </span>
             </div>
 
             {filteredData.length > 0 && (

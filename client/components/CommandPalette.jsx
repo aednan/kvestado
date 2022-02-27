@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Dialog, Combobox } from "@headlessui/react";
+import React, { Fragment, useEffect } from "react";
+import { Dialog, Combobox, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
@@ -35,62 +35,88 @@ export default function CommandPalette({ cPData }) {
   }, [isOpen]);
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={setIsOpen}
-      className="fixed inset-0 p-4 pt-40"
+    <Transition.Root
+      show={isOpen}
+      as={Fragment}
+      afterLeave={() => setQuery("")}
     >
-      <Dialog.Overlay className="fixed inset-0 bg-gray-500/75" />
-      <Combobox
-        as="div"
-        className="relative mx-auto max-w-2xl divide-y-2 divide-gray-100 overflow-hidden rounded-lg bg-white
+      <Dialog onClose={setIsOpen} className="fixed inset-0 p-4 pt-40">
+        <Transition.Child
+          enter="ease-out duration-300 "
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave=" ease-in duration-200 "
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity" />
+        </Transition.Child>
+
+        <Transition.Child
+          enter="ease-out duration-300 "
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave=" ease-in duration-200 "
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          <Combobox
+            as="div"
+            className="relative mx-auto max-w-2xl divide-y-2 divide-gray-100 overflow-hidden rounded-lg bg-white
         shadow-2xl ring-1 ring-black/5
         "
-      >
-        <div className="flex items-center gap-2 px-4">
-          <MdSearch className="h-7 w-7 text-gray-500" />
-
-          <Combobox.Input
-            onChange={(event) => {
-              setQuery(event.target.value);
+            onChange={() => {
+              //TODO: Navigation
             }}
-            className="h-14 w-full border-0 bg-transparent text-base text-gray-800 
+          >
+            <div className="flex items-center gap-2 px-4">
+              <MdSearch className="h-7 w-7 text-gray-500" />
+
+              <Combobox.Input
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
+                className="h-14 w-full border-0 bg-transparent text-base text-gray-800 
             placeholder:text-base placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 "
-            placeholder="Search..."
-          />
-        </div>
+                placeholder="Search..."
+              />
 
-        {filteredData.length > 0 && (
-          <Combobox.Options
-            static
-            className="max-h-96 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
-          >
-            {filteredData.map((dataObject) => (
-              <Combobox.Option key={dataObject.id}>
-                {({ active }) => (
-                  <div
-                    className={`space-x-2 py-2 px-6 ${
-                      active ? "bg-blue-500" : "bg-white"
-                    }  `}
-                  >
-                    <span className="text-base font-medium text-gray-900">
-                      {dataObject.title}
-                    </span>
-                    <span className="text-sm text-gray-400">
-                      {dataObject.description}
-                    </span>
-                  </div>
-                )}
-              </Combobox.Option>
-            ))}
-          </Combobox.Options>
-        )}
+              <span className="text-xs font-bold text-gray-400">Ctrl+Z</span>
+            </div>
 
-        {query && filteredData.length === 0 && (
-          <p className="p-4 text-base text-gray-500"> No results found.</p>
-        )}
-      </Combobox>
-    </Dialog>
+            {filteredData.length > 0 && (
+              <Combobox.Options
+                static
+                className="max-h-96 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
+              >
+                {filteredData.map((dataObject) => (
+                  <Combobox.Option key={dataObject.id}>
+                    {({ active }) => (
+                      <div
+                        className={`space-x-2 py-2 px-6 ${
+                          active ? "bg-blue-500" : "bg-white"
+                        }  `}
+                      >
+                        <span className="text-base font-medium text-gray-900">
+                          {dataObject.title}
+                        </span>
+                        <span className="text-sm text-gray-400">
+                          {dataObject.description}
+                        </span>
+                      </div>
+                    )}
+                  </Combobox.Option>
+                ))}
+              </Combobox.Options>
+            )}
+
+            {query && filteredData.length === 0 && (
+              <p className="p-4 text-base text-gray-500"> No results found.</p>
+            )}
+          </Combobox>
+        </Transition.Child>
+      </Dialog>
+    </Transition.Root>
   );
 }

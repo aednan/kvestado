@@ -13,14 +13,6 @@ export default function CommandPalette({ cPData }) {
       )
     : [];
 
-  // const cPData = [
-  //   { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
-  //   { id: 2, title: "C", description: "Lorem Lorem Lorem Lorem" },
-  //   { id: 3, title: "JAVA", description: "Lorem Lorem Lorem Lorem" },
-  //   { id: 4, title: "Python", description: "Lorem Lorem Lorem Lorem" },
-  // ];
-  // const cPData = [1, 2, 3, 4];
-
   useEffect(() => {
     function onKeyDown(event) {
       if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
@@ -112,7 +104,7 @@ export default function CommandPalette({ cPData }) {
             )}
 
             {query && filteredData.length === 0 && (
-              <p className="p-4 text-base text-gray-500"> No results found.</p>
+              <p className="p-4 text-base text-gray-500">No results found.</p>
             )}
           </Combobox>
         </Transition.Child>

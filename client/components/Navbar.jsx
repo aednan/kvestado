@@ -129,7 +129,7 @@ export default function Navbar() {
                         onClick={() => {
                           //TODO: open the commandPalette
                         }}
-                        className="h-10 w-full bg-transparent text-xl font-bold 
+                        className="h-10 w-full bg-transparent text-xl 
             text-gray-800 placeholder:text-base placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 lg:placeholder:text-lg "
                         placeholder="Search"
@@ -232,7 +232,7 @@ export default function Navbar() {
                     onClick={() => {
                       // TODO: open the commandPalette
                     }}
-                    className="h-12 w-full border-0 bg-transparent text-xl font-bold 
+                    className="h-12 w-full border-0 bg-transparent text-xl
             text-gray-800 placeholder:text-lg placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 "
                     placeholder="Search"

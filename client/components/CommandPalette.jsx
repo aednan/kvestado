@@ -68,7 +68,7 @@ export default function CommandPalette({ cPData }) {
                 onChange={(event) => {
                   setQuery(event.target.value);
                 }}
-                className="h-[4.3rem] w-full border-0 bg-transparent text-xl font-bold 
+                className="h-[4.3rem] w-full border-0 bg-transparent text-xl  
             text-gray-800 placeholder:text-lg placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 "
                 placeholder="Search"

@@ -70,16 +70,16 @@ export default function CommandPalette({ cPData }) {
             }}
           >
             <div className="flex items-center gap-2 px-4">
-              <MdSearch className="h-7 w-7 text-gray-500" />
+              <MdSearch className="h-8 w-8 text-gray-400" />
 
               <Combobox.Input
                 onChange={(event) => {
                   setQuery(event.target.value);
                 }}
-                className="h-14 w-full border-0 bg-transparent text-base text-gray-800 
-            placeholder:text-base placeholder:text-gray-400
+                className="h-[4.3rem] w-full border-0 bg-transparent text-xl font-bold 
+            text-gray-800 placeholder:text-lg placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 "
-                placeholder="Search..."
+                placeholder="Search"
               />
 
               <span className="text-xs font-bold text-gray-400">Ctrl+Z</span>

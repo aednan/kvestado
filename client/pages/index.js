@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 
 import Navbar from "../components/Navbar";
 import Layout from "../components/Layout";
+import CommandPalette from "../components/CommandPalette";
 
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;
@@ -149,7 +150,8 @@ class App extends Component {
     // }
     return (
       <div className="h-full min-h-screen ">
-        <Navbar className=" overflow-hidden " />
+        <CommandPalette />
+        <Navbar className=" " />
         <Layout className="  " />
         {/* <div className="   bg-red-300">
           <h1 className="text-3xl font-bold underline"> web3 </h1>

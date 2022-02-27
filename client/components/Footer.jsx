@@ -8,7 +8,7 @@ import { MdCopyright } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <div className="min-w-screen mt-auto h-20 w-full items-center justify-center bg-white py-3 px-4 md:px-8">
+    <div className="min-w-screen mt-auto h-20 w-full items-center justify-center bg-white py-5 px-4 md:px-8">
       <div className=" flex h-full flex-row divide-x-2">
         <div className=" flex w-[50%] content-end items-center justify-start gap-2  bg-white">
           <MdCopyright className="text-xl" />

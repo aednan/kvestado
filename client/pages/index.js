@@ -8,6 +8,7 @@ import CommandPalette from "../components/CommandPalette";
 
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;
+
 const cPData = [
   { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
   { id: 2, title: "C", description: "Lorem Lorem Lorem Lorem" },

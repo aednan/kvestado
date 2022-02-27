@@ -10,9 +10,9 @@ export default function Footer() {
   return (
     <div className="min-w-screen mt-auto h-20 w-full items-center justify-center bg-white py-5 px-4 md:px-8">
       <div className=" flex h-full flex-row divide-x-2">
-        <div className=" flex w-[50%] content-end items-center justify-start gap-2  bg-white">
-          <MdCopyright className="text-xl" />
-          <span className=" text-sm md:text-base">
+        <div className=" group flex w-[50%] content-end items-center justify-start  gap-2 bg-white">
+          <MdCopyright className="text-xl text-gray-500 group-hover:text-gray-800" />
+          <span className=" text-sm text-gray-500 group-hover:text-gray-800 md:text-base">
             2022, All rights reserved.
           </span>
           <span> </span>

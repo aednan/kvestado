@@ -4,6 +4,7 @@ import {
   AiFillGithub,
   AiFillTwitterCircle,
   AiFillRedditCircle,
+  AiOutlineFileSearch,
 } from "react-icons/ai";
 import {
   MdOutlineAccountBalanceWallet,
@@ -14,6 +15,7 @@ import {
   MdLibraryBooks,
   MdAppRegistration,
   MdModeNight,
+  MdSearch,
 } from "react-icons/md";
 import "../styles/Navbar.module.css";
 
@@ -209,6 +211,23 @@ export default function Navbar() {
           >
             <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
               <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
+                <div className="group flex items-center gap-2 border-x border-b px-4">
+                  <AiOutlineFileSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
+                  <input
+                    onClick={() => {
+                      // TODO: open the commandPalette
+                    }}
+                    className="h-12 w-full border-0 bg-transparent text-xl font-bold 
+            text-gray-800 placeholder:text-lg placeholder:text-gray-400
+             focus:border-none focus:outline-none focus:ring-0 "
+                    placeholder="Search"
+                  />
+
+                  <span className="text-xs font-bold text-gray-400 ">
+                    Ctrl+Z
+                  </span>
+                </div>
+
                 {navigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}

@@ -4,7 +4,6 @@ import {
   AiFillGithub,
   AiFillTwitterCircle,
   AiFillRedditCircle,
-  AiOutlineFileSearch,
 } from "react-icons/ai";
 import {
   MdOutlineAccountBalanceWallet,
@@ -49,7 +48,7 @@ const navigation = [
     icon: (
       <MdLibraryBooks className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
     ),
-    mobileOnly: false,
+    mobileOnly: true,
   },
   {
     name: "Night mode",
@@ -100,8 +99,8 @@ export default function Navbar() {
                     alt="Workflow"
                   />
                 </div>
-                <div className=" hidden sm:ml-6 sm:block">
-                  <div className=" flex space-x-4">
+                <div className=" hidden w-full pr-10 sm:ml-6 sm:block">
+                  <div className=" flex space-x-10 ">
                     <PopoverComponent />
 
                     {navigation
@@ -115,13 +114,31 @@ export default function Navbar() {
                             item.current
                               ? "bg-gray-900 text-white "
                               : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "rounded-md px-3 py-2 text-lg font-bold"
+                            "rounded-md  py-2 text-lg font-bold"
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
                         </a>
                       ))}
+
+                    <div className=" hidden w-full max-w-3xl items-center gap-2 rounded-lg border-2 px-4 md:flex">
+                      <MdSearch className="text-3xl text-gray-400" />
+
+                      <input
+                        onChange={(event) => {
+                          setQuery(event.target.value);
+                        }}
+                        className="h-10 w-full  bg-transparent text-xl font-bold 
+            text-gray-800 placeholder:text-lg placeholder:text-gray-400
+             focus:border-none focus:outline-none focus:ring-0 "
+                        placeholder="Search"
+                      />
+
+                      <span className="text-xs font-bold text-gray-400">
+                        Ctrl+Z
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -134,8 +151,9 @@ export default function Navbar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button> */}
 
+                <MdSearch className="cursor-pointer text-3xl text-gray-400 md:hidden" />
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative  hidden sm:block">
                   <div>
                     <Menu.Button className="flex ">
                       <span className="sr-only">Open user menu</span>
@@ -194,7 +212,6 @@ export default function Navbar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-
                 <MdOutlineAccountBalanceWallet className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black" />
               </div>
             </div>
@@ -212,7 +229,7 @@ export default function Navbar() {
             <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
               <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
                 <div className="group flex items-center gap-2 border-x border-b px-4">
-                  <AiOutlineFileSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
+                  <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
                   <input
                     onClick={() => {
                       // TODO: open the commandPalette

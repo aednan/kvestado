@@ -25,7 +25,7 @@ const solutions = [
 
 export default function PopoverComponent() {
   return (
-    <div className="relative w-full max-w-sm ">
+    <div className="relative max-w-lg max-w-sm ">
       <Popover className="relative">
         {({ open }) => (
           <>

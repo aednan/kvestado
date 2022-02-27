@@ -62,7 +62,7 @@ export default function CommandPalette({ cPData }) {
             }}
           >
             <div className="flex items-center gap-2 px-4">
-              <MdSearch className="h-8 w-8 text-gray-400" />
+              <MdSearch className="text-3xl text-gray-400" />
 
               <Combobox.Input
                 onChange={(event) => {

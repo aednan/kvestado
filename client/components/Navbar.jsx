@@ -122,16 +122,18 @@ export default function Navbar() {
                         </a>
                       ))}
 
-                    <div className=" hidden w-full max-w-3xl items-center gap-2 rounded-lg border-2 px-4 md:flex">
-                      <MdSearch className="text-3xl text-gray-400" />
+                    <div className=" group hidden w-full max-w-3xl items-center gap-2 rounded-lg border-2 px-4 hover:shadow-md md:flex">
+                      <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-700" />
 
                       <input
                         onClick={() => {
                           //TODO: open the commandPalette
                         }}
-                        className="h-10 w-full bg-transparent text-xl 
-            text-gray-800 placeholder:text-base placeholder:text-gray-400
-             focus:border-none focus:outline-none focus:ring-0 lg:placeholder:text-lg "
+                        className="
+                        h-10 w-full
+                        bg-transparent text-xl text-gray-800 placeholder:text-base 
+            placeholder:text-gray-400 focus:border-none focus:outline-none
+             focus:ring-0 lg:placeholder:text-lg "
                         placeholder="Search"
                       />
 
@@ -149,7 +151,7 @@ export default function Navbar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button> */}
 
-                <MdSearch className="hidden cursor-pointer text-3xl  text-gray-400 sm:block md:hidden" />
+                <MdSearch className="hidden cursor-pointer text-3xl text-gray-400 hover:text-gray-700 sm:block md:hidden" />
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative  hidden sm:block">
                   <div>

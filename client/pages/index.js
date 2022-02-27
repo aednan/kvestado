@@ -148,8 +148,8 @@ class App extends Component {
     //   return <div>Loading Web3, accounts, and contract...</div>;
     // }
     return (
-      <div className="h-screen ">
-        <Navbar className=" overflow-hidden " />
+      <div className="h-screen bg-red-400">
+        {/* <Navbar className=" overflow-hidden " /> */}
         <Layout className="  " />
         {/* <div className="   bg-red-300">
           <h1 className="text-3xl font-bold underline"> web3 </h1>

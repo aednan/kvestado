@@ -126,8 +126,8 @@ export default function Navbar() {
                       <MdSearch className="text-3xl text-gray-400" />
 
                       <input
-                        onChange={(event) => {
-                          setQuery(event.target.value);
+                        onClick={() => {
+                          //TODO: open the commandPalette
                         }}
                         className="h-10 w-full  bg-transparent text-xl font-bold 
             text-gray-800 placeholder:text-lg placeholder:text-gray-400
@@ -151,7 +151,7 @@ export default function Navbar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button> */}
 
-                <MdSearch className="cursor-pointer text-3xl text-gray-400 md:hidden" />
+                <MdSearch className="hidden cursor-pointer text-3xl  text-gray-400 sm:block md:hidden" />
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative  hidden sm:block">
                   <div>

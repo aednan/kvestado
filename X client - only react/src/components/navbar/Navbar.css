@@ -1,0 +1,24 @@
+.wrapper {
+  @apply flex w-screen bg-[#04111d] px-[1.2rem] py-[0.8rem];
+}
+.searchIcon {
+  @apply mx-3 text-lg font-bold text-[#8a939b];
+}
+.searchInput {
+  @apply h-[2.6rem] w-full border-0 bg-transparent px-2 pl-0 text-[#e6e8eb] outline-0 ring-0 placeholder:text-[#8a939b];
+}
+.headerItems {
+  @apply flex items-center justify-end;
+}
+.headerItem {
+  @apply cursor-pointer px-4 font-bold text-white text-[#c8cacd] hover:text-white;
+}
+.headerIcon {
+  @apply cursor-pointer px-4 text-3xl font-black text-[#8a939b] hover:text-white;
+}
+.logoText {
+  @apply ml-[0.8rem] text-2xl font-semibold text-white;
+}
+.searchBar {
+  @apply mx-[8rem] flex flex-1 items-center rounded-[0.8rem]  bg-[#363840] hover:bg-[#4c505c];
+}

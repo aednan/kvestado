@@ -31,8 +31,8 @@ export default function PopoverComponent() {
           <>
             <Popover.Button
               className={`
-                ${open ? "" : "text-opacity-90"}
-                group inline-flex items-center rounded-md py-2 text-lg font-bold text-black hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                ${open ? "text-opacity-100" : "text-opacity-75"}
+                group inline-flex items-center rounded-md py-2 text-lg font-bold text-gray-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span>Explore</span>
               {/* <ChevronDownIcon

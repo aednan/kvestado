@@ -15,9 +15,9 @@ import {
   MdAppRegistration,
   MdModeNight,
 } from "react-icons/md";
-import "../../styles/Navbar.module.css";
+import "../styles/Navbar.module.css";
 
-import PopoverComponent from "../popover/PopoverComponent";
+import PopoverComponent from "./PopoverComponent";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FundContract from "../contracts/Fund.json";
 import { ethers } from "ethers";
 
-import Navbar from "../components/navbar/Navbar";
+import Navbar from "../components/Navbar";
 
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;

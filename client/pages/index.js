@@ -3,6 +3,7 @@ import FundContract from "../contracts/Fund.json";
 import { ethers } from "ethers";
 
 import Navbar from "../components/Navbar";
+import Layout from "../components/Layout";
 
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;
@@ -147,51 +148,18 @@ class App extends Component {
     //   return <div>Loading Web3, accounts, and contract...</div>;
     // }
     return (
-      <>
+      <div className="h-screen ">
         <Navbar className=" overflow-hidden " />
-        <div className="   bg-red-300">
+        <Layout className="  " />
+        {/* <div className="   bg-red-300">
           <h1 className="text-3xl font-bold underline"> web3 </h1>
           <h1 className="text-3xl font-bold underline"> web3 </h1>
           <h1 className="text-3xl font-bold underline"> web3 </h1>
           <h1 className="text-3xl font-bold underline"> web3 </h1>
           <h1 className="text-3xl font-bold underline"> web3 </h1>
           <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-        </div>
-      </>
+        </div> */}
+      </div>
       // <h1 className="text-3xl font-bold underline"> web3 </h1>
     );
   }

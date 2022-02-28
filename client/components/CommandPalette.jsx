@@ -3,9 +3,16 @@ import { Dialog, Combobox, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
-export default function CommandPalette({ cPData }) {
+export default function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+
+  const cPData = [
+    { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
+    { id: 2, title: "C", description: "Lorem Lorem Lorem Lorem" },
+    { id: 3, title: "JAVA", description: "Lorem Lorem Lorem Lorem" },
+    { id: 4, title: "Python", description: "Lorem Lorem Lorem Lorem" },
+  ];
 
   const filteredData = query
     ? cPData.filter((data) =>

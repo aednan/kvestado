@@ -9,12 +9,6 @@ import CommandPalette from "../components/CommandPalette";
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;
 
-const cPData = [
-  { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
-  { id: 2, title: "C", description: "Lorem Lorem Lorem Lorem" },
-  { id: 3, title: "JAVA", description: "Lorem Lorem Lorem Lorem" },
-  { id: 4, title: "Python", description: "Lorem Lorem Lorem Lorem" },
-];
 class App extends Component {
   state = {
     storageValue: null,
@@ -155,19 +149,27 @@ class App extends Component {
     //   return <div>Loading Web3, accounts, and contract...</div>;
     // }
     return (
-      <div className="h-full min-h-screen ">
-        <CommandPalette cPData={cPData} />
-        <Navbar className=" " />
-        <Layout className="  " />
-        {/* <div className="   bg-red-300">
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-          <h1 className="text-3xl font-bold underline"> web3 </h1>
-        </div> */}
+      // <div className="h-full min-h-screen ">
+      //   <CommandPalette cPData={cPData} />
+      //   <Navbar className=" " />
+      //   <Layout className="  " />
+      <div className="   bg-red-300">
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
+        <h1 className="text-3xl font-bold underline"> web3 </h1>
       </div>
+      // </div>
       // <h1 className="text-3xl font-bold underline"> web3 </h1>
     );
   }

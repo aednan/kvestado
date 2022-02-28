@@ -1,11 +1,14 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import { Dialog, Combobox, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
+import UserContext from "../contexts/CommandPaletteContext";
 
 export default function CommandPalette() {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+
+  const commandPaletteContext = useContext(UserContext);
 
   const cPData = [
     { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
@@ -23,7 +26,7 @@ export default function CommandPalette() {
   useEffect(() => {
     function onKeyDown(event) {
       if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
-        setIsOpen(!isOpen);
+        commandPaletteContext.setIsOpen(!commandPaletteContext.isOpen);
       }
     }
 
@@ -31,15 +34,18 @@ export default function CommandPalette() {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [isOpen]);
+  }, [commandPaletteContext.isOpen]);
 
   return (
     <Transition.Root
-      show={isOpen}
+      show={commandPaletteContext.isOpen}
       as={Fragment}
       afterLeave={() => setQuery("")}
     >
-      <Dialog onClose={setIsOpen} className="fixed inset-0 p-4 pt-40">
+      <Dialog
+        onClose={commandPaletteContext.setIsOpen}
+        className="fixed inset-0 p-4 pt-40"
+      >
         <Transition.Child
           enter="ease-out duration-300 "
           enterFrom="opacity-0"
@@ -81,7 +87,12 @@ export default function CommandPalette() {
                 placeholder="Search"
               />
 
-              <span className="cursor-pointer rounded-md border p-1 text-xs font-bold  text-gray-400 hover:drop-shadow-md">
+              <span
+                onClick={() => {
+                  commandPaletteContext.setIsOpen(false);
+                }}
+                className="cursor-pointer rounded-md border p-1 text-xs font-bold  text-gray-400 hover:drop-shadow-md"
+              >
                 ESC
               </span>
             </div>

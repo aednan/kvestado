@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   AiFillGithub,
@@ -19,6 +19,7 @@ import {
 import "../styles/Navbar.module.css";
 
 import PopoverComponent from "./PopoverComponent";
+import UserContext from "../contexts/CommandPaletteContext";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
@@ -66,6 +67,8 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const userContext = useContext(UserContext);
+
   return (
     <Disclosure
       as="nav"
@@ -122,15 +125,18 @@ export default function Navbar() {
                         </a>
                       ))}
 
-                    <div className=" group hidden w-full max-w-3xl items-center gap-2 rounded-lg border-2 px-4 hover:shadow-md md:flex">
+                    <div
+                      onClick={() => {
+                        userContext.setIsOpen(!userContext.isOpen);
+                      }}
+                      className=" group hidden w-full max-w-3xl cursor-pointer items-center gap-2 rounded-lg border-2 px-4 hover:shadow-md md:flex"
+                    >
                       <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-700" />
 
                       <input
-                        onClick={() => {
-                          //TODO: open the commandPalette
-                        }}
+                        readOnly
                         className="
-                        h-10 w-full
+                         h-10 w-full
                         bg-transparent text-xl text-gray-800 placeholder:text-base 
             placeholder:text-gray-400 focus:border-none focus:outline-none
              focus:ring-0 lg:placeholder:text-lg "
@@ -151,7 +157,12 @@ export default function Navbar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button> */}
 
-                <MdSearch className="hidden cursor-pointer text-3xl text-gray-400 hover:text-gray-700 sm:block md:hidden" />
+                <MdSearch
+                  onClick={() => {
+                    userContext.setIsOpen(!userContext.isOpen);
+                  }}
+                  className="hidden cursor-pointer text-3xl text-gray-400 hover:text-gray-700 sm:block md:hidden"
+                />
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative  hidden sm:block">
                   <div>
@@ -228,12 +239,15 @@ export default function Navbar() {
           >
             <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
               <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
-                <div className="group flex items-center gap-2 border-x border-b px-4">
+                <div
+                  onClick={() => {
+                    userContext.setIsOpen(!userContext.isOpen);
+                  }}
+                  className="group flex cursor-pointer items-center gap-2 border-x border-b px-4"
+                >
                   <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
                   <input
-                    onClick={() => {
-                      // TODO: open the commandPalette
-                    }}
+                    readOnly
                     className="h-12 w-full border-0 bg-transparent text-xl
             text-gray-800 placeholder:text-lg placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 "

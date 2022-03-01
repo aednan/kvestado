@@ -4,13 +4,19 @@ import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import UserContext from "../contexts/CommandPaletteContext";
 
+interface cPData {
+  id: number;
+  title: string;
+  description: string;
+}
+
 export default function CommandPalette() {
   // const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
 
   const commandPaletteContext = useContext(UserContext);
 
-  const cPData = [
+  const cPData: cPData[] = [
     { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
     { id: 2, title: "C", description: "Lorem Lorem Lorem Lorem" },
     { id: 3, title: "JAVA", description: "Lorem Lorem Lorem Lorem" },
@@ -24,13 +30,14 @@ export default function CommandPalette() {
     : [];
 
   useEffect(() => {
-    function onKeyDown(event) {
+    function onKeyDown(event: KeyboardEvent) {
       if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
         commandPaletteContext.setIsOpen(!commandPaletteContext.isOpen);
       }
     }
 
     window.addEventListener("keydown", onKeyDown);
+
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
@@ -66,6 +73,7 @@ export default function CommandPalette() {
           leaveTo="opacity-0 scale-95"
         >
           <Combobox
+            value=""
             as="div"
             className="relative mx-auto max-w-2xl divide-y-2 divide-gray-100 overflow-hidden rounded-lg bg-white
         shadow-2xl ring-1 ring-black/5
@@ -102,8 +110,8 @@ export default function CommandPalette() {
                 static
                 className="max-h-96 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
               >
-                {filteredData.map((dataObject) => (
-                  <Combobox.Option key={dataObject.id}>
+                {filteredData.map((dataObject: cPData) => (
+                  <Combobox.Option value="" key={dataObject.id}>
                     {({ active }) => (
                       <div
                         className={`space-x-2 py-2 px-6 ${

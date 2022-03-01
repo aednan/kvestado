@@ -1,21 +1,51 @@
 import React, { Component } from "react";
 import FundContract from "../contracts/Fund.json";
 import { ethers } from "ethers";
+declare var window: any;
 
 import Navbar from "../components/Navbar";
 import Layout from "../components/Layout";
 import CommandPalette from "../components/CommandPalette";
 
+// class WContract {
+//   addCampaign(a: string, b: string, c: boolean, d: number, e: number) => void;
+// }
+
+interface IState {
+  storageValue?: any;
+  provider?: any;
+  wContract?: any;
+  // {
+  //   addCampaign(a: string, b: string, c: boolean, d: number, e: number): void;
+  // };
+  accounts?: any;
+  rContract?: any;
+  signer?: any;
+}
+
 // to get the contract address
 const contractAddress = FundContract.networks["5777"].address;
 
 class App extends Component {
-  state = {
-    storageValue: null,
-    provider: null,
+  //   constructor() {
+  //     super();
+
+  //     this.state = {
+  //       storageValue: null,
+  //       provider: null,
+  //       accounts: null,
+  //       rContract: null,
+  //       wContract: "",
+  //       signer: null,
+  //     };
+  // }
+
+  state: IState = {
+    storageValue: "",
+    // provider: null,
     accounts: null,
     rContract: null,
-    wContract: null,
+    // wContract: () => {},
     signer: null,
   };
 
@@ -83,7 +113,7 @@ class App extends Component {
     // const fundWithSigner = contract.connect(signer);
 
     // const tx =
-    await wContract.addCampaign(
+    await wContract?.addCampaign(
       "0x259c3bA0d310D37d1897561dB87aDe43CEe31Ed9",
       "sdjkjsdsdkj",
       true,

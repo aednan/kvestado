@@ -66,7 +66,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="fixed w-full overflow-hidden bg-transparent"
+      className="absolute z-20 w-full overflow-hidden bg-transparent"
     >
       {({ open }) => (
         <>

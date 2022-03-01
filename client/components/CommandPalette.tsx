@@ -51,7 +51,7 @@ export default function CommandPalette() {
     >
       <Dialog
         onClose={commandPaletteContext.setIsOpen}
-        className="fixed inset-0 p-4 pt-40"
+        className="fixed inset-0 z-50 p-4 pt-40"
       >
         <Transition.Child
           enter="ease-out duration-300 "

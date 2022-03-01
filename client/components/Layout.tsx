@@ -2,6 +2,7 @@ import React, { ReactChild, ReactNode, SetStateAction, useState } from "react";
 import UserContext from "../contexts/CommandPaletteContext";
 import CommandPalette from "./CommandPalette";
 import Footer from "./Footer";
+import Header from "./Header";
 // import Header from "./Header";
 import Navbar from "./Navbar";
 
@@ -16,14 +17,14 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <UserContext.Provider value={{ setIsOpen, isOpen }}>
-      <div className="h-full min-h-screen ">
+      <div className="relative z-0 h-full min-h-screen ">
         <CommandPalette />
         <Navbar />
-        <div className="flex h-full min-h-screen flex-col bg-transparent pt-16">
-          {/* <Header></Header> */}
+        <div className="min-w-screen relative -z-20 flex h-full min-h-screen w-full flex-col">
+          {/* <Header /> */}
           {children}
-          <Footer></Footer>
         </div>
+        <Footer></Footer>
       </div>
     </UserContext.Provider>
   );

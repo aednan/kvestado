@@ -273,17 +273,19 @@ export default function Navbar() {
                   className="group flex h-16   items-center justify-between rounded-md  px-3 py-2 text-lg font-bold text-gray-600 hover:text-black"
                 >
                   <Switch.Label className="flex cursor-pointer gap-2">
-                    {enabled ? (
-                      <>
-                        <MdOutlineLightMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
-                        Light Mode
-                      </>
-                    ) : (
+                    {/* {enabled ? (
                       <>
                         <MdDarkMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
                         Night Mode
                       </>
-                    )}
+                    ) : (
+                      <>
+                        <MdOutlineLightMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
+                        Light Mode
+                      </>
+                    )} */}
+                    <MdDarkMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
+                    Night Mode
                   </Switch.Label>
                   <Switch
                     checked={enabled}

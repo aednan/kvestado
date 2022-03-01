@@ -1,5 +1,5 @@
-import { Fragment, useContext } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Fragment, useContext, useState } from "react";
+import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   AiFillGithub,
   AiFillTwitterCircle,
@@ -13,8 +13,9 @@ import {
   MdAddCircleOutline,
   MdLibraryBooks,
   MdAppRegistration,
-  MdModeNight,
   MdSearch,
+  MdDarkMode,
+  MdOutlineLightMode,
 } from "react-icons/md";
 import "../styles/Navbar.module.css";
 
@@ -51,15 +52,6 @@ const navigation = [
     ),
     mobileOnly: true,
   },
-  {
-    name: "Night mode",
-    href: "#",
-    current: false,
-    icon: (
-      <MdModeNight className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
-    ),
-    mobileOnly: true,
-  },
 ];
 
 function classNames(...classes: string[]) {
@@ -68,6 +60,8 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const userContext = useContext(UserContext);
+
+  const [enabled, setEnabled] = useState(false);
 
   return (
     <Disclosure
@@ -273,6 +267,41 @@ export default function Navbar() {
                     {item.name}
                   </Disclosure.Button>
                 ))}
+
+                <Switch.Group
+                  as="div"
+                  className="group flex h-16   items-center justify-between rounded-md  px-3 py-2 text-lg font-bold text-gray-600 hover:text-black"
+                >
+                  <Switch.Label className="flex cursor-pointer gap-2">
+                    {enabled ? (
+                      <>
+                        <MdOutlineLightMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
+                        Light Mode
+                      </>
+                    ) : (
+                      <>
+                        <MdDarkMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
+                        Night Mode
+                      </>
+                    )}
+                  </Switch.Label>
+                  <Switch
+                    checked={enabled}
+                    onChange={setEnabled}
+                    className={classNames(
+                      enabled ? "bg-cyan-300" : "bg-gray-200",
+                      "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 "
+                    )}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={classNames(
+                        enabled ? "translate-x-5" : "translate-x-0",
+                        "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out "
+                      )}
+                    ></span>
+                  </Switch>
+                </Switch.Group>
 
                 <div className="absolute bottom-0 left-0  ">
                   <div className="  mb-3 flex justify-center ">

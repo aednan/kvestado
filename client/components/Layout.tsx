@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <div className="h-full min-h-screen ">
         <CommandPalette />
         <Navbar />
-        <div className="flex h-full min-h-screen flex-col bg-green-300 pt-16">
+        <div className="flex h-full min-h-screen flex-col bg-transparent pt-16">
           {/* <Header></Header> */}
           {children}
           <Footer></Footer>

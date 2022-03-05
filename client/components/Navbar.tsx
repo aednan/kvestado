@@ -158,11 +158,11 @@ export default function Navbar() {
                   className="hidden cursor-pointer text-3xl text-gray-400 hover:text-gray-700 sm:block md:hidden"
                 />
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative  hidden sm:block">
+                <Menu as="div" className="relative hidden sm:block">
                   <div>
                     <Menu.Button className="flex ">
                       <span className="sr-only">Open user menu</span>
-                      <MdAccountCircle className="hidden cursor-pointer text-3xl  font-black text-[#8a939b] hover:text-black sm:block " />
+                      <MdAccountCircle className="hidden cursor-pointer  text-3xl  font-black text-[#8a939b] hover:text-black sm:block " />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -174,7 +174,7 @@ export default function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y-2 rounded-md   bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <a

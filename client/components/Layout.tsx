@@ -17,14 +17,14 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <UserContext.Provider value={{ setIsOpen, isOpen }}>
-      <div className="relative z-0 h-full min-h-screen ">
+      <div className="fixed z-0 h-full min-h-screen w-screen">
         <CommandPalette />
         <Navbar />
-        <div className="min-w-screen relative -z-20 flex h-full min-h-screen w-full flex-col">
+        <div className="-z-20 flex h-full w-full flex-col overflow-auto ">
           {/* <Header /> */}
           {children}
+          <Footer />
         </div>
-        <Footer></Footer>
       </div>
     </UserContext.Provider>
   );

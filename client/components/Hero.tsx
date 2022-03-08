@@ -5,7 +5,7 @@ type Props = {};
 
 export default function Hero({}: Props) {
   return (
-    <div className="min-w-screen relative w-full  pb-10 pt-16">
+    <div className="relative w-full  pb-10 pt-16">
       <main className=" mx-auto mt-10  flex items-center justify-center  bg-white px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
         <div className=" sm:text-center lg:text-left">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">

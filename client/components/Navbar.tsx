@@ -66,11 +66,11 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="absolute z-20 w-full overflow-hidden bg-transparent"
+      className="fixed z-20 w-full overflow-x-hidden bg-transparent"
     >
       {({ open }) => (
         <>
-          <div className=" fixed mx-auto w-full bg-white px-2 shadow-md sm:px-6 lg:px-8">
+          <div className=" fixed mx-auto w-full flex-initial bg-white px-2 shadow-md sm:px-6 lg:px-8 ">
             <div className="relative flex h-16 items-center justify-between px-[1.2rem]">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -231,7 +231,7 @@ export default function Navbar() {
             leaveFrom="translate-y-0 opacity-100"
             leaveTo="-translate-y-full opacity-0"
           >
-            <Disclosure.Panel className=" h-screen bg-white pt-20 sm:hidden">
+            <Disclosure.Panel className=" h-screen overflow-auto bg-white pt-20 sm:hidden">
               <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
                 <div
                   onClick={() => {

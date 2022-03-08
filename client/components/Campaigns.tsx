@@ -6,7 +6,7 @@ type Props = {};
 export default function Campaigns({}: Props) {
   return (
     <>
-      <div className="flex flex-col  gap-0 pt-7 pb-28">
+      <div className="flex flex-col gap-0 pt-7 pb-28">
         <Card />
         <div className=" flex justify-center">
           <a

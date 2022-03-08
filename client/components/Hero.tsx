@@ -16,8 +16,17 @@ export default function Hero({}: Props) {
             Creative work shows us what’s possible. Help fund it here. Built and
             made on top of the Blockchain technology, No hidden fees.
           </p>
-          <div className="mt-5 justify-center sm:mt-8 sm:flex ">
-            <div className="rounded-md shadow">
+          <div className="mt-5 flex justify-center  ">
+            <div className=" mt-5 flex max-w-fit items-center justify-center gap-4 divide-x divide-gray-500 rounded-md bg-gray-800 px-7 py-4 leading-none shadow-md ">
+              <span className="cursor-pointer text-white transition-transform hover:scale-105 hover:font-bold">
+                Connect Wallet
+              </span>
+              <span className="cursor-pointer pl-4 text-indigo-300 transition-transform hover:scale-105 hover:font-bold">
+                Discover &rarr;
+              </span>
+            </div>
+
+            {/* <div className="rounded-md shadow">
               <a
                 href="#"
                 className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
@@ -32,7 +41,7 @@ export default function Hero({}: Props) {
               >
                 Discover
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </main>

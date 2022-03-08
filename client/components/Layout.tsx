@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <UserContext.Provider value={{ setIsOpen, isOpen }}>
-      <div className="fixed z-0 h-full min-h-screen w-screen">
+      <div className="fixed z-0 h-full min-h-screen w-full">
         <CommandPalette />
         <Navbar />
         <div className="-z-20 flex h-full w-full flex-col overflow-auto ">

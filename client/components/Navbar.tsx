@@ -232,12 +232,12 @@ export default function Navbar() {
             leaveTo="-translate-y-full opacity-0"
           >
             <Disclosure.Panel className=" h-screen overflow-auto bg-white pt-20 sm:hidden">
-              <div className="space-y-1 divide-y px-2 pt-2 pb-3 text-center">
+              <div className="space-y-1 px-2 pt-2 pb-3 text-center">
                 <div
                   onClick={() => {
                     userContext.setIsOpen(!userContext.isOpen);
                   }}
-                  className="group flex cursor-pointer items-center gap-2 border-x border-b px-4"
+                  className="group flex cursor-pointer items-center gap-2 border-x border-b px-4  "
                 >
                   <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
                   <input
@@ -250,60 +250,50 @@ export default function Navbar() {
 
                   <span className="text-xs text-gray-400 ">Ctrl+Z</span>
                 </div>
-
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current ? " text-black " : "  hover:text-black",
-                      "group flex h-16 items-center gap-2 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {/* <MdNewLabel className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " /> */}
-                    {item.icon}
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-
-                <Switch.Group
-                  as="div"
-                  className="group flex h-16   items-center justify-between rounded-md  px-3 py-2 text-lg font-bold text-gray-600 hover:text-black"
-                >
-                  <Switch.Label className="flex cursor-pointer gap-2">
-                    {/* {enabled ? (
-                      <>
-                        <MdDarkMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
-                        Night Mode
-                      </>
-                    ) : (
-                      <>
-                        <MdOutlineLightMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
-                        Light Mode
-                      </>
-                    )} */}
-                    <MdDarkMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
-                    Night Mode
-                  </Switch.Label>
-                  <Switch
-                    checked={enabled}
-                    onChange={setEnabled}
-                    className={classNames(
-                      enabled ? "bg-cyan-300" : "bg-gray-200",
-                      "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 "
-                    )}
-                  >
-                    <span
-                      aria-hidden="true"
+                <div className="divide-y">
+                  {navigation.map((item) => (
+                    <Disclosure.Button
+                      key={item.name}
+                      as="a"
+                      href={item.href}
                       className={classNames(
-                        enabled ? "translate-x-5" : "translate-x-0",
-                        "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out "
+                        item.current ? " text-black " : "  hover:text-black",
+                        "group flex h-16 items-center gap-2 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
                       )}
-                    ></span>
-                  </Switch>
-                </Switch.Group>
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      {/* <MdNewLabel className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " /> */}
+                      {item.icon}
+                      {item.name}
+                    </Disclosure.Button>
+                  ))}
+
+                  <Switch.Group
+                    as="div"
+                    className="group flex h-16   items-center justify-between rounded-md  px-3 py-2 text-lg font-bold text-gray-600 hover:text-black"
+                  >
+                    <Switch.Label className="flex cursor-pointer gap-2">
+                      <MdDarkMode className=" text-3xl font-black text-[#8a939b] group-hover:text-black " />
+                      Night Mode
+                    </Switch.Label>
+                    <Switch
+                      checked={enabled}
+                      onChange={setEnabled}
+                      className={classNames(
+                        enabled ? "bg-cyan-300" : "bg-gray-200",
+                        "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 "
+                      )}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={classNames(
+                          enabled ? "translate-x-5" : "translate-x-0",
+                          "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out "
+                        )}
+                      ></span>
+                    </Switch>
+                  </Switch.Group>
+                </div>
 
                 <div className="absolute bottom-0 left-0  ">
                   <div className="  mb-3 flex justify-center ">

@@ -84,20 +84,24 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className=" flex flex-shrink-0 items-center">
-                  <img
+                <div className=" flex flex-shrink-0 items-center ">
+                  <span className="cursor-pointer select-none border-y-2 p-1 align-baseline text-2xl font-bold text-slate-600 drop-shadow-sm">
+                    KVESTAGO
+                  </span>
+                  {/* TODO: onClick = redirect to home */}
+                  {/* <img
                     className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                    src="/img/logo.svg"
                     alt="Workflow"
                   />
                   <img
-                    className="hidden h-8 w-auto lg:block"
+                    className="hidden h-8 w-auto bg-green-300 lg:block"
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                     alt="Workflow"
-                  />
+                  /> */}
                 </div>
                 <div className=" hidden w-full pr-10 sm:ml-6 sm:block">
-                  <div className=" flex space-x-10 ">
+                  <div className=" flex space-x-6 ">
                     <PopoverComponent />
 
                     {navigation

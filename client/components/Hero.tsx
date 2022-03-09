@@ -25,23 +25,6 @@ export default function Hero({}: Props) {
                 Discover &rarr;
               </span>
             </div>
-
-            {/* <div className="rounded-md shadow">
-              <a
-                href="#"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
-              >
-                Connect Wallet
-              </a>
-            </div>
-            <div className="mt-3 sm:mt-0 sm:ml-3">
-              <a
-                href="#"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg"
-              >
-                Discover
-              </a>
-            </div> */}
           </div>
         </div>
       </main>
@@ -51,9 +34,6 @@ export default function Hero({}: Props) {
           className=" h-[35rem] justify-center drop-shadow-2xl"
           src="/img/cexchange.svg"
           alt=""
-          // height={700}
-          // width={700}
-          // layout="fill"
         />
       </div>
     </div>

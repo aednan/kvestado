@@ -11,9 +11,9 @@ export default function Campaigns({}: Props) {
         <div className=" flex justify-center">
           <a
             href="#"
-            className=" items-center justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-3 text-base font-medium text-white hover:bg-indigo-700 md:text-lg"
+            className=" items-center justify-center rounded-sm border border-gray-300 border-transparent bg-transparent py-3 px-7 text-base  font-medium text-slate-700 hover:border-cyan-600 hover:text-cyan-600 md:text-lg"
           >
-            Browse more
+            VIEW MORE
           </a>
         </div>
       </div>

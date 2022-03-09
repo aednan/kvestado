@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 // import Header from "./Header";
 import Navbar from "./Navbar";
+import ArticleLayout from "./ArticleLayout";
 
 interface useStatePropsType {
   isOpen: boolean;
@@ -20,8 +21,9 @@ export default function Layout({ children }: { children: ReactNode }) {
       <div className="fixed z-0 h-full min-h-screen w-full">
         <CommandPalette />
         <Navbar />
-        <div className="-z-20 flex h-full w-full flex-col overflow-auto ">
+        <div className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth ">
           {/* <Header /> */}
+          {/* <ArticleLayout /> */}
           {children}
           <Footer />
         </div>

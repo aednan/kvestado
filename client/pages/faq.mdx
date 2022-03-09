@@ -1,0 +1,83 @@
+import ArticleLayout from "../components/ArticleLayout";
+
+export const meta = {
+  title: `Frequently Asked Questions`,
+}
+
+
+export default ({children}) => (
+  <ArticleLayout >{children}</ArticleLayout>
+)
+
+## Unter Linux und MacOS
+bashscript: das bashscript im Stammverzeichnis kann zur Ausführung des Programms verwendet werden.
+Java-Version über 11 sollte installiert sein und das Skript sollte im Stammverzeichnis des Projekts ausgeführt werden
+
+### Linux
+```bash
+./bashscript
+```
+### MacOS
+```bash
+sh bashscript
+```
+### Ausführung des Java-Programms ohne script
+```bash
+./mvnw clean compile exec:java
+```
+### Test auszuführen:
+```bash
+./mvnw test
+```
+im Stammverzeichnis des Projekts ausgeführt werden
+
+### für Java-Docs
+```bash
+./mvnw javadoc:javadoc
+```
+
+## Unter Windows: mvnw.cmd
+
+### Ausführung des Java-Programms ohne script
+```bash
+mvnw clean compile exec:java
+```
+### Test auszuführen
+```bash
+mvnw test
+```
+
+### für Java-Docs
+```bash
+mvnw javadoc:javadoc
+```
+
+### Für weitere Informationen über die Java-Installation
+https://openjdk.java.net/
+### Für weitere Informationen über die Maven-Installation
+https://maven.apache.org/install.html
+### CodingTask Maven Projekt
+- Java-Version: 11
+- Maven-Version: 3.8.4
+- JUnit-Version: 5.8.0
+
+
+
+> ### TEST
+
+```
+  const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    // If you use `MDXProvider`, uncomment the following line.
+    // providerImportSource: "@mdx-js/react",
+  },
+})
+
+module.exports = withMDX({
+  // Append the default value with md extensions
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+})
+```

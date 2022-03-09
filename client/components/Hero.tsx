@@ -35,7 +35,7 @@ export default function Hero({}: Props) {
 
       <div className=" hidden items-center md:flex">
         <img
-          className=" h-[35rem] justify-center drop-shadow-2xl"
+          className=" h-[30rem] justify-center drop-shadow-2xl"
           src="/img/cexchange.svg"
           alt=""
         />

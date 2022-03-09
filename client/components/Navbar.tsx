@@ -85,8 +85,8 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className=" flex flex-shrink-0 items-center ">
-                  <span className="cursor-pointer select-none border-y-2 p-1 align-baseline text-2xl font-bold text-slate-600 drop-shadow-sm">
-                    KVESTAGO
+                  <span className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline text-2xl font-bold text-transparent odd:p-1 hover:to-cyan-300">
+                    KVESTADO
                   </span>
                   {/* TODO: onClick = redirect to home */}
                   {/* <img

@@ -49,8 +49,8 @@ const products = [
 export default function Card({}: Props) {
   return (
     <div className="pb-2">
-      <div className="mx-auto max-w-2xl rounded-lg py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="pb-12 text-center text-2xl font-extrabold tracking-tight text-gray-900">
+      <div className="mx-auto flex max-w-2xl flex-col rounded-lg py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 className="self-center border-y-2 py-1 text-center font-roboto text-2xl font-bold tracking-tight text-gray-900 ring-0">
           Existing Campaigns
         </h2>
 

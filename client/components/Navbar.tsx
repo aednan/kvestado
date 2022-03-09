@@ -85,7 +85,7 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className=" flex flex-shrink-0 items-center ">
-                  <span className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline text-2xl font-bold text-transparent odd:p-1 hover:to-cyan-300">
+                  <span className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline font-roboto text-2xl font-light  text-transparent odd:p-1 hover:to-cyan-300">
                     KVESTADO
                   </span>
                   {/* TODO: onClick = redirect to home */}
@@ -115,7 +115,7 @@ export default function Navbar() {
                             item.current
                               ? " text-opacity-100 "
                               : "text-opacity-75",
-                            "rounded-md py-2 text-lg font-bold text-gray-700 hover:text-opacity-100"
+                            "rounded-md py-2 font-roboto text-lg font-black text-gray-700 hover:text-opacity-100"
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -135,9 +135,9 @@ export default function Navbar() {
                         readOnly
                         className="
                          h-10 w-full
-                        bg-transparent text-xl text-gray-800 placeholder:text-base 
-            placeholder:text-gray-400 focus:border-none focus:outline-none
-             focus:ring-0 lg:placeholder:text-lg "
+                        bg-transparent text-xl text-gray-800 placeholder:font-roboto 
+            placeholder:text-base placeholder:text-gray-400 focus:border-none
+             focus:outline-none focus:ring-0 lg:placeholder:text-lg "
                         placeholder="Search"
                       />
 
@@ -246,8 +246,8 @@ export default function Navbar() {
                   <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
                   <input
                     readOnly
-                    className="h-12 w-full border-0 bg-transparent text-xl
-            text-gray-800 placeholder:text-lg placeholder:text-gray-400
+                    className="h-12 w-full border-0 bg-transparent text-xl  text-gray-800
+            placeholder:font-roboto placeholder:text-lg placeholder:text-gray-400
              focus:border-none focus:outline-none focus:ring-0 "
                     placeholder="Search"
                   />
@@ -262,7 +262,7 @@ export default function Navbar() {
                       href={item.href}
                       className={classNames(
                         item.current ? " text-black " : "  hover:text-black",
-                        "group flex h-16 items-center gap-2 rounded-md px-3 py-2 text-lg font-bold text-gray-600"
+                        "group flex h-16 items-center gap-2 rounded-md px-3 py-2 font-roboto text-lg font-bold text-gray-600"
                       )}
                       aria-current={item.current ? "page" : undefined}
                     >

@@ -5,6 +5,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      roboto: ["Roboto", "sans-serif"],
+    },
     extend: {
       backgroundImage: {
         "hero-bg": "url('/img/cexchange.svg')",

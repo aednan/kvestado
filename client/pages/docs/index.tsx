@@ -10,7 +10,7 @@ const Articles = (allArticles: any, props: Props) => {
   return (
     <>
     {allArticles.allArticles.map(JSON.parse).map((article:any) => (
-      <ArticleCard key={`article${article.slug}`}  path={`/blog/article${article.slug}`} article={article} />
+      <ArticleCard key={`docs${article.slug}`} path={`/docs/r${article.slug}`} article={article} />
     ))}
   </>
   )
@@ -20,7 +20,7 @@ export default Articles;
 
 
 export async function getStaticProps() {
-  const allArticles =  getAllArticles(require.context("./article/", true, /\.mdx$/, "sync"));
+  const allArticles =  getAllArticles(require.context("./r/",false, /\.mdx$/, "sync"));
 
   return {
     props: {

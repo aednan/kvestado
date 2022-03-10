@@ -1,18 +1,27 @@
 import React, { ReactNode } from "react";
 
-type Props = {};
 
-const ArticleLayout = ({ children, props }: { children: ReactNode, props:Props }) => {
+const ArticleLayout = ({ children, meta }: { children: ReactNode, meta:any }) => {
+ 
+  const {
+    title,
+    description,
+    coverImage,
+    publishedAt,
+    readTime, 
+  } = meta;
+
+ 
   return (
        
       <article className=" px-7 pt-32 pb-14 ">
 
-           {/* {title && ( */}
+           {title && (
             <h1 className="w-full max-w-5xl mx-auto text-center  mb-8 text-3xl font-extrabold lg:text-6xl md:text-5xl sm:text-4xl lg:mb-10 leading-tighter">
-              {/* {title} */}
-              Build und Ausführung des Java-Programms
+              {title}
+              {/* Build und Ausführung des Java-Programms */}
             </h1>
-          {/* )} */}
+           )}
     <main className="prose prose-stone lg:prose-xl max-w-5xl mx-auto prose-pre:max-h-80 prose-pre:overflow-auto">
         
 

@@ -14,7 +14,7 @@ export const ArticleCard = (props: any) => {
         </span>
       </div>
 
-      <Link href={props.path}>
+      <Link scroll={true} href={props.path}>
         <a>Read more &rarr;</a>
       </Link>
     </article>

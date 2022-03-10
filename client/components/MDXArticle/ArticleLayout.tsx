@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 const ArticleLayout = ({
   children,
@@ -8,7 +8,6 @@ const ArticleLayout = ({
   meta: any;
 }) => {
   const { title, description, coverImage, publishedAt, readTime } = meta;
-
   return (
     <article className=" px-7 pt-32 pb-14 ">
       {title && (

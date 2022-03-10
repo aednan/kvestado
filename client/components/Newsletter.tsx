@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { MdMail } from "react-icons/md";
@@ -70,7 +69,7 @@ const Newsletter = (props: Props) => {
         </div>
 
         <div className="flex justify-center">
-          <Link href="/profile" passHref>
+          <Link href="/profile">
             <a className="group flex items-center font-roboto text-xs font-medium opacity-80 transition-all duration-200 ease-in-out hover:opacity-100">
               JOIN NOW &rarr;
             </a>

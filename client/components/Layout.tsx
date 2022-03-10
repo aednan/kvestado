@@ -1,11 +1,10 @@
-import React, { ReactChild, ReactNode, SetStateAction, useState } from "react";
+import React, { ReactNode, SetStateAction, useState } from "react";
 import UserContext from "../contexts/CommandPaletteContext";
 import CommandPalette from "./CommandPalette";
 import Footer from "./Footer";
 import Header from "./Header";
 // import Header from "./Header";
 import Navbar from "./Navbar";
-import ArticleLayout from "./ArticleLayout";
 
 interface useStatePropsType {
   isOpen: boolean;
@@ -23,7 +22,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Navbar />
         <div className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth ">
           {/* <Header /> */}
-          {/* <ArticleLayout /> */}
           {children}
           <Footer />
         </div>

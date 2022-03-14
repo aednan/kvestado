@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import ContributionSidebar from "../../components/ContributionSidebar";
 
 type Props = {};
 
@@ -31,20 +32,21 @@ const settings = (props: Props) => {
   });
 
   return (
-    <div className="my-16 flex justify-center ">
+    <div className="my-16 flex justify-center">
+      <ContributionSidebar />
       <div className=" mt-12 flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
-        <h1 className="mb-10 font-roboto text-4xl font-black">
+        <span className="mb-10 text-center font-roboto text-4xl font-black">
           Profile Settings
-        </h1>
-        <div>
+        </span>
+        <div className="mx-auto w-full max-w-md ">
           <label className="mb-1 block pl-2 font-medium  text-gray-700">
             Profile photo
           </label>
           <div
             {...getRootProps()}
-            className="mt-1 flex max-w-md justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 hover:shadow-md"
+            className=" mt-1 flex max-w-md rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 hover:shadow-md"
           >
-            <div className="space-y-1 text-center">
+            <div className="w-full space-y-1 text-center">
               {photo ? (
                 <img
                   src={photo.preview}
@@ -69,7 +71,8 @@ const settings = (props: Props) => {
                   />
                 </svg>
               )}
-              <div className="flex text-sm text-gray-600">
+
+              <div className="flex justify-center text-sm text-gray-600">
                 <label
                   htmlFor="file-upload"
                   className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
@@ -85,18 +88,19 @@ const settings = (props: Props) => {
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
+
               <p className="text-xs text-gray-500">PNG, JPEG, GIF up to 10MB</p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <label className="mb-1 pl-2 font-medium  text-gray-700">
+        <div className=" mx-auto w-full max-w-md">
+          <label className="mb-1 block pl-2 font-medium  text-gray-700">
             Username
           </label>
           <input
             className="
-h-14 max-w-md rounded-lg border  p-4 text-xl
+h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
 placeholder:text-base placeholder:text-gray-400 focus:outline-none
 focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
@@ -104,13 +108,13 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             placeholder="Enter username"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="mb-1 pl-2 font-medium text-gray-700">
+        <div className=" mx-auto w-full max-w-md">
+          <label className="mb-1 block pl-2 font-medium text-gray-700">
             Email Address
           </label>
           <input
             className="
-h-14 max-w-md rounded-lg border  p-4 text-xl
+h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
 placeholder:text-base placeholder:text-gray-400 focus:outline-none
 focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
@@ -118,11 +122,13 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             placeholder="Enter email"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="mb-1 pl-2 font-medium text-gray-700">About</label>
+        <div className=" mx-auto w-full max-w-md ">
+          <label className="mb-1 block pl-2 font-medium text-gray-700">
+            About
+          </label>
           <textarea
-            className="
-h-32 max-w-md rounded-lg border  p-4  text-xl
+            className=" h-32 min-h-[4rem]
+w-full rounded-lg border  p-4  text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
 placeholder:text-base placeholder:text-gray-400 focus:outline-none
 focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg

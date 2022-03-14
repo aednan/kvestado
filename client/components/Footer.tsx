@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import {
   AiFillGithub,
@@ -8,11 +9,15 @@ import { MdCopyright } from "react-icons/md";
 import Newsletter from "./Newsletter";
 
 export default function Footer() {
+  const router = useRouter();
   return (
     <footer className="bottom-0 z-10 mt-auto h-20 w-full items-center justify-center divide-y-2 bg-slate-50  ">
-      <div className=" h-80 border-t-2 bg-slate-50 px-4 md:px-8">
-        <Newsletter />
-      </div>
+      {/* to show only at home page or everything after /# */}
+      {router.asPath.match("^(/#)|^(/)$") && (
+        <div className=" h-80 border-t-2 bg-slate-50 px-4 md:px-8">
+          <Newsletter />
+        </div>
+      )}
       <div className=" flex h-full flex-row  bg-slate-100 px-4 py-7 md:px-8 ">
         <div className=" group flex w-[50%] content-end items-center justify-start  gap-2 bg-transparent">
           <MdCopyright className="text-xl text-gray-500 group-hover:text-gray-800" />

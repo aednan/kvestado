@@ -1,24 +1,19 @@
 import { Popover, Transition } from "@headlessui/react";
+import Link from "next/link";
 import { Fragment } from "react";
 
 const solutions = [
   {
-    name: "Insights",
-    description: "Measure actions your users take",
+    name: "Create Campaign",
+    description: "Create a new campaign",
     href: "##",
     icon: IconOne,
   },
   {
-    name: "Automations",
-    description: "Create your own targeted content",
-    href: "##",
+    name: "Find Campaign",
+    description: "Find existing campaign",
+    href: "/campaign",
     icon: IconTwo,
-  },
-  {
-    name: "Reports",
-    description: "Keep track of your growth",
-    href: "##",
-    icon: IconThree,
   },
 ];
 
@@ -34,11 +29,6 @@ export default function PopoverComponent() {
                 group inline-flex items-center rounded-md py-2 text-lg font-bold text-gray-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span>Explore</span>
-              {/* <ChevronDownIcon
-                className={`${open ? "" : "text-opacity-70"}
-                  ml-2 h-5 w-5 text-lg font-bold text-black transition duration-150 ease-in-out group-hover:text-opacity-80`}
-                aria-hidden="true"
-              /> */}
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -53,39 +43,41 @@ export default function PopoverComponent() {
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white p-7 ">
                     {solutions.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      >
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
-                          <item.icon aria-hidden="true" />
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm font-medium text-gray-900">
-                            {item.name}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {item.description}
-                          </p>
-                        </div>
-                      </a>
+                      <Link href={item.href}>
+                        <a
+                          key={item.name}
+                          className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                        >
+                          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
+                            <item.icon aria-hidden="true" />
+                          </div>
+                          <div className="ml-4">
+                            <p className="text-sm font-medium text-gray-900">
+                              {item.name}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {item.description}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
                     ))}
                   </div>
                   <div className="bg-gray-50 p-4">
-                    <a
-                      href="##"
-                      className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                    >
-                      <span className="flex items-center">
-                        <span className="text-sm font-medium text-gray-900">
-                          Documentation
+                    <Link href="/docs">
+                      <a
+                      // href="##"
+                      >
+                        <span className="flex items-center">
+                          <span className="text-sm font-medium text-gray-900">
+                            Documentation
+                          </span>
                         </span>
-                      </span>
-                      <span className="block text-sm text-gray-500">
-                        Start integrating products and tools
-                      </span>
-                    </a>
+                        <span className="block text-sm text-gray-500">
+                          Start integrating products and tools
+                        </span>
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </Popover.Panel>

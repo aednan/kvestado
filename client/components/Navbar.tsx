@@ -21,6 +21,7 @@ import "../styles/Navbar.module.css";
 
 import PopoverComponent from "./PopoverComponent";
 import UserContext from "../contexts/CommandPaletteContext";
+import Link from "next/link";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
@@ -35,7 +36,7 @@ const navigation = [
   },
   {
     name: "Campaign",
-    href: "#",
+    href: "/campaign",
     current: false,
     icon: (
       <MdAppRegistration className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
@@ -45,7 +46,7 @@ const navigation = [
   // docs how the contract works
   {
     name: "Resources",
-    href: "#",
+    href: "/docs",
     current: false,
     icon: (
       <MdLibraryBooks className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
@@ -85,9 +86,11 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className=" flex flex-shrink-0 items-center ">
-                  <span className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline font-roboto text-2xl font-light  text-transparent odd:p-1 hover:to-cyan-300">
-                    KVESTADO
-                  </span>
+                  <Link href="/">
+                    <span className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline font-roboto text-2xl font-light  text-transparent odd:p-1 hover:to-cyan-300">
+                      KVESTADO
+                    </span>
+                  </Link>
                   {/* TODO: onClick = redirect to home */}
                   {/* <img
                     className="block h-8 w-auto lg:hidden"
@@ -107,20 +110,21 @@ export default function Navbar() {
                     {navigation
                       .filter((item) => !item.mobileOnly)
                       .map((item) => (
-                        <a
-                          // hidden={item.mobile}
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? " text-opacity-100 "
-                              : "text-opacity-75",
-                            "rounded-md py-2 font-roboto text-lg font-black text-gray-700 hover:text-opacity-100"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.name}
-                        </a>
+                        <Link href={item.href}>
+                          <a
+                            // hidden={item.mobile}
+                            key={item.name}
+                            className={classNames(
+                              item.current
+                                ? " text-opacity-100 "
+                                : "text-opacity-75",
+                              "rounded-md py-2 font-roboto text-lg font-black text-gray-700 hover:text-opacity-100"
+                            )}
+                            aria-current={item.current ? "page" : undefined}
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
 
                     <div
@@ -256,19 +260,23 @@ export default function Navbar() {
                 </div>
                 <div className="divide-y">
                   {navigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className={classNames(
-                        item.current ? " text-black " : "  hover:text-black",
-                        "group flex h-16 items-center gap-2 rounded-md px-3 py-2 font-roboto text-lg font-bold text-gray-600"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
+                    <Disclosure.Button key={item.name} as="div">
+                      <Link href={item.href}>
+                        <a
+                          className={classNames(
+                            item.current
+                              ? " text-black "
+                              : "  hover:text-black",
+                            "group flex h-16 items-center gap-2 rounded-md px-3 py-2 font-roboto text-lg font-bold text-gray-600"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.icon}
+                          {item.name}
+                        </a>
+                      </Link>
+
                       {/* <MdNewLabel className=" cursor-pointer text-4xl font-black text-[#8a939b] group-hover:text-black " /> */}
-                      {item.icon}
-                      {item.name}
                     </Disclosure.Button>
                   ))}
 

@@ -12,7 +12,7 @@ const solutions = [
   {
     name: "Find Campaign",
     description: "Find existing campaign",
-    href: "/campaign",
+    href: "/campaigns",
     icon: IconTwo,
   },
 ];

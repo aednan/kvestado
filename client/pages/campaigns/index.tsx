@@ -4,7 +4,7 @@ import Campaigns from "../../components/Campaigns";
 
 type Props = {};
 
-export default function campaign({}: Props) {
+export default function campaigns({}: Props) {
   return (
     <>
       <div className="   bg-red-300">

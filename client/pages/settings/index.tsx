@@ -4,6 +4,8 @@ import ContributionSidebar from "../../components/ContributionSidebar";
 
 type Props = {};
 
+// TODO: profile settings should be showing only when the user, connected the wallet
+
 const settings = (props: Props) => {
   //TODO: to be updated to path url
   const [photo, setPhoto]: any = useState(null);
@@ -134,6 +136,22 @@ placeholder:text-base placeholder:text-gray-400 focus:outline-none
 focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
 "
             placeholder="Brief description for your profile"
+          />
+        </div>
+
+        <div className=" mx-auto w-full max-w-md">
+          <label className="mb-1 block pl-2 font-medium text-gray-700">
+            Wallet Address
+          </label>
+          <input
+            disabled
+            value="0x8fb538ecf5e4e813a15a3986ed954ff75c163857"
+            className="
+            h-14
+w-full rounded-lg border p-4  text-center font-roboto
+text-base text-gray-800  drop-shadow-sm 
+"
+            placeholder="Enter email"
           />
         </div>
         {/* <div>

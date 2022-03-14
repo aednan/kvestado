@@ -34,8 +34,8 @@ const navigation = [
     mobileOnly: false,
   },
   {
-    name: "Campaign",
-    href: "/campaign",
+    name: "Campaigns",
+    href: "/campaigns",
     current: false,
     icon: (
       <MdAppRegistration className=" cursor-pointer text-3xl font-black text-[#8a939b] group-hover:text-black " />
@@ -182,44 +182,29 @@ export default function Navbar() {
                   >
                     <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y-2 rounded-md   bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </a>
-                        )}
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Your Profile
+                        </a>
                       </Menu.Item>
+
                       <Menu.Item>
-                        {({ active }) => (
-                          <Link href="/settings">
-                            <a
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Settings
-                            </a>
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Sign out
+                        <Link href="/settings">
+                          <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Settings
                           </a>
-                        )}
+                        </Link>
+                      </Menu.Item>
+
+                      <Menu.Item>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Sign out
+                        </a>
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>

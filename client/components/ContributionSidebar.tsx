@@ -69,8 +69,7 @@ export default function ContributionSidebar() {
                   <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div className="flex items-start justify-between">
                       <Dialog.Title className="text-lg font-medium text-gray-900">
-                        {" "}
-                        Shopping cart{" "}
+                        Contribution
                       </Dialog.Title>
                       <div className="ml-3 flex h-7 items-center">
                         <button
@@ -150,7 +149,7 @@ export default function ContributionSidebar() {
                         href="#"
                         className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                       >
-                        Checkout
+                        Contribute
                       </a>
                     </div>
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">

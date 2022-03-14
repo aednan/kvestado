@@ -4,9 +4,6 @@ import FundContract from "../contracts/Fund.json";
 import { ethers } from "ethers";
 declare var window: any;
 
-import Navbar from "../components/Navbar";
-import Layout from "../components/Layout";
-import CommandPalette from "../components/CommandPalette";
 import Hero from "../components/Hero";
 import Campaigns from "../components/Campaigns";
 

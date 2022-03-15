@@ -5,11 +5,11 @@ declare var window: any;
 // challenge message is requested from the backend, and be sent back to the backend after being signed,
 // in exchange for a cookie or a jwt token after a successful authentication.
 export async function userAuthentication(challenge: string) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
   try {
-    const signer = provider.getSigner();
-    const signerAddress = await signer.getAddress();
-    const signedMessage = await signer.signMessage(challenge);
+    const signer = await getSigner();
+    const signerAddress = await signer?.getAddress();
+    let signedMessage: any = "";
+    signedMessage = await signer?.signMessage(challenge);
 
     // public key
     // const pkey = ethers.utils.recoverPublicKey(
@@ -40,4 +40,40 @@ export async function userAuthentication(challenge: string) {
   } catch (e: any) {
     // console.log(e.message);
   }
+}
+
+export async function getWalletAddress() {
+  try {
+    // const signer = provider.getSigner();
+    const signer = await getSigner();
+    const signerAddress = await signer?.getAddress();
+    return signerAddress;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getSigner() {
+  try {
+    // Request account access if needed
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    // Accounts now exposed, use them
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    return provider.getSigner();
+  } catch (error) {
+    // User denied account access
+    console.log(error);
+    return null;
+  }
+}
+
+// Metamask events, accounts
+export async function onWalletAddressChange(a: Function) {
+  window.ethereum.on("accountsChanged", a);
+}
+// networkId
+export async function onNetworkChange(a: Function) {
+  window.ethereum.on("networkChanged", a);
 }

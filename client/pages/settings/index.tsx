@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import ContributionSidebar from "../../components/ContributionSidebar";
+import {
+  getWalletAddress,
+  onWalletAddressChange,
+} from "../../services/Web3Service";
 
 type Props = {};
 
@@ -9,6 +13,7 @@ type Props = {};
 const settings = (props: Props) => {
   //TODO: to be updated to path url
   const [photo, setPhoto]: any = useState(null);
+  const [walletAddress, setWalletAddress]: any = useState("");
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/png, image/jpeg, image/gif",
@@ -32,6 +37,28 @@ const settings = (props: Props) => {
       console.log("photo added");
     },
   });
+
+  useEffect(() => {
+    onWalletAddressChange(async (accounts: any) => {
+      if (accounts.length > 0) {
+        setWalletAddress(accounts[0]);
+      } else {
+        setWalletAddress("");
+        //TODO: logout the user
+      }
+    });
+
+    const walletValue = async () => {
+      const account = await getWalletAddress();
+      setWalletAddress(account ? account : "");
+    };
+
+    walletValue().catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
+  // to reconnect without refreshing the page: [walletAddress]
 
   return (
     <div className="my-16 flex justify-center">
@@ -145,47 +172,15 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
           </label>
           <input
             disabled
-            value="0x8fb538ecf5e4e813a15a3986ed954ff75c163857"
+            value={walletAddress}
             className="
             h-14
 w-full rounded-lg border p-4  text-center font-roboto
 text-base text-gray-800  drop-shadow-sm 
 "
-            placeholder="Enter email"
+            placeholder="Wallet not connected"
           />
         </div>
-        {/* <div>
-          <span onClick={() => console.log(photo)}>jrjsfsioefoiesoi</span>
-          <img src={photo.preview} alt="preview" height={300} width={300} />
-        </div> */}
-
-        {/* <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-3 sm:col-span-2">
-            <label
-              htmlFor="company-website"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Website
-            </label>
-            <div className="mt-1 flex rounded-md shadow-sm">
-              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500 focus:drop-shadow-md">
-                http://
-              </span>
-              <input
-                type="text"
-                name="company-website"
-                id="company-website"
-                className=" h-14
-                max-w-md rounded-lg rounded-l-none border  p-4 text-xl
-                text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-                placeholder:text-base placeholder:text-gray-400 focus:outline-none
-                focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-                "
-                placeholder="www.example.com"
-              />
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

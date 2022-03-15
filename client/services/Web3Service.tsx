@@ -53,7 +53,7 @@ export async function getWalletAddress() {
   }
 }
 
-async function getSigner() {
+export async function getSigner() {
   try {
     // Request account access if needed
     const accounts = await window.ethereum.request({

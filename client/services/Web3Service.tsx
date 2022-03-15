@@ -7,20 +7,27 @@ export async function userAuthentication() {
   try {
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
-    const flatSig = await signer.signMessage("message");
+    const flatSig = await signer.signMessage("hallo x");
 
-    //public key
-    // const pkey = ethers.utils.recoverPublicKey(
-    //     arrayify(hashMessage("message")),
-    //     flatSig
-    //   );
-    // console.log(pkey);
-    //
+    // public key
+    const pkey = ethers.utils.recoverPublicKey(
+      arrayify(hashMessage("hallo x")),
+      flatSig
+    );
+    console.log(pkey);
+    // const ppkey = ethers.utils.computePublicKey(pkey);
+    // console.log(ppkey);
+
     console.log(flatSig);
     // hashed message
-    console.log(hashMessage("message"));
+    console.log(hashMessage("hallo x"));
 
-    if (signerAddress === ethers.utils.verifyMessage("message", flatSig)) {
+    const signA = ethers.utils.splitSignature(flatSig);
+    console.log(signA);
+
+    console.log(signerAddress);
+
+    if (signerAddress === ethers.utils.verifyMessage("hallo x", flatSig)) {
       // user authenticated
       // TODO: authentication should be done also in the backend
       console.log(true);

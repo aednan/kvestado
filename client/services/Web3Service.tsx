@@ -100,6 +100,8 @@ export async function connectWallet(
   setProvider: Function,
   setAuthentication: Function
 ) {
+  // TODO: onConnect the user should sign the message received by the backend
+
   // Metamask is present
   try {
     if (window.ethereum) {

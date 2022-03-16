@@ -1,9 +1,15 @@
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import React, { useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
+import { connectWallet } from "../services/Web3Service";
 
 type Props = {};
 
 export default function Hero({}: Props) {
+  const { setWalletAddress, setProvider, setAuthentication, state } =
+    useContext(AuthContext);
+
   return (
     <div className=" relative mt-10 flex h-full w-full justify-evenly pb-10 pt-16 ">
       <main className=" flex items-center justify-center px-4 ">
@@ -22,12 +28,31 @@ export default function Hero({}: Props) {
           </p>
           <div className="mt-5 flex w-full justify-center ">
             <div className="flex max-w-fit items-center justify-center gap-4 divide-x divide-gray-500 rounded-md bg-gray-800 px-7 py-4 leading-none shadow-md ">
-              <span className="cursor-pointer font-roboto font-bold text-white transition-transform hover:scale-105">
-                Connect Wallet
-              </span>
-              <span className="cursor-pointer pl-4 font-roboto font-bold text-indigo-300 transition-transform hover:scale-105">
-                Discover &rarr;
-              </span>
+              {state.isAuthenticated ? (
+                <Link href="/#">
+                  <span className="cursor-pointer font-roboto font-bold text-white transition-transform hover:scale-105">
+                    Create Campaign
+                  </span>
+                </Link>
+              ) : (
+                <span
+                  onClick={async () =>
+                    await connectWallet(
+                      setWalletAddress,
+                      setProvider,
+                      setAuthentication
+                    )
+                  }
+                  className="cursor-pointer font-roboto font-bold text-white transition-transform hover:scale-105"
+                >
+                  Connect Wallet
+                </span>
+              )}
+              <Link href="/campaigns">
+                <span className="cursor-pointer pl-4 font-roboto font-bold text-indigo-300 transition-transform hover:scale-105">
+                  Discover &rarr;
+                </span>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import ContributionSidebar from "../../components/ContributionSidebar";
-import {
-  getWalletAddress,
-  onWalletAddressChange,
-} from "../../services/Web3Service";
+import AuthContext from "../../contexts/AuthContext";
+import { onWalletAddressChange } from "../../services/Web3Service";
 
 type Props = {};
 
@@ -13,7 +11,7 @@ type Props = {};
 const settings = (props: Props) => {
   //TODO: to be updated to path url
   const [photo, setPhoto]: any = useState(null);
-  const [walletAddress, setWalletAddress]: any = useState("");
+  const { state } = useContext(AuthContext);
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/png, image/jpeg, image/gif",
@@ -37,28 +35,6 @@ const settings = (props: Props) => {
       console.log("photo added");
     },
   });
-
-  useEffect(() => {
-    onWalletAddressChange(async (accounts: any) => {
-      if (accounts.length > 0) {
-        setWalletAddress(accounts[0]);
-      } else {
-        setWalletAddress("");
-        //TODO: logout the user
-      }
-    });
-
-    const walletValue = async () => {
-      const account = await getWalletAddress();
-      setWalletAddress(account ? account : "");
-    };
-
-    walletValue().catch((err) => {
-      console.log(err);
-    });
-  }, []);
-
-  // to reconnect without refreshing the page: [walletAddress]
 
   return (
     <div className="my-16 flex justify-center">
@@ -172,11 +148,12 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
           </label>
           <input
             disabled
-            value={walletAddress}
+            value={state.walletAddress}
             className="
             h-14
-w-full rounded-lg border p-4  text-center font-roboto
-text-base text-gray-800  drop-shadow-sm 
+            w-full
+rounded-lg border bg-slate-100 p-4  text-center font-roboto
+text-base text-gray-400 drop-shadow-sm 
 "
             placeholder="Wallet not connected"
           />

@@ -1,6 +1,8 @@
 import FundContract from "../contracts/Fund.json";
 import { ethers } from "ethers";
-import { getSigner } from "./Web3Service";
+import { useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
+// import { getSigner } from "./Web3Service";
 declare var window: any;
 
 const contractAddress = FundContract.networks["5777"].address;
@@ -12,12 +14,6 @@ async function getProvider() {
     method: "eth_requestAccounts",
   });
   return new ethers.providers.Web3Provider(window.ethereum);
-}
-
-export async function connectWallet() {
-  const accounts = await window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
 }
 
 export async function getReadOnlyContract() {

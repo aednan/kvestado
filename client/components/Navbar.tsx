@@ -4,10 +4,11 @@ import {
   AiFillGithub,
   AiFillTwitterCircle,
   AiFillRedditCircle,
+  AiFillSetting,
 } from "react-icons/ai";
+import { FaUser, FaRegUserCircle } from "react-icons/fa";
 import {
   MdOutlineAccountBalanceWallet,
-  MdAccountCircle,
   MdMenu,
   MdClose,
   MdAddCircleOutline,
@@ -15,12 +16,15 @@ import {
   MdAppRegistration,
   MdSearch,
   MdDarkMode,
+  MdLogout,
 } from "react-icons/md";
 import "../styles/Navbar.module.css";
 
 import PopoverComponent from "./PopoverComponent";
 import UserContext from "../contexts/CommandPaletteContext";
 import Link from "next/link";
+import { connectWallet, logout } from "../services/Web3Service";
+import AuthContext from "../contexts/AuthContext";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
@@ -60,6 +64,8 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const userContext = useContext(UserContext);
+  const { setWalletAddress, setProvider, setAuthentication, state } =
+    useContext(AuthContext);
 
   const [enabled, setEnabled] = useState(false);
 
@@ -168,7 +174,7 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="flex ">
                       <span className="sr-only">Open user menu</span>
-                      <MdAccountCircle className="hidden cursor-pointer  text-3xl  font-black text-[#8a939b] hover:text-black sm:block " />
+                      <FaRegUserCircle className="hidden cursor-pointer  text-[1.73rem]  font-black text-[#8a939b] hover:text-black sm:block " />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -182,34 +188,78 @@ export default function Navbar() {
                   >
                     <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y-2 rounded-md   bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Your Profile
-                        </a>
+                        <div className="group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100">
+                          <FaUser className=" my-auto  justify-center  align-middle text-base font-black text-[#8a939b] group-hover:bg-gray-100  group-hover:text-gray-700" />
+                          <span className="  font-mono py-2 text-base  text-gray-700 group-hover:bg-gray-100 group-hover:text-gray-700">
+                            Profile
+                          </span>
+                        </div>
                       </Menu.Item>
 
                       <Menu.Item>
                         <Link href="/settings">
-                          <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            Settings
-                          </a>
+                          <div className="group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100">
+                            <AiFillSetting className=" my-auto  justify-center  align-middle text-xl font-black text-[#8a939b] group-hover:bg-gray-100  group-hover:text-gray-700" />
+                            <a className="  font-mono py-2 text-base  text-gray-700 group-hover:bg-gray-100 group-hover:text-gray-700">
+                              Settings
+                            </a>
+                          </div>
                         </Link>
                       </Menu.Item>
 
                       <Menu.Item>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Sign out
-                        </a>
+                        {state.isAuthenticated ? (
+                          <span
+                            onClick={() => {
+                              logout(
+                                setAuthentication,
+                                setProvider,
+                                setWalletAddress
+                              );
+                            }}
+                            className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
+                          >
+                            Logout
+                          </span>
+                        ) : (
+                          <span
+                            onClick={async () =>
+                              await connectWallet(
+                                setWalletAddress,
+                                setProvider,
+                                setAuthentication
+                              )
+                            }
+                            className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
+                          >
+                            Connect Wallet
+                          </span>
+                        )}
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
-                <MdOutlineAccountBalanceWallet className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black" />
+                {state.isAuthenticated ? (
+                  <MdLogout
+                    onClick={() => {
+                      logout(setAuthentication, setProvider, setWalletAddress);
+                    }}
+                    title="Logout"
+                    className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black"
+                  ></MdLogout>
+                ) : (
+                  <MdOutlineAccountBalanceWallet
+                    title="Connect Wallet"
+                    onClick={async () =>
+                      await connectWallet(
+                        setWalletAddress,
+                        setProvider,
+                        setAuthentication
+                      )
+                    }
+                    className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -292,11 +342,22 @@ export default function Navbar() {
                 </div>
 
                 <div className="absolute bottom-0 left-0  ">
-                  <div className="  mb-3 flex justify-center ">
-                    <button className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold">
-                      Connect Wallet
-                    </button>
-                  </div>
+                  {!state.isAuthenticated && (
+                    <div className="  mb-3 flex justify-center ">
+                      <button
+                        onClick={async () =>
+                          await connectWallet(
+                            setWalletAddress,
+                            setProvider,
+                            setAuthentication
+                          )
+                        }
+                        className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold"
+                      >
+                        Connect Wallet
+                      </button>
+                    </div>
+                  )}
                   <div className=" absolute h-16 w-screen bg-gray-400 blur-sm"></div>
                   <div className="relative flex h-16 w-screen items-center justify-evenly bg-white ">
                     <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />

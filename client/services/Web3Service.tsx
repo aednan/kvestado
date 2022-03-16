@@ -1,15 +1,19 @@
 import { ethers } from "ethers";
 import { arrayify, hashMessage } from "ethers/lib/utils";
+import Router from "next/router";
+import { useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
 declare var window: any;
 
 // challenge message is requested from the backend, and be sent back to the backend after being signed,
 // in exchange for a cookie or a jwt token after a successful authentication.
-export async function userAuthentication(challenge: string) {
+export async function userAuthentication(challenge: string, provider: any) {
+  // const { state } = useContext(AuthContext);
+
   try {
-    const signer = await getSigner();
-    const signerAddress = await signer?.getAddress();
+    const signerAddress = await provider.signer?.getAddress();
     let signedMessage: any = "";
-    signedMessage = await signer?.signMessage(challenge);
+    signedMessage = await provider.signer?.signMessage(challenge);
 
     // public key
     // const pkey = ethers.utils.recoverPublicKey(
@@ -42,38 +46,88 @@ export async function userAuthentication(challenge: string) {
   }
 }
 
-export async function getWalletAddress() {
-  try {
-    // const signer = provider.getSigner();
-    const signer = await getSigner();
-    const signerAddress = await signer?.getAddress();
-    return signerAddress;
-  } catch (error) {
-    console.log(error);
-  }
-}
+// export async function getWalletAddress(
+//   setWalletAddress: Function,
+//   provider: any
+// ) {
+//   try {
+//     const signerAddress = await provider.signer?.getAddress();
+//     setWalletAddress(signerAddress ? signerAddress : "");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-export async function getSigner() {
-  try {
-    // Request account access if needed
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    // Accounts now exposed, use them
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    return provider.getSigner();
-  } catch (error) {
-    // User denied account access
-    console.log(error);
-    return null;
-  }
-}
+// export async function setWalletSigner() {
+//   try {
+//     // Request account access if needed
+//     const accounts = await window.ethereum.request({
+//       method: "eth_requestAccounts",
+//     });
+//     // Accounts now exposed, use them
+//     const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+//     setProvider(provider);
+//     // return provider.getSigner();
+//   } catch (error) {
+//     // User denied account access
+//     console.log(error);
+//     // return null;
+//   }
+// }
 
 // Metamask events, accounts
-export async function onWalletAddressChange(a: Function) {
-  window.ethereum.on("accountsChanged", a);
+export async function onWalletAddressChange(
+  setWallertAddress: Function,
+  setAuthentication: Function
+) {
+  window.ethereum.on("accountsChanged", (accounts: any) => {
+    if (accounts.length > 0) {
+      setWallertAddress(accounts[0]);
+    } else {
+      setWallertAddress("");
+      setAuthentication(false);
+    }
+  });
 }
 // networkId
 export async function onNetworkChange(a: Function) {
   window.ethereum.on("networkChanged", a);
+}
+
+export async function connectWallet(
+  setWalletAddress: Function,
+  setProvider: Function,
+  setAuthentication: Function
+) {
+  // Metamask is present
+  if (window.ethereum) {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    if (accounts.length > 0) {
+      setWalletAddress(accounts[0]);
+      setAuthentication(true);
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    setProvider(provider);
+  } else {
+    // TODO alert "need a wallet provider to be installed"
+    console.log("wallet Provider is needed");
+  }
+}
+
+export function logout(
+  setAuthentication: Function,
+  setProvider: Function,
+  setWalletAddress: Function
+) {
+  // reset state
+  setAuthentication(false);
+  setProvider({});
+  setWalletAddress("");
+  // clear cookies or jwt token
+
+  // redirect user to home page
+  Router.push("/");
 }

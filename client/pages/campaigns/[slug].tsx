@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import ContributionSidebar from "../../components/ContributionSidebar";
+import AuthContext from "../../contexts/AuthContext";
 // to be removed
-import { userAuthentication } from "../../services/Web3Service";
+// import { userAuthentication } from "../../services/Web3Service";
 // /to be removed
 
 // import Markdown from "react-markdown";
@@ -12,6 +13,10 @@ type campaignProps = {
 };
 
 function campaign({}: campaignProps) {
+  // to be removed
+  // const { state } = useContext(AuthContext);
+  // /to be removed
+
   // the slug of the campaign should be, the username of the campaign creator wallet public address + campaign random identifier
 
   const markdown = `# sjdjkjsdjksd
@@ -25,6 +30,14 @@ function campaign({}: campaignProps) {
       {/* to be removed */}
       {/* <span onClick={userAuthentication}>
         test userAthentication function click
+      </span> */}
+      {/* <span
+        onClick={() => {
+          console.log(state.isAuthenticated);
+          console.log(state.walletAddress);
+        }}
+      >
+        test
       </span> */}
       {/* /to be removed */}
 

@@ -101,19 +101,23 @@ export async function connectWallet(
   setAuthentication: Function
 ) {
   // Metamask is present
-  if (window.ethereum) {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    if (accounts.length > 0) {
-      setWalletAddress(accounts[0]);
-      setAuthentication(true);
+  try {
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      if (accounts.length > 0) {
+        setWalletAddress(accounts[0]);
+        setAuthentication(true);
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(provider);
+    } else {
+      // TODO alert "need a wallet provider to be installed"
+      console.log("wallet Provider is needed");
     }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    setProvider(provider);
-  } else {
-    // TODO alert "need a wallet provider to be installed"
-    console.log("wallet Provider is needed");
+  } catch (error) {
+    console.log(error);
   }
 }
 

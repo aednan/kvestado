@@ -76,8 +76,8 @@ export default function Navbar() {
     >
       {({ open }) => (
         <>
-          <div className=" fixed mx-auto w-full flex-initial bg-white px-2 shadow-md sm:px-6 lg:px-8 ">
-            <div className="relative flex h-16 items-center justify-between px-[1.2rem]">
+          <div className=" fixed mx-auto w-full flex-initial bg-white px-2 shadow-md sm:px-4 lg:px-8 ">
+            <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="">

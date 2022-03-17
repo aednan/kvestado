@@ -61,9 +61,12 @@ export default function Card({}: Props) {
 
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <div className=" group  divide-y overflow-hidden rounded-2xl border-2 border-gray-100 ">
-              <div className=" relative aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
-                <div className="absolute bottom-2 left-0 max-h-7 max-w-[12rem] items-center overflow-clip bg-white  px-1 align-middle shadow-md outline outline-1 outline-gray-300 ">
+            <div
+              key={product.id}
+              className=" group divide-y overflow-hidden rounded-2xl border-2 border-gray-100 hover:shadow-md"
+            >
+              <div className=" relative aspect-square w-full overflow-hidden rounded-md bg-gray-200 ">
+                <div className="absolute bottom-2 left-0 max-h-7 max-w-[12rem] items-center overflow-clip bg-white px-1  align-middle shadow-md outline outline-1 outline-gray-300 group-hover:bg-cyan-100 ">
                   <span className="h-full w-full select-none font-roboto text-base font-bold">
                     by{" "}
                   </span>
@@ -92,7 +95,7 @@ export default function Card({}: Props) {
                   </span>
                   <a
                     href="#"
-                    className="bottom-0 inline-block border-separate border-t pt-3 pb-1 text-center text-sm font-semibold text-blue-500 hover:text-blue-600"
+                    className="bottom-0 inline-block border-separate border-t pt-3 pb-1 text-center text-sm font-semibold text-blue-500 hover:font-bold hover:text-blue-600 hover:drop-shadow-md"
                   >
                     View Campaign
                   </a>

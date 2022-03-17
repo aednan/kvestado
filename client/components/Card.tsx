@@ -5,80 +5,118 @@ type Props = {};
 const products = [
   {
     id: 1,
-    name: "Basic Tee",
-    href: "#",
+    title:
+      "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
+    createdAt: "02/02/2022",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
   },
   {
     id: 2,
-    name: "Basic Tee",
-    href: "#",
+    title: "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
+    createdAt: "02/02/2022",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
   },
   {
     id: 3,
-    name: "Basic Tee",
-    href: "#",
+    title: "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
+    createdAt: "02/02/2022",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
   },
   {
     id: 4,
-    name: "Basic Tee",
-    href: "#",
+    title: "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
+    createdAt: "02/02/2022",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
   },
+
   // More products...
 ];
 
 export default function Card({}: Props) {
   return (
     <div className="pb-2">
-      <div className="mx-auto flex max-w-2xl flex-col rounded-lg py-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto flex max-w-sm flex-col rounded-lg py-4 px-4 sm:max-w-2xl  sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="self-center border-y-2 py-1 text-center font-roboto text-2xl font-bold tracking-tight text-gray-900 ring-0">
           Existing Campaigns
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <div key={product.id} className="group relative">
-              <div className="min-h-80 aspect-w-1 aspect-h-1 lg:aspect-none w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
+            <div className=" group divide-y overflow-hidden rounded-2xl border-2 border-gray-100 ">
+              <div className=" aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  className="h-full w-full object-fill object-center"
                 />
               </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a href={product.href}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </a>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+
+              <div className="flex h-60 flex-col justify-between px-6 py-4">
+                <div className="flex flex-col  space-y-3 ">
+                  <div className="max-h-12 items-center justify-between overflow-clip ">
+                    <h2 className="font-semibold ">{product.title}</h2>
+                  </div>
+                  <div className="max-h-[4.5rem] overflow-y-auto overflow-x-hidden text-base text-gray-600">
+                    {product.description}
+                  </div>
                 </div>
-                <p className="text-sm font-medium text-gray-900">
-                  {product.price}
-                </p>
+                <div className="flex flex-col">
+                  <span className="max-w-md overflow-clip py-3 text-sm font-semibold tracking-wide text-gray-800">
+                    {product.createdAt}
+                  </span>
+                  <a
+                    href="#"
+                    className="bottom-0 inline-block border-separate border-t pt-3 pb-1 text-center text-sm font-semibold text-blue-500 hover:text-blue-600"
+                  >
+                    View Campaign
+                  </a>
+                </div>
               </div>
             </div>
+
+            // <div key={product.id} className="group relative">
+            //   <div className="min-h-80 aspect-w-1 aspect-h-1 lg:aspect-none w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
+            //     <img
+            //       src={product.imageSrc}
+            //       alt={product.imageAlt}
+            //       className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+            //     />
+            //   </div>
+            //   <div className="mt-4 flex justify-between">
+            //     <div>
+            //       <h3 className="text-sm text-gray-700">
+            //         <a href={product.href}>
+            //           <span aria-hidden="true" className="absolute inset-0" />
+            //           {product.name}
+            //         </a>
+            //       </h3>
+            //       <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+            //     </div>
+            //     <p className="text-sm font-medium text-gray-900">
+            //       {product.price}
+            //     </p>
+            //   </div>
+            // </div>
           ))}
         </div>
       </div>

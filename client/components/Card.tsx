@@ -5,48 +5,47 @@ type Props = {};
 const products = [
   {
     id: 1,
-    title:
-      "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    title: "Basic Tee",
     slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     createdAt: "02/02/2022",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
   },
   {
     id: 2,
-    title: "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    title: "Basic Tee",
     slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     createdAt: "02/02/2022",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
   },
   {
     id: 3,
-    title: "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    title: "Basic Tee",
     slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     createdAt: "02/02/2022",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
   },
   {
     id: 4,
-    title: "Basic Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee Tee",
+    title: "Basic Tee",
     slug: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     createdAt: "02/02/2022",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
   },
 
   // More products...
@@ -60,17 +59,24 @@ export default function Card({}: Props) {
           Existing Campaigns
         </h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <div className=" group divide-y overflow-hidden rounded-2xl border-2 border-gray-100 ">
-              <div className=" aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+            <div className=" group  divide-y overflow-hidden rounded-2xl border-2 border-gray-100 ">
+              <div className=" relative aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+                <div className="absolute bottom-2 left-0 max-h-7 max-w-[12rem] items-center overflow-clip bg-white  px-1 align-middle shadow-md outline outline-1 outline-gray-300 ">
+                  <span className="h-full w-full select-none font-roboto text-base font-bold">
+                    by{" "}
+                  </span>
+                  <span className=" max-w-sm select-all font-roboto text-base font-thin text-gray-900">
+                    XilyanD
+                  </span>
+                </div>
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
-                  className="h-full w-full object-fill object-center"
+                  className=" h-full w-full object-fill object-center"
                 />
               </div>
-
               <div className="flex h-60 flex-col justify-between px-6 py-4">
                 <div className="flex flex-col  space-y-3 ">
                   <div className="max-h-12 items-center justify-between overflow-clip ">

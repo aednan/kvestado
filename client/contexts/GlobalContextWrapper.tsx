@@ -2,16 +2,19 @@ import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
 import { connectWallet, onWalletAddressChange } from "../services/Web3Service";
 import AuthContext from "./AuthContext";
-import UserContext from "./CommandPaletteContext";
+import UserSettingsContext from "./UserSettingsContext";
 
 const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   // for Command Palette Search bar
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isCPaletteOpen, setCPaletteOpen] = useState<boolean>(false);
   // for user auth
   const [isAuthenticated, setAuthentication] = useState(false);
   // web3 support
   const [provider, setProvider] = useState(null);
   const [walletAddress, setWalletAddress]: any = useState("");
+
+  // Night mode state
+  const [nModeEnabled, setNModeEnabled] = useState(false);
 
   const router = useRouter();
 
@@ -31,9 +34,16 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
         state: { walletAddress, provider, isAuthenticated },
       }}
     >
-      <UserContext.Provider value={{ setIsOpen, isOpen }}>
+      <UserSettingsContext.Provider
+        value={{
+          setCPaletteOpen,
+          isCPaletteOpen,
+          nModeEnabled,
+          setNModeEnabled,
+        }}
+      >
         {children}
-      </UserContext.Provider>
+      </UserSettingsContext.Provider>
     </AuthContext.Provider>
   );
 };

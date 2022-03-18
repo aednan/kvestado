@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext } from "react";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   AiFillGithub,
@@ -21,7 +21,7 @@ import {
 import "../styles/Navbar.module.css";
 
 import PopoverComponent from "./PopoverComponent";
-import UserContext from "../contexts/CommandPaletteContext";
+import UserSettingsContext from "../contexts/UserSettingsContext";
 import Link from "next/link";
 import { connectWallet, logout } from "../services/Web3Service";
 import AuthContext from "../contexts/AuthContext";
@@ -63,11 +63,9 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
-  const userContext = useContext(UserContext);
+  const userSettingsContext = useContext(UserSettingsContext);
   const { setWalletAddress, setProvider, setAuthentication, state } =
     useContext(AuthContext);
-
-  const [enabled, setEnabled] = useState(false);
 
   return (
     <Disclosure
@@ -133,7 +131,9 @@ export default function Navbar() {
 
                     <div
                       onClick={() => {
-                        userContext.setIsOpen(!userContext.isOpen);
+                        userSettingsContext.setCPaletteOpen(
+                          !userSettingsContext.isCPaletteOpen
+                        );
                       }}
                       className=" group hidden w-full max-w-3xl cursor-pointer items-center gap-2 rounded-lg border-2 px-4 hover:shadow-md md:flex"
                     >
@@ -165,7 +165,9 @@ export default function Navbar() {
 
                 <MdSearch
                   onClick={() => {
-                    userContext.setIsOpen(!userContext.isOpen);
+                    userSettingsContext.setCPaletteOpen(
+                      !userSettingsContext.isCPaletteOpen
+                    );
                   }}
                   className="hidden cursor-pointer text-3xl text-gray-400 hover:text-gray-700 sm:block md:hidden"
                 />
@@ -277,7 +279,9 @@ export default function Navbar() {
               <div className="space-y-1 px-2 pt-2 pb-3 text-center">
                 <div
                   onClick={() => {
-                    userContext.setIsOpen(!userContext.isOpen);
+                    userSettingsContext.setCPaletteOpen(
+                      !userSettingsContext.isCPaletteOpen
+                    );
                   }}
                   className="group flex cursor-pointer items-center gap-2 border-x border-b px-4  "
                 >
@@ -323,17 +327,21 @@ export default function Navbar() {
                       Night Mode
                     </Switch.Label>
                     <Switch
-                      checked={enabled}
-                      onChange={setEnabled}
+                      checked={userSettingsContext.nModeEnabled}
+                      onChange={userSettingsContext.setNModeEnabled}
                       className={classNames(
-                        enabled ? "bg-cyan-300" : "bg-gray-200",
+                        userSettingsContext.nModeEnabled
+                          ? "bg-cyan-300"
+                          : "bg-gray-200",
                         "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 "
                       )}
                     >
                       <span
                         aria-hidden="true"
                         className={classNames(
-                          enabled ? "translate-x-5" : "translate-x-0",
+                          userSettingsContext.nModeEnabled
+                            ? "translate-x-5"
+                            : "translate-x-0",
                           "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out "
                         )}
                       ></span>

@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect } from "react";
 import { Dialog, Combobox, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import UserContext from "../contexts/CommandPaletteContext";
+import UserContext from "../contexts/UserSettingsContext";
 
 interface cPData {
   id: number;
@@ -32,7 +32,9 @@ export default function CommandPalette() {
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
-        commandPaletteContext.setIsOpen(!commandPaletteContext.isOpen);
+        commandPaletteContext.setCPaletteOpen(
+          !commandPaletteContext.isCPaletteOpen
+        );
       }
     }
 
@@ -41,16 +43,16 @@ export default function CommandPalette() {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [commandPaletteContext.isOpen]);
+  }, [commandPaletteContext.isCPaletteOpen]);
 
   return (
     <Transition.Root
-      show={commandPaletteContext.isOpen}
+      show={commandPaletteContext.isCPaletteOpen}
       as={Fragment}
       afterLeave={() => setQuery("")}
     >
       <Dialog
-        onClose={commandPaletteContext.setIsOpen}
+        onClose={commandPaletteContext.setCPaletteOpen}
         className="fixed inset-0 z-50 p-4 pt-40"
       >
         <Transition.Child
@@ -97,7 +99,7 @@ export default function CommandPalette() {
 
               <span
                 onClick={() => {
-                  commandPaletteContext.setIsOpen(false);
+                  commandPaletteContext.setCPaletteOpen(false);
                 }}
                 className="cursor-pointer rounded-md border p-1 text-xs font-bold  text-gray-400 hover:drop-shadow-md"
               >

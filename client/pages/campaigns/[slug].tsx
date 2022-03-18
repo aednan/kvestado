@@ -41,7 +41,7 @@ function campaign({}: campaignProps) {
       </span> */}
       {/* /to be removed */}
 
-      {/* <ContributionSidebar /> */}
+      <ContributionSidebar />
       {/* {title && ( */}
       <div className="mb-7">
         <h1 className="leading-tighter mx-auto mb-8 w-full max-w-7xl text-center text-3xl font-extrabold sm:text-4xl md:text-5xl lg:mb-10 lg:text-6xl">

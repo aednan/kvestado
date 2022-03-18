@@ -79,14 +79,14 @@ export async function userAuthentication(challenge: string, provider: any) {
 // Metamask events, accounts
 export async function onWalletAddressChange(
   setWalletAddress: Function,
+  setProvider: Function,
   setAuthentication: Function
 ) {
   window.ethereum.on("accountsChanged", (accounts: any) => {
     if (accounts.length > 0) {
       setWalletAddress(accounts[0]);
     } else {
-      setWalletAddress("");
-      setAuthentication(false);
+      logout(setAuthentication, setProvider, setWalletAddress);
     }
   });
 }

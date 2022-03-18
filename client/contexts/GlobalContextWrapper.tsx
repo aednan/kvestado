@@ -25,7 +25,7 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
     }
 
     // Metamask accountsChanged event
-    onWalletAddressChange(setWalletAddress, setAuthentication);
+    onWalletAddressChange(setWalletAddress, setProvider, setAuthentication);
   }, []);
 
   return (

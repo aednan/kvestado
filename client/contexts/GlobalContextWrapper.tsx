@@ -8,13 +8,13 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   // for Command Palette Search bar
   const [isCPaletteOpen, setCPaletteOpen] = useState<boolean>(false);
   // for user auth
-  const [isAuthenticated, setAuthentication] = useState(false);
+  const [isAuthenticated, setAuthentication] = useState<boolean>(false);
   // web3 support
   const [provider, setProvider] = useState(null);
   const [walletAddress, setWalletAddress]: any = useState("");
 
   // Night mode state
-  const [nModeEnabled, setNModeEnabled] = useState(false);
+  const [nModeEnabled, setNModeEnabled] = useState<boolean>(false);
 
   const router = useRouter();
 

@@ -59,24 +59,26 @@ export default function Layout({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return loaded ? (
+  return (
     <GlobalContextWrapper>
-      <div className="fixed z-0 h-full min-h-screen w-full">
-        <CommandPalette />
-        <Navbar />
-        <div
-          ref={divRef}
-          className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth "
-        >
-          {/* <Header /> */}
-          {children}
-          <Footer />
+      {loaded ? (
+        <div className="fixed z-0 h-full min-h-screen w-full">
+          <CommandPalette />
+          <Navbar />
+          <div
+            ref={divRef}
+            className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth "
+          >
+            {/* <Header /> */}
+            {children}
+            <Footer />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex h-full min-h-screen w-full  bg-gray-100">
+          <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
+        </div>
+      )}
     </GlobalContextWrapper>
-  ) : (
-    <div className="flex h-full min-h-screen w-full  bg-gray-100">
-      <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
-    </div>
   );
 }

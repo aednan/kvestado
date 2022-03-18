@@ -1,19 +1,33 @@
 import { useRouter } from "next/router";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import GlobalContextWrapper from "../contexts/GlobalContextWrapper";
 import CommandPalette from "./CommandPalette";
 import Footer from "./Footer";
 import { ImSpinner2 } from "react-icons/im";
 // import Header from "./Header";
 import Navbar from "./Navbar";
+import { connectWallet, onWalletAddressChange } from "../services/Web3Service";
+import AuthContext from "../contexts/AuthContext";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
+  const { setWalletAddress, setProvider, setAuthentication } =
+    useContext(AuthContext);
 
   useEffect(() => {
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
+      // To auto connect wallet on authentication required routes
+      if (url.match("^/settings$|^/profile$")) {
+        connectWallet(setWalletAddress, setProvider, setAuthentication);
+      }
       // console.log(
       //   `App is changing to ${url} ${
       //     shallow ? "with" : "without"
@@ -59,26 +73,22 @@ export default function Layout({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return (
-    <GlobalContextWrapper>
-      {loaded ? (
-        <div className="fixed z-0 h-full min-h-screen w-full">
-          <CommandPalette />
-          <Navbar />
-          <div
-            ref={divRef}
-            className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth "
-          >
-            {/* <Header /> */}
-            {children}
-            <Footer />
-          </div>
-        </div>
-      ) : (
-        <div className="flex h-full min-h-screen w-full  bg-gray-100">
-          <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
-        </div>
-      )}
-    </GlobalContextWrapper>
+  return loaded ? (
+    <div className="fixed z-0 h-full min-h-screen w-full">
+      <CommandPalette />
+      <Navbar />
+      <div
+        ref={divRef}
+        className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth "
+      >
+        {/* <Header /> */}
+        {children}
+        <Footer />
+      </div>
+    </div>
+  ) : (
+    <div className="flex h-full min-h-screen w-full  bg-gray-100">
+      <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
+    </div>
   );
 }

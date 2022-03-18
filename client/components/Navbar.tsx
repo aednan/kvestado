@@ -172,84 +172,81 @@ export default function Navbar() {
                   className="hidden cursor-pointer text-3xl text-gray-400 hover:text-gray-700 sm:block md:hidden"
                 />
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative hidden sm:block">
-                  <div>
-                    <Menu.Button className="flex ">
-                      <span className="sr-only">Open user menu</span>
-                      <FaRegUserCircle className="hidden cursor-pointer  text-[1.73rem]  font-black text-[#8a939b] hover:text-black sm:block " />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y-2 rounded-md   bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        <div className="group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100">
-                          <FaUser className=" my-auto  justify-center  align-middle text-base font-black text-[#8a939b] group-hover:bg-gray-100  group-hover:text-gray-700" />
-                          <span className="  font-mono py-2 text-base  text-gray-700 group-hover:bg-gray-100 group-hover:text-gray-700">
-                            Profile
-                          </span>
-                        </div>
-                      </Menu.Item>
-
-                      <Menu.Item>
-                        <Link href="/settings">
-                          <div className="group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100">
-                            <AiFillSetting className=" my-auto  justify-center  align-middle text-xl font-black text-[#8a939b] group-hover:bg-gray-100  group-hover:text-gray-700" />
-                            <a className="  font-mono py-2 text-base  text-gray-700 group-hover:bg-gray-100 group-hover:text-gray-700">
-                              Settings
-                            </a>
+                {state.isAuthenticated && (
+                  <Menu as="div" className="relative block">
+                    <div>
+                      <Menu.Button className="flex ">
+                        <span className="sr-only">Open user menu</span>
+                        <FaRegUserCircle className=" cursor-pointer  text-[1.8rem]  font-black text-[#8a939b] hover:text-black sm:block " />
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y-2 rounded-md border-2  bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          <div className="group flex space-x-3 px-4 py-1 align-middle hover:cursor-pointer  hover:bg-gray-100">
+                            <FaUser className=" my-auto  justify-center  align-middle text-base font-black text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
+                            <span className="  font-mono py-2 text-base  text-slate-500 group-hover:bg-gray-100 group-hover:text-gray-700">
+                              Profile
+                            </span>
                           </div>
-                        </Link>
-                      </Menu.Item>
+                        </Menu.Item>
 
-                      <Menu.Item>
-                        {state.isAuthenticated ? (
-                          <span
-                            onClick={() => {
-                              logout(
-                                setAuthentication,
-                                setProvider,
-                                setWalletAddress
-                              );
-                            }}
-                            className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
-                          >
-                            Logout
-                          </span>
-                        ) : (
-                          <span
-                            onClick={async () =>
-                              await connectWallet(
-                                setWalletAddress,
-                                setProvider,
-                                setAuthentication
-                              )
-                            }
-                            className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
-                          >
-                            Connect Wallet
-                          </span>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-                {state.isAuthenticated ? (
-                  <MdLogout
-                    onClick={() => {
-                      logout(setAuthentication, setProvider, setWalletAddress);
-                    }}
-                    title="Logout"
-                    className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black"
-                  ></MdLogout>
-                ) : (
+                        <Menu.Item>
+                          <Link href="/settings">
+                            <div className="group flex space-x-3 py-1 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100">
+                              <AiFillSetting className=" my-auto  justify-center  align-middle text-xl font-black text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
+                              <a className="  font-mono py-2 text-base text-slate-500 group-hover:bg-gray-100 group-hover:text-gray-700">
+                                Settings
+                              </a>
+                            </div>
+                          </Link>
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {state.isAuthenticated ? (
+                            <div
+                              className=" group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100"
+                              onClick={() => {
+                                logout(
+                                  setAuthentication,
+                                  setProvider,
+                                  setWalletAddress
+                                );
+                              }}
+                            >
+                              <MdLogout className="my-auto  justify-center align-middle  text-xl  text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
+                              <span className="font-mono py-2 text-base font-medium  text-slate-500 group-hover:bg-gray-100 group-hover:text-gray-700">
+                                Logout
+                              </span>
+                            </div>
+                          ) : (
+                            <span
+                              onClick={async () =>
+                                await connectWallet(
+                                  setWalletAddress,
+                                  setProvider,
+                                  setAuthentication
+                                )
+                              }
+                              className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
+                            >
+                              Connect Wallet
+                            </span>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                )}
+                {!state.isAuthenticated && (
                   <MdOutlineAccountBalanceWallet
                     title="Connect Wallet"
                     onClick={async () =>

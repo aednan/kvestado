@@ -19,9 +19,12 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    // on page refresh To auto connect wallet on authentication required routes
     if (router.asPath.match("^/settings$|^/profile$")) {
       connectWallet(setWalletAddress, setProvider, setAuthentication);
     }
+
+    // Metamask accountsChanged event
     onWalletAddressChange(setWalletAddress, setAuthentication);
   }, []);
 

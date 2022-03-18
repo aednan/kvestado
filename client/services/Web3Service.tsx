@@ -78,14 +78,14 @@ export async function userAuthentication(challenge: string, provider: any) {
 
 // Metamask events, accounts
 export async function onWalletAddressChange(
-  setWallertAddress: Function,
+  setWalletAddress: Function,
   setAuthentication: Function
 ) {
   window.ethereum.on("accountsChanged", (accounts: any) => {
     if (accounts.length > 0) {
-      setWallertAddress(accounts[0]);
+      setWalletAddress(accounts[0]);
     } else {
-      setWallertAddress("");
+      setWalletAddress("");
       setAuthentication(false);
     }
   });
@@ -134,6 +134,7 @@ export function logout(
   setWalletAddress("");
   // clear cookies or jwt token
 
-  // redirect user to home page
+  // redirect user to home page only when route required authentication
+  // TODO: filter routes
   Router.push("/");
 }

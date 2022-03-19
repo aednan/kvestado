@@ -191,12 +191,14 @@ export default function Navbar() {
                     >
                       <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y-2 rounded-md border-2  bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
-                          <div className="group flex space-x-3 px-4 py-1 align-middle hover:cursor-pointer  hover:bg-gray-100">
-                            <FaUser className=" my-auto  justify-center  align-middle text-base font-black text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
-                            <span className="  font-mono py-2 text-base  text-slate-500 group-hover:bg-gray-100 group-hover:text-gray-700">
-                              Profile
-                            </span>
-                          </div>
+                          <Link href="/user/username">
+                            <div className="group flex space-x-3 px-4 py-1 align-middle hover:cursor-pointer  hover:bg-gray-100">
+                              <FaUser className=" my-auto  justify-center  align-middle text-base font-black text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
+                              <span className="  font-mono py-2 text-base  text-slate-500 group-hover:bg-gray-100 group-hover:text-gray-700">
+                                Profile
+                              </span>
+                            </div>
+                          </Link>
                         </Menu.Item>
 
                         <Menu.Item>

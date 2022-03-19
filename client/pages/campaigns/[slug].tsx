@@ -2,9 +2,6 @@ import React, { useContext, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import ContributionSidebar from "../../components/ContributionSidebar";
 import AuthContext from "../../contexts/AuthContext";
-// to be removed
-// import { userAuthentication } from "../../services/Web3Service";
-// /to be removed
 
 // import Markdown from "react-markdown";
 
@@ -27,20 +24,6 @@ function campaign({}: campaignProps) {
 
   return (
     <article className=" divide-y-2 px-7 pt-16 pb-14 ">
-      {/* to be removed */}
-      {/* <span onClick={userAuthentication}>
-        test userAthentication function click
-      </span> */}
-      {/* <span
-        onClick={() => {
-          console.log(state.isAuthenticated);
-          console.log(state.walletAddress);
-        }}
-      >
-        test
-      </span> */}
-      {/* /to be removed */}
-
       <ContributionSidebar />
       {/* {title && ( */}
       <div className="mb-7">
@@ -63,7 +46,6 @@ function campaign({}: campaignProps) {
         children={markdown}
       />
     </article>
-    // </div>
   );
 }
 

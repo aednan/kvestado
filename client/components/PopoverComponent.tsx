@@ -7,7 +7,7 @@ const solutions = [
   {
     name: "Create Campaign",
     description: "Create a new campaign",
-    href: "##",
+    href: "/campaigns/create",
     icon: IconOne,
   },
   {

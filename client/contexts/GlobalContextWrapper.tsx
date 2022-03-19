@@ -18,6 +18,8 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const [walletAddress, setWalletAddress]: any = useState("");
 
   // Night mode state
+  // TODO: to store the preferred settings theme mode in a database to be send back in a cookie or JWT token
+  // if user is registered
   const [nModeEnabled, setNModeEnabled] = useState<boolean>(false);
 
   const router = useRouter();

@@ -40,7 +40,7 @@ const Profile = (props: Props) => {
           </div>
           <div className="mt-5 flex lg:mt-0 lg:ml-4">
             <span className="block">
-              <Link href="/settings">
+              <Link href="/user/settings">
                 <a
                   type="button"
                   className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

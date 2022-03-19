@@ -202,7 +202,7 @@ export default function Navbar() {
                         </Menu.Item>
 
                         <Menu.Item>
-                          <Link href="/settings">
+                          <Link href="/user/settings">
                             <div className="group flex space-x-3 py-1 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100">
                               <AiFillSetting className=" my-auto  justify-center  align-middle text-xl font-black text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
                               <a className="  font-mono py-2 text-base text-slate-500 group-hover:bg-gray-100 group-hover:text-gray-700">

@@ -6,7 +6,7 @@ type Props = {};
 
 const Create = (props: Props) => {
   const [photo, setPhoto]: any = useState(null);
-  const [enabled, setEnabled]: any = useState(false);
+  const [mRValue, setMRValue]: any = useState(false);
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
@@ -116,7 +116,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             <label className="font-medium text-gray-700">
               Campaign description (Markdown)
             </label>
-            <label className="cursor-pointer select-none rounded-md border py-1 px-2 font-medium  text-gray-700 shadow-sm hover:shadow-md">
+            <label className="cursor-pointer select-none rounded-md border py-1 px-2 font-medium  text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
               Preview
             </label>
           </div>
@@ -181,22 +181,30 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
               Minimum raised value
             </Switch.Label>
             <Switch
-              checked={enabled}
-              onChange={setEnabled}
+              checked={mRValue}
+              onChange={setMRValue}
               className={classNames(
-                enabled ? "bg-cyan-300" : "bg-gray-200",
+                mRValue ? "bg-cyan-300" : "bg-gray-200",
                 "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 "
               )}
             >
               <span
                 aria-hidden="true"
                 className={classNames(
-                  enabled ? "translate-x-5" : "translate-x-0",
+                  mRValue ? "translate-x-5" : "translate-x-0",
                   "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out "
                 )}
               ></span>
             </Switch>
           </Switch.Group>
+          <div className="mt-7 flex w-full justify-center space-x-2 ">
+            <span className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+              Create
+            </span>
+            <span className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+              Preview
+            </span>
+          </div>
         </div>
       </div>
     </div>

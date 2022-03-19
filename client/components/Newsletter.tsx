@@ -69,7 +69,7 @@ const Newsletter = (props: Props) => {
         </div>
 
         <div className="flex justify-center">
-          <Link href="/profile">
+          <Link href="/user/settings">
             <a className="group flex items-center font-roboto text-xs font-medium opacity-80 transition-all duration-200 ease-in-out hover:opacity-100">
               JOIN NOW &rarr;
             </a>

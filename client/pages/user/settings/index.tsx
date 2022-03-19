@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import AuthContext from "../../contexts/AuthContext";
-import { onWalletAddressChange } from "../../services/Web3Service";
+import AuthContext from "../../../contexts/AuthContext";
 
 type Props = {};
 
@@ -156,6 +155,10 @@ text-base text-gray-400 drop-shadow-sm
             placeholder="Wallet not connected"
           />
         </div>
+
+        <span className="mx-auto w-full max-w-[12rem] cursor-pointer select-none rounded-md border py-2 px-7 text-center font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+          Save changes
+        </span>
       </div>
     </div>
   );

@@ -1,19 +1,21 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useContext } from "react";
 import {
   AiFillGithub,
   AiFillRedditCircle,
   AiFillTwitterCircle,
 } from "react-icons/ai";
 import { MdCopyright } from "react-icons/md";
+import AuthContext from "../contexts/AuthContext";
 import Newsletter from "./Newsletter";
 
 export default function Footer() {
+  const { state } = useContext(AuthContext);
   const router = useRouter();
   return (
     <footer className="bottom-0 z-10 mt-auto h-20 w-full items-center justify-center divide-y-2 bg-slate-50  ">
       {/* to show only at home page or everything after /# */}
-      {router.asPath.match("^(/#)|^(/)$") && (
+      {router.asPath.match("^(/#)|^(/)$") && !state.isAuthenticated && (
         <div className=" h-80 border-t-2 bg-slate-50 px-4 md:px-8">
           <Newsletter />
         </div>

@@ -79,7 +79,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Navbar />
       <div
         ref={divRef}
-        className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth "
+        className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth pt-16 "
       >
         {/* <Header /> */}
         {children}

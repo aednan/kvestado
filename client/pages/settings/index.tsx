@@ -37,7 +37,7 @@ const settings = (props: Props) => {
 
   return (
     <div className="my-16 flex justify-center">
-      <div className=" mt-12 flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
+      <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         <span className="mb-10 text-center font-roboto text-4xl font-black">
           Profile Settings
         </span>

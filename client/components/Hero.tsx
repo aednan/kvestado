@@ -11,7 +11,7 @@ export default function Hero({}: Props) {
     useContext(AuthContext);
 
   return (
-    <div className=" relative mt-10 flex h-full w-full justify-evenly pb-10 pt-16 ">
+    <div className=" relative flex h-full w-full justify-evenly py-16 ">
       <main className=" flex items-center justify-center px-4 ">
         <div className=" flex w-full flex-col items-center justify-center  sm:text-center md:w-full md:max-w-fit lg:text-left">
           <h1 className="  text-center text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">

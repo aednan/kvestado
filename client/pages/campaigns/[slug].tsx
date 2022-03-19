@@ -26,7 +26,7 @@ function campaign({}: campaignProps) {
   `;
 
   return (
-    <article className=" divide-y-2 px-7 pt-32 pb-14 ">
+    <article className=" divide-y-2 px-7 pt-16 pb-14 ">
       {/* to be removed */}
       {/* <span onClick={userAuthentication}>
         test userAthentication function click

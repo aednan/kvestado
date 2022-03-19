@@ -1,4 +1,5 @@
 import { Popover, Transition } from "@headlessui/react";
+import { IoChevronDownOutline } from "react-icons/io5";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -29,6 +30,11 @@ export default function PopoverComponent() {
                 group inline-flex items-center rounded-md py-2 text-lg font-bold text-gray-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span>Explore</span>
+              <IoChevronDownOutline
+                className={`${open ? "text-opacity-100" : "text-opacity-75"}
+                  ml-1 h-5 w-5 text-gray-700 transition duration-150 ease-in-out group-hover:text-opacity-100`}
+                aria-hidden="true"
+              />
             </Popover.Button>
             <Transition
               as={Fragment}

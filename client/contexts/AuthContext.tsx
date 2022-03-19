@@ -12,6 +12,7 @@ export default React.createContext<useStatePropsType>({
     provider: {},
     walletAddress: "",
   },
+
   setAuthentication: () => {},
   setProvider: () => {},
   setWalletAddress: () => {},

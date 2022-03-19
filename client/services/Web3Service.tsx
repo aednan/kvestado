@@ -1,9 +1,12 @@
 import { ethers } from "ethers";
 import { arrayify, hashMessage } from "ethers/lib/utils";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 declare var window: any;
+
+// authentication required for these routes
+export const restrictedRoutes = "^/user/.*|^/campaigns/create$";
 
 // challenge message is requested from the backend, and be sent back to the backend after being signed,
 // in exchange for a cookie or a jwt token after a successful authentication.
@@ -111,6 +114,10 @@ export async function connectWallet(
       if (accounts.length > 0) {
         setWalletAddress(accounts[0]);
         setAuthentication(true);
+        // To reconnect user after page refresh if already authenticated
+        if (!localStorage.getItem("Authenticated")) {
+          localStorage.setItem("Authenticated", "true");
+        }
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(provider);
@@ -118,7 +125,12 @@ export async function connectWallet(
       // TODO alert "need a wallet provider to be installed"
       console.log("wallet Provider is needed");
     }
-  } catch (error) {
+  } catch (error: any) {
+    // if the route require authentication && user decline connection
+    // redirect to home page
+    if (Router.asPath.match(restrictedRoutes) && error?.code !== -32002) {
+      Router.push("/");
+    }
     console.log(error);
   }
 }
@@ -137,4 +149,7 @@ export function logout(
   // redirect user to home page only when route required authentication
   // TODO: filter routes
   Router.push("/");
+
+  // clear local storage authentication
+  localStorage.clear();
 }

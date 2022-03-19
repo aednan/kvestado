@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import React, {
   ReactNode,
   useContext,
@@ -12,20 +12,24 @@ import Footer from "./Footer";
 import { ImSpinner2 } from "react-icons/im";
 // import Header from "./Header";
 import Navbar from "./Navbar";
-import { connectWallet, onWalletAddressChange } from "../services/Web3Service";
+import {
+  connectWallet,
+  onWalletAddressChange,
+  restrictedRoutes,
+} from "../services/Web3Service";
 import AuthContext from "../contexts/AuthContext";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
-  const { setWalletAddress, setProvider, setAuthentication } =
+  const { setWalletAddress, setProvider, setAuthentication, state } =
     useContext(AuthContext);
 
   useEffect(() => {
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
       // To auto connect wallet on authentication required routes
-      if (url.match("^/settings$|^/profile$")) {
+      if (url.match(restrictedRoutes)) {
         connectWallet(setWalletAddress, setProvider, setAuthentication);
       }
       // console.log(
@@ -73,7 +77,12 @@ export default function Layout({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return loaded ? (
+  return !loaded ||
+    (router.asPath.match(restrictedRoutes) && !state.isAuthenticated) ? (
+    <div className="flex h-full min-h-screen w-full  bg-gray-100">
+      <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
+    </div>
+  ) : (
     <div className="fixed z-0 h-full min-h-screen w-full">
       <CommandPalette />
       <Navbar />
@@ -85,10 +94,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         {children}
         <Footer />
       </div>
-    </div>
-  ) : (
-    <div className="flex h-full min-h-screen w-full  bg-gray-100">
-      <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
     </div>
   );
 }

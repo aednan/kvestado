@@ -1,6 +1,10 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
-import { connectWallet, onWalletAddressChange } from "../services/Web3Service";
+import {
+  connectWallet,
+  onWalletAddressChange,
+  restrictedRoutes,
+} from "../services/Web3Service";
 import AuthContext from "./AuthContext";
 import UserSettingsContext from "./UserSettingsContext";
 
@@ -20,7 +24,10 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // on page refresh To auto connect wallet on authentication required routes
-    if (router.asPath.match("^/settings$|^/profile$")) {
+    if (
+      router.asPath.match(restrictedRoutes) ||
+      localStorage.getItem("Authenticated")
+    ) {
       connectWallet(setWalletAddress, setProvider, setAuthentication);
     }
 

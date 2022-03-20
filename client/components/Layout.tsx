@@ -1,4 +1,4 @@
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, {
   ReactNode,
   useContext,
@@ -6,15 +6,14 @@ import React, {
   useRef,
   useState,
 } from "react";
-import GlobalContextWrapper from "../contexts/GlobalContextWrapper";
 import CommandPalette from "./CommandPalette";
 import Footer from "./Footer";
 import { ImSpinner2 } from "react-icons/im";
 // import Header from "./Header";
 import Navbar from "./Navbar";
 import {
+  checkIfConnected,
   connectWallet,
-  onWalletAddressChange,
   restrictedRoutes,
 } from "../services/Web3Service";
 import AuthContext from "../contexts/AuthContext";
@@ -27,8 +26,12 @@ export default function Layout({ children }: { children: ReactNode }) {
     useContext(AuthContext);
 
   useEffect(() => {
+    // after refresh: Auto connects to the wallet if the user is already connected
+    checkIfConnected(setWalletAddress, setProvider, setAuthentication);
+
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
       // To auto connect wallet on authentication required routes
+
       if (url.match(restrictedRoutes)) {
         connectWallet(setWalletAddress, setProvider, setAuthentication);
       }

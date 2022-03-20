@@ -1,8 +1,5 @@
 import { ethers } from "ethers";
-import { arrayify, hashMessage } from "ethers/lib/utils";
-import Router, { useRouter } from "next/router";
-import { useContext } from "react";
-import AuthContext from "../contexts/AuthContext";
+import Router from "next/router";
 declare var window: any;
 
 // authentication required for these routes
@@ -87,7 +84,8 @@ export async function onWalletAddressChange(
 ) {
   window.ethereum.on("accountsChanged", (accounts: any) => {
     if (accounts.length > 0) {
-      setWalletAddress(accounts[0]);
+      // setWalletAddress(accounts[0]);
+      connectWallet(setWalletAddress, setProvider, setAuthentication);
     } else {
       logout(setAuthentication, setProvider, setWalletAddress);
     }
@@ -135,10 +133,24 @@ export async function connectWallet(
   }
 }
 
-export function logout(
-  setAuthentication: Function,
+export async function checkIfConnected(
+  setWalletAddress: Function,
   setProvider: Function,
-  setWalletAddress: Function
+  setAuthentication: Function
+) {
+  const accounts = await window.ethereum.request({ method: "eth_accounts" });
+  if (accounts > 0) {
+    connectWallet(setWalletAddress, setProvider, setAuthentication);
+    return true;
+  }
+  logout(setAuthentication, setProvider, setWalletAddress);
+  return false;
+}
+
+export function logout(
+  setAuthentication: any,
+  setProvider: any,
+  setWalletAddress: any
 ) {
   // reset state
   setAuthentication(false);

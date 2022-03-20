@@ -26,10 +26,7 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // on page refresh To auto connect wallet on authentication required routes
-    if (
-      router.asPath.match(restrictedRoutes) ||
-      localStorage.getItem("Authenticated")
-    ) {
+    if (router.asPath.match(restrictedRoutes)) {
       connectWallet(setWalletAddress, setProvider, setAuthentication);
     }
 

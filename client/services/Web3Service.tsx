@@ -159,8 +159,9 @@ export function logout(
   // clear cookies or jwt token
 
   // redirect user to home page only when route required authentication
-  // TODO: filter routes
-  Router.push("/");
+  if (Router.asPath.match(restrictedRoutes)) {
+    Router.push("/");
+  }
 
   // clear local storage authentication
   localStorage.clear();

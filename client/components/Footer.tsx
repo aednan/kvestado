@@ -29,7 +29,13 @@ export default function Footer() {
           <span> </span>
         </div>
         <div className="flex w-[50%] items-center justify-end gap-5  bg-transparent">
-          <AiFillGithub className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
+          <a
+            href="https://github.com/aednan"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <AiFillGithub className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
+          </a>
           <AiFillTwitterCircle className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
           <AiFillRedditCircle className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
         </div>

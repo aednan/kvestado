@@ -3,6 +3,7 @@ import { Dialog, Combobox, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import UserContext from "../contexts/UserSettingsContext";
+import { useRouter } from "next/router";
 
 interface cPData {
   id: number;
@@ -13,14 +14,17 @@ interface cPData {
 export default function CommandPalette() {
   // const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const router = useRouter();
 
   const commandPaletteContext = useContext(UserContext);
 
   const cPData: cPData[] = [
-    { id: 1, title: "C++", description: "Lorem Lorem Lorem Lorem" },
-    { id: 2, title: "C", description: "Lorem Lorem Lorem Lorem" },
-    { id: 3, title: "JAVA", description: "Lorem Lorem Lorem Lorem" },
-    { id: 4, title: "Python", description: "Lorem Lorem Lorem Lorem" },
+    { id: 1, title: "> Home", description: "Navigate to home page" },
+    { id: 2, title: "> Create", description: "Create new campaign" },
+    { id: 3, title: "> Find", description: "Find existing campaign" },
+    { id: 4, title: "> Settings", description: "Navigate to profile settings" },
+    { id: 5, title: "> Profile", description: "Navigate to your profile" },
+    { id: 6, title: "> Docs", description: "Open documentation" },
   ];
 
   const filteredData = query
@@ -28,6 +32,38 @@ export default function CommandPalette() {
         data.title.toLowerCase().includes(query.toLowerCase())
       )
     : [];
+
+  const onCBSelectionChange = (cPData: any) => {
+    switch (cPData?.id) {
+      case 1:
+        commandPaletteContext.setCPaletteOpen(false);
+        router.push("/");
+        break;
+      case 2:
+        commandPaletteContext.setCPaletteOpen(false);
+        router.push("/campaigns/create");
+        break;
+      case 3:
+        commandPaletteContext.setCPaletteOpen(false);
+        router.push("/campaigns");
+        break;
+      case 4:
+        commandPaletteContext.setCPaletteOpen(false);
+        router.push("/user/settings");
+        break;
+      case 5:
+        commandPaletteContext.setCPaletteOpen(false);
+        // TODO: custom profile url - to change (username)
+        router.push("/user/username");
+        break;
+      case 6:
+        commandPaletteContext.setCPaletteOpen(false);
+        router.push("/docs");
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -80,9 +116,7 @@ export default function CommandPalette() {
             className="relative mx-auto max-w-2xl divide-y-2 divide-gray-100 overflow-hidden rounded-lg bg-white
         shadow-2xl ring-1 ring-black/5
         "
-            onChange={() => {
-              //TODO: Navigation
-            }}
+            onChange={(dataObject: any) => onCBSelectionChange(dataObject)}
           >
             <div className="flex items-center gap-2 px-4">
               <MdSearch className="text-3xl text-gray-400" />
@@ -113,11 +147,11 @@ export default function CommandPalette() {
                 className="max-h-96 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
               >
                 {filteredData.map((dataObject: cPData) => (
-                  <Combobox.Option value="" key={dataObject.id}>
+                  <Combobox.Option value={dataObject} key={dataObject.id}>
                     {({ active }) => (
                       <div
-                        className={`space-x-2 py-2 px-6 ${
-                          active ? "bg-blue-500" : "bg-white"
+                        className={`cursor-pointer space-x-2 py-2 px-6 ${
+                          active ? "bg-cyan-400" : "bg-white"
                         }  `}
                       >
                         <span className="text-base font-medium text-gray-900">

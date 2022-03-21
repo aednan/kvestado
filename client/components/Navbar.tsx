@@ -149,7 +149,9 @@ export default function Navbar() {
                         placeholder="Search"
                       />
 
-                      <span className="text-xs text-gray-400">Ctrl+Z</span>
+                      <span className="cursor-pointer rounded-md border p-1 text-xs font-bold  text-gray-400 hover:drop-shadow-md ">
+                        Ctrl+Z
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -293,7 +295,9 @@ export default function Navbar() {
                     placeholder="Search"
                   />
 
-                  <span className="text-xs text-gray-400 ">Ctrl+Z</span>
+                  <span className="cursor-pointer rounded-md border p-1 text-xs font-bold  text-gray-400 hover:drop-shadow-md ">
+                    Ctrl+Z
+                  </span>
                 </div>
                 <div className="divide-y">
                   {navigation.map((item) => (

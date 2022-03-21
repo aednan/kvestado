@@ -77,7 +77,7 @@ export default function PopoverComponent() {
                           </span>
                         </span>
                         <span className="block text-sm text-gray-500">
-                          Start integrating products and tools
+                          Get started with KVESTADO
                         </span>
                       </a>
                     </Link>

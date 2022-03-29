@@ -11,9 +11,9 @@ export async function userAuthentication(challenge: string, provider: any) {
   // const { state } = useContext(AuthContext);
 
   try {
-    const signerAddress = await provider.signer?.getAddress();
+    const signerAddress = await provider.getSigner().getAddress();
     let signedMessage: any = "";
-    signedMessage = await provider.signer?.signMessage(challenge);
+    signedMessage = await provider.getSigner().signMessage(challenge);
 
     // public key
     // const pkey = ethers.utils.recoverPublicKey(
@@ -40,9 +40,10 @@ export async function userAuthentication(challenge: string, provider: any) {
       // TODO: authentication should be done also in the backend
       // if user doesn't exist, account will be created with the wallet address
       console.log(true);
+      console.log(signedMessage);
     }
   } catch (e: any) {
-    // console.log(e.message);
+    console.log(e);
   }
 }
 

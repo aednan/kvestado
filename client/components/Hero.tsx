@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import { connectWallet } from "../services/Web3Service";
+import { connectWallet, userAuthentication } from "../services/Web3Service";
 
 type Props = {};
 
@@ -53,6 +53,19 @@ export default function Hero({}: Props) {
                   Discover &rarr;
                 </span>
               </Link>
+              {/* 
+              // test userAuthentication
+              <span
+                onClick={async () =>
+                  await userAuthentication(
+                    "8126e09f-a374-41b9-a359-23451dd01002",
+                    state.provider
+                  )
+                }
+                className="cursor-pointer bg-white"
+              >
+                sdjkfkjsdkjfkj
+              </span> */}
             </div>
           </div>
         </div>

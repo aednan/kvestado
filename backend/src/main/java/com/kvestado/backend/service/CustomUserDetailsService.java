@@ -4,12 +4,14 @@ import com.kvestado.backend.dao.UserRepository;
 import com.kvestado.backend.model.User;
 import com.kvestado.backend.security.ECSignatureVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -24,15 +26,23 @@ public class CustomUserDetailsService implements UserDetailsService {
         return optionalUser.get();
     }
 
-    public void createUser(String walletAddress) {
+    public String createUser(String walletAddress) {
+        String challengeMessage = ECSignatureVerificationService.generateChallengeMessage();
         User user = new User();
         user.setUsername(walletAddress);
-        user.setPassword(ECSignatureVerificationService.generateChallengeMessage());
+        user.setPassword(challengeMessage);
         userRepository.save(user);
+        return challengeMessage;
     }
 
     public boolean userExists(String walletAddress) {
         return userRepository.existsById(walletAddress);
+    }
+    public String requestChallengeMessage(String walletAddress) {
+        Optional<User> user = userRepository.findById(walletAddress);
+        if(user.isPresent())
+            return user.get().getPassword();
+        throw new BadCredentialsException("User doesn't exist");
     }
 
 //    public void updateUser(){

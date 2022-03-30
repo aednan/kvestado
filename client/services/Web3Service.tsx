@@ -1,38 +1,31 @@
 import { ethers } from "ethers";
 import Router from "next/router";
+import axios from "axios";
+
 declare var window: any;
 
 // authentication required for these routes
 export const restrictedRoutes = "^/user/.*|^/campaigns/create$";
 
+// Errors will be caught at connectWallet level
 // challenge message is requested from the backend, and be sent back to the backend after being signed,
 // in exchange for a cookie or a jwt token after a successful authentication.
-export async function userAuthentication(challenge: string, provider: any) {
-  // const { state } = useContext(AuthContext);
+export async function userAuthentication(provider: any) {
+  const signerAddress = await provider.getSigner().getAddress();
+  let signedMessage: any = "";
 
-  try {
-    const signerAddress = await provider.getSigner().getAddress();
-    let signedMessage: any = "";
+  const challenge = await userRegistration(
+    "http://localhost:8080/request_challenge",
+    signerAddress
+  );
+
+  if (challenge !== "") {
+    // signedMessage = await window.ethereum.request({
+    //   method: "personal_sign",
+    //   params: [challenge, signerAddress],
+    // });
+
     signedMessage = await provider.getSigner().signMessage(challenge);
-
-    // public key
-    // const pkey = ethers.utils.recoverPublicKey(
-    //   arrayify(hashMessage(challenge)),
-    //   signature
-    // );
-    // console.log(pkey);
-    // const ppkey = ethers.utils.computePublicKey(pkey);
-    // console.log(ppkey);
-
-    // console.log(signedMessage);
-    // hashed message
-    // console.log(hashMessage(challenge));
-
-    // const signA = ethers.utils.splitSignature(signedMessage);
-    // console.log(signA);
-
-    // console.log(signerAddress);
-
     if (
       signerAddress === ethers.utils.verifyMessage(challenge, signedMessage)
     ) {
@@ -40,53 +33,46 @@ export async function userAuthentication(challenge: string, provider: any) {
       // TODO: authentication should be done also in the backend
       // if user doesn't exist, account will be created with the wallet address
       console.log(true);
+      console.log(challenge);
       console.log(signedMessage);
+      return true;
     }
-  } catch (e: any) {
-    console.log(e);
   }
+  return false;
 }
 
-// export async function getWalletAddress(
-//   setWalletAddress: Function,
-//   provider: any
-// ) {
-//   try {
-//     const signerAddress = await provider.signer?.getAddress();
-//     setWalletAddress(signerAddress ? signerAddress : "");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-// export async function setWalletSigner() {
-//   try {
-//     // Request account access if needed
-//     const accounts = await window.ethereum.request({
-//       method: "eth_requestAccounts",
-//     });
-//     // Accounts now exposed, use them
-//     const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-//     setProvider(provider);
-//     // return provider.getSigner();
-//   } catch (error) {
-//     // User denied account access
-//     console.log(error);
-//     // return null;
-//   }
+// Errors will be caught at connectWallet level
+async function userRegistration(url: string, walletAddress: string) {
+  const response = await axios.get(url, {
+    params: { wallet_address: walletAddress },
+  });
+  return response.data;
+}
+// async function login(url: string, walletAddress: string, signedMessage: string) {
+//   const response = await axios.post(url, {
+//     wallet_address: walletAddress,
+//   });
+//   return response.data;
 // }
 
 // Metamask events, accounts
 export async function onWalletAddressChange(
   setWalletAddress: Function,
   setProvider: Function,
-  setAuthentication: Function
+  setAuthentication: Function,
+  setDisableSubmitBtn: Function,
+  state: any
 ) {
   window.ethereum.on("accountsChanged", (accounts: any) => {
     if (accounts.length > 0) {
       // setWalletAddress(accounts[0]);
-      connectWallet(setWalletAddress, setProvider, setAuthentication);
+      connectWallet(
+        setWalletAddress,
+        setProvider,
+        setAuthentication,
+        setDisableSubmitBtn,
+        state
+      );
     } else {
       logout(setAuthentication, setProvider, setWalletAddress);
     }
@@ -100,26 +86,40 @@ export async function onNetworkChange(a: Function) {
 export async function connectWallet(
   setWalletAddress: Function,
   setProvider: Function,
-  setAuthentication: Function
+  setAuthentication: Function,
+  setDisableSubmitBtn: Function,
+  state: any
 ) {
   // TODO: onConnect the user should sign the message received by the backend
 
-  // Metamask is present
+  // Metamask is present, try connect wallet
+  setDisableSubmitBtn(true);
   try {
     if (window.ethereum) {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
       if (accounts.length > 0) {
         setWalletAddress(accounts[0]);
+        setProvider(provider);
+      }
+      //
+
+      if (
+        !localStorage.getItem("Authenticated") &&
+        (await userAuthentication(provider))
+      ) {
         setAuthentication(true);
         // To reconnect user after page refresh if already authenticated
         if (!localStorage.getItem("Authenticated")) {
           localStorage.setItem("Authenticated", "true");
         }
+      } else if (localStorage.getItem("Authenticated")) {
+        setAuthentication(true);
       }
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      setProvider(provider);
+
+      //
     } else {
       // TODO alert "need a wallet provider to be installed"
       console.log("wallet Provider is needed");
@@ -127,21 +127,31 @@ export async function connectWallet(
   } catch (error: any) {
     // if the route require authentication && user decline connection
     // redirect to home page
+    console.log("here");
     if (Router.asPath.match(restrictedRoutes) && error?.code !== -32002) {
       Router.push("/");
     }
     console.log(error);
   }
+  setDisableSubmitBtn(false);
 }
 
 export async function checkIfConnected(
   setWalletAddress: Function,
   setProvider: Function,
-  setAuthentication: Function
+  setAuthentication: Function,
+  setDisableSubmitBtn: Function,
+  state: any
 ) {
   const accounts = await window.ethereum.request({ method: "eth_accounts" });
-  if (accounts > 0) {
-    connectWallet(setWalletAddress, setProvider, setAuthentication);
+  if (accounts > 0 && localStorage.getItem("Authenticated")) {
+    connectWallet(
+      setWalletAddress,
+      setProvider,
+      setAuthentication,
+      setDisableSubmitBtn,
+      state
+    );
     return true;
   }
   logout(setAuthentication, setProvider, setWalletAddress);

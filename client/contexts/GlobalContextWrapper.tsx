@@ -13,6 +13,8 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const [isCPaletteOpen, setCPaletteOpen] = useState<boolean>(false);
   // for user auth
   const [isAuthenticated, setAuthentication] = useState<boolean>(false);
+  // for user auth
+  const [isSubmitBtnDisabled, setDisableSubmitBtn] = useState<boolean>(false);
   // web3 support
   const [provider, setProvider] = useState(null);
   const [walletAddress, setWalletAddress]: any = useState("");
@@ -27,11 +29,31 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // on page refresh To auto connect wallet on authentication required routes
     if (router.asPath.match(restrictedRoutes)) {
-      connectWallet(setWalletAddress, setProvider, setAuthentication);
+      connectWallet(
+        setWalletAddress,
+        setProvider,
+        setAuthentication,
+        setDisableSubmitBtn,
+        {
+          walletAddress,
+          provider,
+          isAuthenticated,
+        }
+      );
     }
 
     // Metamask accountsChanged event
-    onWalletAddressChange(setWalletAddress, setProvider, setAuthentication);
+    onWalletAddressChange(
+      setWalletAddress,
+      setProvider,
+      setAuthentication,
+      setDisableSubmitBtn,
+      {
+        walletAddress,
+        provider,
+        isAuthenticated,
+      }
+    );
   }, []);
 
   return (
@@ -40,7 +62,13 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
         setAuthentication,
         setProvider,
         setWalletAddress,
-        state: { walletAddress, provider, isAuthenticated },
+        setDisableSubmitBtn,
+        state: {
+          walletAddress,
+          provider,
+          isAuthenticated,
+          isSubmitBtnDisabled,
+        },
       }}
     >
       <UserSettingsContext.Provider

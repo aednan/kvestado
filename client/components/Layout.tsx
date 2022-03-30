@@ -22,18 +22,35 @@ export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
-  const { setWalletAddress, setProvider, setAuthentication, state } =
-    useContext(AuthContext);
+  const {
+    setWalletAddress,
+    setProvider,
+    setAuthentication,
+    setDisableSubmitBtn,
+    state,
+  } = useContext(AuthContext);
 
   useEffect(() => {
     // after refresh: Auto connects to the wallet if the user is already connected
-    checkIfConnected(setWalletAddress, setProvider, setAuthentication);
+    checkIfConnected(
+      setWalletAddress,
+      setProvider,
+      setAuthentication,
+      setDisableSubmitBtn,
+      state
+    );
 
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
       // To auto connect wallet on authentication required routes
 
       if (url.match(restrictedRoutes)) {
-        connectWallet(setWalletAddress, setProvider, setAuthentication);
+        connectWallet(
+          setWalletAddress,
+          setProvider,
+          setAuthentication,
+          setDisableSubmitBtn,
+          state
+        );
       }
       // console.log(
       //   `App is changing to ${url} ${

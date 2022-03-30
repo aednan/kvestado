@@ -64,8 +64,13 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const userSettingsContext = useContext(UserSettingsContext);
-  const { setWalletAddress, setProvider, setAuthentication, state } =
-    useContext(AuthContext);
+  const {
+    setWalletAddress,
+    setProvider,
+    setAuthentication,
+    setDisableSubmitBtn,
+    state,
+  } = useContext(AuthContext);
 
   return (
     <Disclosure
@@ -233,13 +238,17 @@ export default function Navbar() {
                             </div>
                           ) : (
                             <span
-                              onClick={async () =>
-                                await connectWallet(
-                                  setWalletAddress,
-                                  setProvider,
-                                  setAuthentication
-                                )
-                              }
+                              onClick={async () => {
+                                if (!state.isSubmitBtnDisabled) {
+                                  await connectWallet(
+                                    setWalletAddress,
+                                    setProvider,
+                                    setAuthentication,
+                                    setDisableSubmitBtn,
+                                    state
+                                  );
+                                }
+                              }}
                               className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
                             >
                               Connect Wallet
@@ -253,13 +262,17 @@ export default function Navbar() {
                 {!state.isAuthenticated && (
                   <MdOutlineAccountBalanceWallet
                     title="Connect Wallet"
-                    onClick={async () =>
-                      await connectWallet(
-                        setWalletAddress,
-                        setProvider,
-                        setAuthentication
-                      )
-                    }
+                    onClick={async () => {
+                      if (!state.isSubmitBtnDisabled) {
+                        await connectWallet(
+                          setWalletAddress,
+                          setProvider,
+                          setAuthentication,
+                          setDisableSubmitBtn,
+                          state
+                        );
+                      }
+                    }}
                     className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black"
                   />
                 )}
@@ -356,11 +369,14 @@ export default function Navbar() {
                   {!state.isAuthenticated && (
                     <div className="  mb-3 flex justify-center ">
                       <button
+                        disabled={!state.isSubmitBtnDisabled}
                         onClick={async () =>
                           await connectWallet(
                             setWalletAddress,
                             setProvider,
-                            setAuthentication
+                            setAuthentication,
+                            setDisableSubmitBtn,
+                            state
                           )
                         }
                         className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold"

@@ -76,7 +76,7 @@ public class ECSignatureVerificationService {
 
 
     public static String generateChallengeMessage(){
-        return UUID.randomUUID().toString();
+        return "K" + UUID.randomUUID().toString();
     }
 
 }

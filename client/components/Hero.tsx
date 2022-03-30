@@ -7,8 +7,13 @@ import { connectWallet, userAuthentication } from "../services/Web3Service";
 type Props = {};
 
 export default function Hero({}: Props) {
-  const { setWalletAddress, setProvider, setAuthentication, state } =
-    useContext(AuthContext);
+  const {
+    setWalletAddress,
+    setProvider,
+    setAuthentication,
+    setDisableSubmitBtn,
+    state,
+  } = useContext(AuthContext);
 
   return (
     <div className=" relative flex h-full w-full justify-evenly py-16 ">
@@ -36,13 +41,17 @@ export default function Hero({}: Props) {
                 </Link>
               ) : (
                 <span
-                  onClick={async () =>
-                    await connectWallet(
-                      setWalletAddress,
-                      setProvider,
-                      setAuthentication
-                    )
-                  }
+                  onClick={async () => {
+                    if (!state.isSubmitBtnDisabled) {
+                      await connectWallet(
+                        setWalletAddress,
+                        setProvider,
+                        setAuthentication,
+                        setDisableSubmitBtn,
+                        state
+                      );
+                    }
+                  }}
                   className="cursor-pointer font-roboto font-bold text-white transition-transform hover:scale-105"
                 >
                   Connect Wallet

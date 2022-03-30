@@ -8,29 +8,22 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class MainController {
 
     @Autowired
     CustomUserDetailsService customUserDetailsService;
 
-//    @PostMapping("/join")
-//    public ResponseEntity<String> join(
-//            @RequestBody(required = true) String walletAddress
-//    ){
-//        if (walletAddress == null
-//                || walletAddress.isBlank()
-//                || walletAddress.isEmpty()){
-//            return ResponseEntity.badRequest().body("missing_walletAddress_value");
-//        }
-//
-//        if(customUserDetailsService.userExists(walletAddress))
-//            return ResponseEntity.badRequest().body("user_exist");
-//
-//        customUserDetailsService.createUser(walletAddress);
-//
-//        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping("/login")
+    public ResponseEntity<String> successResponse(){
+        return ResponseEntity.ok().build();
+    }
+
+//    @PostMapping("/")
+//    public ResponseEntity<String> sucsResponse(){
+//        return ResponseEntity.ok("12345");
 //    }
+
 
     @GetMapping("/request_challenge")
     public ResponseEntity<String> challengeRequest(@RequestParam(required = true, name = "wallet_address") String walletAddress){

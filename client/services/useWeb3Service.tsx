@@ -42,9 +42,18 @@ export const useWeb3Service = (props?: Props) => {
         // user authenticated
         // TODO: authentication should be done also in the backend
         // if user doesn't exist, account will be created with the wallet address
-        console.log(true);
-        console.log(challenge);
-        console.log(signedMessage);
+        // console.log(true);
+        // console.log(challenge);
+        // console.log(signedMessage);
+
+        await login(
+          "http://localhost:8080/login",
+          signerAddress,
+          signedMessage
+        );
+        // const response = await axios.get("http://localhost:8080/");
+        // console.log(response);
+
         return true;
       }
     }
@@ -59,12 +68,18 @@ export const useWeb3Service = (props?: Props) => {
     return response.data;
   }
 
-  // async function login(url: string, walletAddress: string, signedMessage: string) {
-  //   const response = await axios.post(url, {
-  //     wallet_address: walletAddress,
-  //   });
-  //   return response.data;
-  // }
+  async function login(
+    url: string,
+    walletAddress: string,
+    signedMessage: string
+  ) {
+    const response = await axios.post(url, null, {
+      headers: {
+        Authorization: `Basic ${btoa(walletAddress + ":" + signedMessage)}`,
+      },
+    });
+    return response.data;
+  }
 
   // Metamask events, accounts
   async function onWalletAddressChange() {

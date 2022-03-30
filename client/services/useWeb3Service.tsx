@@ -31,7 +31,6 @@ export const useWeb3Service = (props?: Props) => {
       "http://localhost:8080/request_challenge",
       signerAddress
     );
-
     if (challenge !== "") {
       signedMessage = await window.ethereum.request({
         method: "personal_sign",
@@ -70,12 +69,13 @@ export const useWeb3Service = (props?: Props) => {
   // Metamask events, accounts
   async function onWalletAddressChange() {
     window.ethereum.on("accountsChanged", (accounts: any) => {
-      if (accounts.length > 0) {
-        logout();
-        connectWallet();
-      } else {
-        logout();
-      }
+      // console.log(state.walletAddress);
+      // if (accounts.length > 0) {
+      //   logout();
+      //   connectWallet();
+      // } else {
+      logout();
+      // }
     });
   }
   // networkId

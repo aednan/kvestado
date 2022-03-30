@@ -2,18 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import { connectWallet, userAuthentication } from "../services/Web3Service";
+import { useWeb3Service } from "../services/useWeb3Service";
 
 type Props = {};
 
 export default function Hero({}: Props) {
-  const {
-    setWalletAddress,
-    setProvider,
-    setAuthentication,
-    setDisableSubmitBtn,
-    state,
-  } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
+
+  const { connectWallet, userAuthentication } = useWeb3Service();
 
   return (
     <div className=" relative flex h-full w-full justify-evenly py-16 ">
@@ -43,13 +39,7 @@ export default function Hero({}: Props) {
                 <span
                   onClick={async () => {
                     if (!state.isSubmitBtnDisabled) {
-                      await connectWallet(
-                        setWalletAddress,
-                        setProvider,
-                        setAuthentication,
-                        setDisableSubmitBtn,
-                        state
-                      );
+                      await connectWallet();
                     }
                   }}
                   className="cursor-pointer font-roboto font-bold text-white transition-transform hover:scale-105"

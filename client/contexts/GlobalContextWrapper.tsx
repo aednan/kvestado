@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
-import {
-  connectWallet,
-  onWalletAddressChange,
-  restrictedRoutes,
-} from "../services/Web3Service";
+import { useWeb3Service } from "../services/useWeb3Service";
+// import {
+//   connectWallet,
+//   onWalletAddressChange,
+//   restrictedRoutes,
+// } from "../services/Web3Service";
 import AuthContext from "./AuthContext";
 import UserSettingsContext from "./UserSettingsContext";
 
@@ -19,6 +20,9 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const [provider, setProvider] = useState(null);
   const [walletAddress, setWalletAddress]: any = useState("");
 
+  const { connectWallet, onWalletAddressChange, restrictedRoutes } =
+    useWeb3Service();
+
   // Night mode state
   // TODO: to store the preferred settings theme mode in a database to be send back in a cookie or JWT token
   // if user is registered
@@ -30,34 +34,7 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
     // on page refresh To auto connect wallet on authentication required routes
     if (router.asPath.match(restrictedRoutes) && !isSubmitBtnDisabled) {
       // setDisableSubmitBtn(true);
-      connectWallet(
-        setWalletAddress,
-        setProvider,
-        setAuthentication,
-        setDisableSubmitBtn,
-        {
-          walletAddress,
-          provider,
-          isAuthenticated,
-          isSubmitBtnDisabled,
-        }
-      );
-    }
-
-    // Metamask accountsChanged event
-    if (!isSubmitBtnDisabled) {
-      onWalletAddressChange(
-        setWalletAddress,
-        setProvider,
-        setAuthentication,
-        setDisableSubmitBtn,
-        {
-          walletAddress,
-          provider,
-          isAuthenticated,
-          isSubmitBtnDisabled,
-        }
-      );
+      connectWallet();
     }
   }, []);
 

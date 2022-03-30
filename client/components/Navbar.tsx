@@ -23,8 +23,8 @@ import "../styles/Navbar.module.css";
 import PopoverComponent from "./PopoverComponent";
 import UserSettingsContext from "../contexts/UserSettingsContext";
 import Link from "next/link";
-import { connectWallet, logout } from "../services/Web3Service";
 import AuthContext from "../contexts/AuthContext";
+import { useWeb3Service } from "../services/useWeb3Service";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
@@ -64,13 +64,9 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const userSettingsContext = useContext(UserSettingsContext);
-  const {
-    setWalletAddress,
-    setProvider,
-    setAuthentication,
-    setDisableSubmitBtn,
-    state,
-  } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
+
+  const { connectWallet, logout } = useWeb3Service();
 
   return (
     <Disclosure
@@ -224,11 +220,7 @@ export default function Navbar() {
                             <div
                               className=" group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100"
                               onClick={() => {
-                                logout(
-                                  setAuthentication,
-                                  setProvider,
-                                  setWalletAddress
-                                );
+                                logout();
                               }}
                             >
                               <MdLogout className="my-auto  justify-center align-middle  text-xl  text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />
@@ -240,13 +232,7 @@ export default function Navbar() {
                             <span
                               onClick={async () => {
                                 if (!state.isSubmitBtnDisabled) {
-                                  await connectWallet(
-                                    setWalletAddress,
-                                    setProvider,
-                                    setAuthentication,
-                                    setDisableSubmitBtn,
-                                    state
-                                  );
+                                  await connectWallet();
                                 }
                               }}
                               className="font-mono block cursor-pointer px-4 py-2 text-center text-base font-bold text-gray-700 hover:bg-gray-100"
@@ -264,13 +250,7 @@ export default function Navbar() {
                     title="Connect Wallet"
                     onClick={async () => {
                       if (!state.isSubmitBtnDisabled) {
-                        await connectWallet(
-                          setWalletAddress,
-                          setProvider,
-                          setAuthentication,
-                          setDisableSubmitBtn,
-                          state
-                        );
+                        await connectWallet();
                       }
                     }}
                     className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black"
@@ -370,15 +350,7 @@ export default function Navbar() {
                     <div className="  mb-3 flex justify-center ">
                       <button
                         disabled={!state.isSubmitBtnDisabled}
-                        onClick={async () =>
-                          await connectWallet(
-                            setWalletAddress,
-                            setProvider,
-                            setAuthentication,
-                            setDisableSubmitBtn,
-                            state
-                          )
-                        }
+                        onClick={async () => await connectWallet()}
                         className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold"
                       >
                         Connect Wallet

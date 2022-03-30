@@ -11,49 +11,35 @@ import Footer from "./Footer";
 import { ImSpinner2 } from "react-icons/im";
 // import Header from "./Header";
 import Navbar from "./Navbar";
-import {
-  checkIfConnected,
-  connectWallet,
-  restrictedRoutes,
-} from "../services/Web3Service";
 import AuthContext from "../contexts/AuthContext";
-import { stat } from "fs";
+import { useWeb3Service } from "../services/useWeb3Service";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
+  const { state } = useContext(AuthContext);
+
   const {
-    setWalletAddress,
-    setProvider,
-    setAuthentication,
-    setDisableSubmitBtn,
-    state,
-  } = useContext(AuthContext);
+    checkIfConnected,
+    onWalletAddressChange,
+    connectWallet,
+    restrictedRoutes,
+  } = useWeb3Service();
 
   useEffect(() => {
     if (!state.isSubmitBtnDisabled) {
       // after refresh: Auto connects to the wallet if the user is already connected
-      checkIfConnected(
-        setWalletAddress,
-        setProvider,
-        setAuthentication,
-        setDisableSubmitBtn,
-        state
-      );
+      checkIfConnected();
     }
+    // Metamask accountsChanged event
+    onWalletAddressChange();
 
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
       // To auto connect wallet on authentication required routes
 
       if (url.match(restrictedRoutes) && !state.isSubmitBtnDisabled) {
-        connectWallet(
-          setWalletAddress,
-          setProvider,
-          setAuthentication,
-          setDisableSubmitBtn,
-          state
-        );
+        connectWallet();
       }
 
       // while page is loading

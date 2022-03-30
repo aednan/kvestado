@@ -28,7 +28,8 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // on page refresh To auto connect wallet on authentication required routes
-    if (router.asPath.match(restrictedRoutes)) {
+    if (router.asPath.match(restrictedRoutes) && !isSubmitBtnDisabled) {
+      // setDisableSubmitBtn(true);
       connectWallet(
         setWalletAddress,
         setProvider,
@@ -38,22 +39,26 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
           walletAddress,
           provider,
           isAuthenticated,
+          isSubmitBtnDisabled,
         }
       );
     }
 
     // Metamask accountsChanged event
-    onWalletAddressChange(
-      setWalletAddress,
-      setProvider,
-      setAuthentication,
-      setDisableSubmitBtn,
-      {
-        walletAddress,
-        provider,
-        isAuthenticated,
-      }
-    );
+    if (!isSubmitBtnDisabled) {
+      onWalletAddressChange(
+        setWalletAddress,
+        setProvider,
+        setAuthentication,
+        setDisableSubmitBtn,
+        {
+          walletAddress,
+          provider,
+          isAuthenticated,
+          isSubmitBtnDisabled,
+        }
+      );
+    }
   }, []);
 
   return (

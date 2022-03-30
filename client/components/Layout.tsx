@@ -17,6 +17,7 @@ import {
   restrictedRoutes,
 } from "../services/Web3Service";
 import AuthContext from "../contexts/AuthContext";
+import { stat } from "fs";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
@@ -31,19 +32,21 @@ export default function Layout({ children }: { children: ReactNode }) {
   } = useContext(AuthContext);
 
   useEffect(() => {
-    // after refresh: Auto connects to the wallet if the user is already connected
-    checkIfConnected(
-      setWalletAddress,
-      setProvider,
-      setAuthentication,
-      setDisableSubmitBtn,
-      state
-    );
+    if (!state.isSubmitBtnDisabled) {
+      // after refresh: Auto connects to the wallet if the user is already connected
+      checkIfConnected(
+        setWalletAddress,
+        setProvider,
+        setAuthentication,
+        setDisableSubmitBtn,
+        state
+      );
+    }
 
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
       // To auto connect wallet on authentication required routes
 
-      if (url.match(restrictedRoutes)) {
+      if (url.match(restrictedRoutes) && !state.isSubmitBtnDisabled) {
         connectWallet(
           setWalletAddress,
           setProvider,
@@ -52,11 +55,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           state
         );
       }
-      // console.log(
-      //   `App is changing to ${url} ${
-      //     shallow ? "with" : "without"
-      //   } shallow routing`
-      // );
 
       // while page is loading
       setLoaded(false);
@@ -72,22 +70,9 @@ export default function Layout({ children }: { children: ReactNode }) {
 
       // after page loaded
       setLoaded(true);
-      // console.log(
-      //   `page is loaded: ${url} ${shallow ? "with" : "without"} shallow routing`
-      // );
     };
     router.events.on("routeChangeStart", handleRouteChangeStart);
     router.events.on("routeChangeComplete", handleRouteChangeComplete);
-
-    // on route navigation only
-    // window scrolling is disabled. This resets the scrolling within the div with ref: divRef
-    // Router.events.on("routeChangeComplete", () => {
-    //   divRef.current?.scroll({
-    //     top: 0,
-    //     left: 0,
-    //     behavior: "smooth",
-    //   });
-    // });
 
     // If the component is unmounted, unsubscribe
     // from the event with the `off` method:

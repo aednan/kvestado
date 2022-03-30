@@ -20,12 +20,10 @@ export async function userAuthentication(provider: any) {
   );
 
   if (challenge !== "") {
-    // signedMessage = await window.ethereum.request({
-    //   method: "personal_sign",
-    //   params: [challenge, signerAddress],
-    // });
-
-    signedMessage = await provider.getSigner().signMessage(challenge);
+    signedMessage = await window.ethereum.request({
+      method: "personal_sign",
+      params: [challenge, signerAddress],
+    });
     if (
       signerAddress === ethers.utils.verifyMessage(challenge, signedMessage)
     ) {
@@ -64,6 +62,7 @@ export async function onWalletAddressChange(
   state: any
 ) {
   window.ethereum.on("accountsChanged", (accounts: any) => {
+    logout(setAuthentication, setProvider, setWalletAddress);
     if (accounts.length > 0) {
       // setWalletAddress(accounts[0]);
       connectWallet(
@@ -73,8 +72,6 @@ export async function onWalletAddressChange(
         setDisableSubmitBtn,
         state
       );
-    } else {
-      logout(setAuthentication, setProvider, setWalletAddress);
     }
   });
 }
@@ -106,14 +103,14 @@ export async function connectWallet(
       }
       //
 
-      if (
-        !localStorage.getItem("Authenticated") &&
-        (await userAuthentication(provider))
-      ) {
-        setAuthentication(true);
-        // To reconnect user after page refresh if already authenticated
-        if (!localStorage.getItem("Authenticated")) {
-          localStorage.setItem("Authenticated", "true");
+      if (!localStorage.getItem("Authenticated")) {
+        const auth = await userAuthentication(provider);
+        if (auth === true) {
+          setAuthentication(true);
+          // To reconnect user after page refresh if already authenticated
+          if (!localStorage.getItem("Authenticated")) {
+            localStorage.setItem("Authenticated", "true");
+          }
         }
       } else if (localStorage.getItem("Authenticated")) {
         setAuthentication(true);
@@ -127,7 +124,7 @@ export async function connectWallet(
   } catch (error: any) {
     // if the route require authentication && user decline connection
     // redirect to home page
-    console.log("here");
+
     if (Router.asPath.match(restrictedRoutes) && error?.code !== -32002) {
       Router.push("/");
     }

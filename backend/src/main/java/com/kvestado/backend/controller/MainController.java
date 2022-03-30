@@ -34,15 +34,18 @@ public class MainController {
 
     @GetMapping("/request_challenge")
     public ResponseEntity<String> challengeRequest(@RequestParam(required = true, name = "wallet_address") String walletAddress){
+      String challenge = "";
         if (walletAddress == null
                 || walletAddress.isBlank()
                 || walletAddress.isEmpty()){
             return ResponseEntity.badRequest().body("missing_walletAddress_value");
         }
        try {
-           return ResponseEntity.ok(customUserDetailsService.requestChallengeMessage(walletAddress));
+           challenge = customUserDetailsService.requestChallengeMessage(walletAddress);
+           return ResponseEntity.ok(challenge);
        }catch (BadCredentialsException ex){
-           return ResponseEntity.ok(customUserDetailsService.createUser(walletAddress));
+           challenge = customUserDetailsService.createUser(walletAddress);
+           return ResponseEntity.ok(challenge);
        }catch (Exception e){
            return ResponseEntity.badRequest().body("Please try again later");
        }

@@ -28,7 +28,9 @@ public class CustomCORSFilter extends OncePerRequestFilter {
             response.setHeader("Access-Control-Allow-Origin", request.getHeader(HttpHeaders.ORIGIN));
             response.setHeader("Access-Control-Allow-Methods", "*");
             response.setHeader("Access-Control-Max-Age", "3600");
-            response.setHeader("Access-Control-Allow-Headers", "*");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Allow-Headers", "authorization, x-xsrf-token");
+//            response.setHeader("Access-Control-Allow-Headers", "*");
         }
         if (request.getMethod().equalsIgnoreCase(HttpMethod.OPTIONS.toString())) {
             response.setStatus(HttpServletResponse.SC_OK);

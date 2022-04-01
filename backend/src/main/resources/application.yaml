@@ -8,3 +8,15 @@ spring:
     database-platform: "org.hibernate.dialect.PostgreSQLDialect"
     hibernate:
       ddl-auto: "update"
+
+
+server:
+  servlet:
+    session:
+      cookie:
+        name: KVESTADOSESSIONID
+        http-only: true
+        secure: true
+        same-site: STRICT
+#        path: /
+#        max-age: 30M

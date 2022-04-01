@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @EnableWebSecurity
@@ -19,6 +22,7 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
         http.httpBasic().and().authenticationProvider(authenticationProvider)
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
@@ -26,9 +30,17 @@ public class SecurityConfiguration {
                                 .anyRequest().authenticated()
                 )
                 .cors()
-                .and().csrf().disable()
-//                .ignoringAntMatchers("/request_challenge").and()
-                .logout().logoutUrl("/logout");
+                .and().csrf()
+                .csrfTokenRepository(cookieCsrfTokenRepository())
+                .ignoringAntMatchers("/login")
+                .and()
+                .logout( logout -> {
+                    logout.logoutUrl("/logout")
+                            .logoutSuccessHandler((request, response, authentication) -> {
+                                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                            });
+                });
+
         return http.build();
     }
 
@@ -42,5 +54,12 @@ public class SecurityConfiguration {
 //        return NoOpPasswordEncoder.getInstance();
 //    }
 
-
+    @Bean
+    CookieCsrfTokenRepository cookieCsrfTokenRepository(){
+        CookieCsrfTokenRepository cookieCsrfTokenRepository = new CookieCsrfTokenRepository();
+        cookieCsrfTokenRepository.setCookieHttpOnly(false);
+        cookieCsrfTokenRepository.setCookieMaxAge(-1);
+        cookieCsrfTokenRepository.setSecure(true);
+        return cookieCsrfTokenRepository;
+    }
 }

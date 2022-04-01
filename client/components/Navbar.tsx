@@ -219,8 +219,8 @@ export default function Navbar() {
                           {state.isAuthenticated ? (
                             <div
                               className=" group flex space-x-3 px-4 align-middle hover:cursor-pointer  hover:bg-gray-100"
-                              onClick={() => {
-                                logout();
+                              onClick={async () => {
+                                await logout();
                               }}
                             >
                               <MdLogout className="my-auto  justify-center align-middle  text-xl  text-slate-500 group-hover:bg-gray-100  group-hover:text-gray-700" />

@@ -5,6 +5,7 @@ import axios from "axios";
 import AuthContext from "../contexts/AuthContext";
 declare var window: any;
 const restrictedRoutes = "^/user/.*|^/campaigns/create$";
+axios.defaults.withCredentials = true;
 
 type Props = {};
 
@@ -44,15 +45,17 @@ export const useWeb3Service = (props?: Props) => {
         // if user doesn't exist, account will be created with the wallet address
         // console.log(true);
         // console.log(challenge);
-        // console.log(signedMessage);
+        console.log(signedMessage);
 
         await login(
           "http://localhost:8080/login",
           signerAddress,
           signedMessage
         );
-        // const response = await axios.get("http://localhost:8080/");
-        // console.log(response);
+        const response = await axios.get("http://localhost:8080/", {
+          withCredentials: true,
+        });
+        console.log(response);
 
         return true;
       }
@@ -77,6 +80,7 @@ export const useWeb3Service = (props?: Props) => {
       headers: {
         Authorization: `Basic ${btoa(walletAddress + ":" + signedMessage)}`,
       },
+      withCredentials: true,
     });
     return response.data;
   }
@@ -89,7 +93,13 @@ export const useWeb3Service = (props?: Props) => {
       //   logout();
       //   connectWallet();
       // } else {
-      logout();
+
+      if (localStorage.getItem("Authenticated")) {
+        const logout = async () => {
+          await logout();
+        };
+      }
+
       // }
     });
   }
@@ -155,25 +165,37 @@ export const useWeb3Service = (props?: Props) => {
       connectWallet();
       return true;
     }
-    logout();
+    if (localStorage.getItem("Authenticated")) {
+      await logout();
+    }
     return false;
   }
 
-  function logout() {
-    // reset state
-    setAuthentication(false);
-    setProvider({});
-    setWalletAddress("");
-    setDisableSubmitBtn(false);
-    // clear cookies or jwt token
+  async function logout() {
+    try {
+      // clear cookies or jwt token
+      await backendLogout("http://localhost:8080/logout");
 
-    // redirect user to home page only when route required authentication
-    if (route.asPath.match(restrictedRoutes)) {
-      route.push("/");
+      // reset state
+      setAuthentication(false);
+      setProvider({});
+      setWalletAddress("");
+      setDisableSubmitBtn(false);
+
+      // redirect user to home page only when route required authentication
+      if (route.asPath.match(restrictedRoutes)) {
+        route.push("/");
+      }
+
+      // clear local storage authentication
+      localStorage.clear();
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    // clear local storage authentication
-    localStorage.clear();
+  async function backendLogout(url: string) {
+    await axios.post(url);
   }
 
   //**** */

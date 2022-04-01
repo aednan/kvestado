@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 public class MainController {
@@ -15,14 +17,15 @@ public class MainController {
     CustomUserDetailsService customUserDetailsService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> successResponse(){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> successResponse(HttpServletResponse response){
+        return ResponseEntity.noContent().build();
     }
 
-//    @PostMapping("/")
-//    public ResponseEntity<String> sucsResponse(){
-//        return ResponseEntity.ok("12345");
-//    }
+    // to be removed: only for testing
+    @GetMapping("/")
+    public ResponseEntity<String> testingRes(){
+        return ResponseEntity.ok("12345");
+    }
 
 
     @GetMapping("/request_challenge")

@@ -45,17 +45,16 @@ export const useWeb3Service = (props?: Props) => {
         // if user doesn't exist, account will be created with the wallet address
         // console.log(true);
         // console.log(challenge);
-        console.log(signedMessage);
+        // console.log(signedMessage);
 
-        await login(
+        await userAuthenticationPostTemplate(
           "http://localhost:8080/login",
-          signerAddress,
-          signedMessage
+          `Basic ${btoa(signerAddress + ":" + signedMessage)}`
         );
-        const response = await axios.get("http://localhost:8080/", {
+        const response = await axios.get("http://localhost:8080/userinfo", {
           withCredentials: true,
         });
-        console.log(response);
+        console.log(response.data);
 
         return true;
       }
@@ -71,20 +70,6 @@ export const useWeb3Service = (props?: Props) => {
     return response.data;
   }
 
-  async function login(
-    url: string,
-    walletAddress: string,
-    signedMessage: string
-  ) {
-    const response = await axios.post(url, null, {
-      headers: {
-        Authorization: `Basic ${btoa(walletAddress + ":" + signedMessage)}`,
-      },
-      withCredentials: true,
-    });
-    return response.data;
-  }
-
   // Metamask events, accounts
   async function onWalletAddressChange() {
     window.ethereum.on("accountsChanged", (accounts: any) => {
@@ -95,9 +80,7 @@ export const useWeb3Service = (props?: Props) => {
       // } else {
 
       if (localStorage.getItem("Authenticated")) {
-        const logout = async () => {
-          await logout();
-        };
+        logout();
       }
 
       // }
@@ -174,7 +157,8 @@ export const useWeb3Service = (props?: Props) => {
   async function logout() {
     try {
       // clear cookies or jwt token
-      await backendLogout("http://localhost:8080/logout");
+      // Authentication will be done using the cookie
+      await userAuthenticationPostTemplate("http://localhost:8080/logout", "");
 
       // reset state
       setAuthentication(false);
@@ -194,8 +178,39 @@ export const useWeb3Service = (props?: Props) => {
     }
   }
 
-  async function backendLogout(url: string) {
-    await axios.post(url);
+  // async function login(
+  //   url: string,
+  //   walletAddress: string,
+  //   signedMessage: string
+  // ) {
+  //   const response = await axios.post(url, null, {
+  //     headers: {
+  //       Authorization: `Basic ${btoa(walletAddress + ":" + signedMessage)}`,
+  //     },
+  //     withCredentials: true,
+  //   });
+  //   return response.data;
+  // }
+
+  // async function backendLogout(url: string) {
+  //   await axios.post(url, null, {
+  //     headers: {
+  //       Authorization: `Basic `,
+  //     },
+  //   });
+  // }
+
+  async function userAuthenticationPostTemplate(
+    url: string,
+    authorization: string
+  ) {
+    const response = await axios.post(url, null, {
+      headers: {
+        Authorization: authorization,
+      },
+      withCredentials: true,
+    });
+    return response.data;
   }
 
   //**** */

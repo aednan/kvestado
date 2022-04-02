@@ -24,7 +24,7 @@ import PopoverComponent from "./PopoverComponent";
 import UserSettingsContext from "../contexts/UserSettingsContext";
 import Link from "next/link";
 import AuthContext from "../contexts/AuthContext";
-import { useWeb3Service } from "../services/useWeb3Service";
+import useWeb3Service from "../services/hooks/useWeb3Service";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },

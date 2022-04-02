@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
-import { useWeb3Service } from "../services/useWeb3Service";
+import useWeb3Service from "../services/hooks/useWeb3Service";
 // import {
 //   connectWallet,
 //   onWalletAddressChange,

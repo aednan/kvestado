@@ -12,7 +12,7 @@ import { ImSpinner2 } from "react-icons/im";
 // import Header from "./Header";
 import Navbar from "./Navbar";
 import AuthContext from "../contexts/AuthContext";
-import { useWeb3Service } from "../services/useWeb3Service";
+import useWeb3Service from "../services/hooks/useWeb3Service";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);

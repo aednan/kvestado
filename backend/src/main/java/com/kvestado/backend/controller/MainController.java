@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000"}, methods = {RequestMethod.OPTIONS},
+@CrossOrigin(origins = {"http://localhost:8081"}, methods = {RequestMethod.OPTIONS},
         allowCredentials = "true", allowedHeaders = {"*"})
 public class MainController {
 

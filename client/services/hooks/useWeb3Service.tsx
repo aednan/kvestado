@@ -2,14 +2,20 @@ import { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import axios from "axios";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext from "../../contexts/AuthContext";
 declare var window: any;
 const restrictedRoutes = "^/user/.*|^/campaigns/create$";
 axios.defaults.withCredentials = true;
 
 type Props = {};
 
-export const useWeb3Service = (props?: Props) => {
+export default function useWeb3Service(props?: Props) {
+  const fetcher = async (url: string) => {
+    await axios.get(`${process.env.KVESTADO_API_URL}/${url}`, {
+      withCredentials: true,
+    });
+  };
+
   const {
     state,
     setAuthentication,
@@ -29,7 +35,7 @@ export const useWeb3Service = (props?: Props) => {
     let signedMessage: any = "";
 
     const challenge = await userRegistration(
-      "http://localhost:8080/request_challenge",
+      `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/request_challenge`,
       signerAddress
     );
     if (challenge !== "") {
@@ -48,13 +54,24 @@ export const useWeb3Service = (props?: Props) => {
         // console.log(signedMessage);
 
         await userAuthenticationPostTemplate(
-          "http://localhost:8080/login",
+          "login",
           `Basic ${btoa(signerAddress + ":" + signedMessage)}`
         );
-        const response = await axios.get("http://localhost:8080/userinfo", {
-          withCredentials: true,
-        });
-        console.log(response.data);
+        // const response = await axios.get("http://localhost:8080/userinfo", {
+        //   withCredentials: true,
+        // });
+
+        // const { data, error } = useSWR(
+        //   "http://localhost:8080/userinfo",
+        //   fetcher
+        // );
+        // console.log(data);
+
+        // const { data, error } = useSWR(
+        //   "http://localhost:8080/userinfo",
+        //   fetcher
+        // );
+        // console.log(data);
 
         return true;
       }
@@ -158,24 +175,23 @@ export const useWeb3Service = (props?: Props) => {
     try {
       // clear cookies or jwt token
       // Authentication will be done using the cookie
-      await userAuthenticationPostTemplate("http://localhost:8080/logout", "");
-
-      // reset state
-      setAuthentication(false);
-      setProvider({});
-      setWalletAddress("");
-      setDisableSubmitBtn(false);
-
-      // redirect user to home page only when route required authentication
-      if (route.asPath.match(restrictedRoutes)) {
-        route.push("/");
-      }
-
-      // clear local storage authentication
-      localStorage.clear();
+      await userAuthenticationPostTemplate("logout", "");
     } catch (error) {
       console.log(error);
     }
+    // reset state
+    setAuthentication(false);
+    setProvider({});
+    setWalletAddress("");
+    setDisableSubmitBtn(false);
+
+    // redirect user to home page only when route required authentication
+    if (route.asPath.match(restrictedRoutes)) {
+      route.replace("/");
+    }
+
+    // clear local storage authentication
+    localStorage.clear();
   }
 
   // async function login(
@@ -204,12 +220,16 @@ export const useWeb3Service = (props?: Props) => {
     url: string,
     authorization: string
   ) {
-    const response = await axios.post(url, null, {
-      headers: {
-        Authorization: authorization,
-      },
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${url}`,
+      null,
+      {
+        headers: {
+          Authorization: authorization,
+        },
+        withCredentials: true,
+      }
+    );
     return response.data;
   }
 
@@ -222,6 +242,7 @@ export const useWeb3Service = (props?: Props) => {
   return {
     userRegistration,
     restrictedRoutes,
+    fetcher,
     logout,
     checkIfConnected,
     connectWallet,
@@ -229,4 +250,4 @@ export const useWeb3Service = (props?: Props) => {
     onWalletAddressChange,
     userAuthentication,
   };
-};
+}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import { useWeb3Service } from "../services/useWeb3Service";
+import useWeb3Service from "../services/hooks/useWeb3Service";
 
 type Props = {};
 

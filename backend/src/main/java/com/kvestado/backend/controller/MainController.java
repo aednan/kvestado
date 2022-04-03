@@ -1,15 +1,14 @@
 package com.kvestado.backend.controller;
 
-import com.kvestado.backend.dto.UserInfo;
 import com.kvestado.backend.service.CustomUserDetailsService;
+import com.kvestado.backend.service.ToolsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDate;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:8081"}, methods = {RequestMethod.OPTIONS},
@@ -50,6 +49,10 @@ public class MainController {
         }
     }
 
+    @GetMapping("/ik-auth")
+    public Map<String, String> IKAuth(){
+        return ToolsService.getAuthenticatedParams(null,0,"private_Vc8NOKDFqQ3W8oeU0fXN9LJ9Cpo=");
+    }
 
  }
 

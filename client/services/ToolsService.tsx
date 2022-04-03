@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function getAllArticles(r: any) {
   return r.keys().map((fileName: any) =>
     JSON.stringify({
@@ -17,3 +19,25 @@ export const checkEmail = (email: string) => {
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
+
+// imagekit post test, not finished
+// function te() {
+//   axios
+//     .post("https://upload.imagekit.io/api/v1/files/upload", null, {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//       },
+//       params: {
+//         file: null,
+//         publicKey: process.env.NEXT_PUBLIC_PUBLICKEY,
+//         signature: null,
+//         folder: "/kv",
+//       },
+//     })
+//     .then((res) => {
+//       console.log("TEST:", res.data);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }

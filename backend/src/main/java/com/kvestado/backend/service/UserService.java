@@ -2,7 +2,6 @@ package com.kvestado.backend.service;
 
 import com.kvestado.backend.dao.UProfileRepository;
 import com.kvestado.backend.dao.USettingsPreferenceRepository;
-import com.kvestado.backend.dao.UserRepository;
 import com.kvestado.backend.dto.UProfileDTO;
 import com.kvestado.backend.dto.UserInfo;
 import com.kvestado.backend.model.UProfile;
@@ -25,7 +24,7 @@ public class UserService {
 
     public void saveUserProfile(UProfileDTO profile, Authentication authentication) {
 
-        Optional<UProfile> uProfilePersistence = uProfileRepository.findById(profile.getUsername());
+        Optional<UProfile> uProfilePersistence = uProfileRepository.findByUser(new User(authentication.getName()));
         if (uProfilePersistence.isPresent()) {
             uProfilePersistence.get().setAbout(profile.getAbout());
             uProfilePersistence.get().setEmail(profile.getEmail().toLowerCase());

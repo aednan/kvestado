@@ -12,7 +12,7 @@ type Props = {};
 
 const settings = (props: Props) => {
   const { getRequest, postRequest } = useApiService();
-  const { data, mutate, error, loading } = useUser();
+  const { data, mutate, error, isValidating, loading } = useUser();
 
   //TODO: to be updated to path url
   const [photo, setPhoto]: any = useState(null);
@@ -72,7 +72,8 @@ const settings = (props: Props) => {
         about,
         pictureUrl: "/none",
       });
-      mutate(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/user/userinfo`);
+      // revalidate data after update
+      // mutate({ ...data, username, email, about });
       // console.log(data.email);
     } catch (error) {
       //
@@ -115,9 +116,9 @@ const settings = (props: Props) => {
 
   useEffect(() => {
     if (!loading) {
-      setUsername(data.username);
-      setAbout(data.about);
-      setEmail(data.email);
+      setUsername(data.username === undefined ? "" : data.username);
+      setAbout(data.about === undefined ? "" : data.about);
+      setEmail(data.email === undefined ? "" : data.email);
     }
   }, [data]);
 

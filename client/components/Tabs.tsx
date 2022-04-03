@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Tab } from "@headlessui/react";
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../services/ToolsService";
 
 export default function Tabs() {
   let [categories] = useState({

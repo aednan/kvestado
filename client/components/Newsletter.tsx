@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { MdMail } from "react-icons/md";
-import { checkEmail } from "../services/ToolsService";
+import { checkEmail, classNames } from "../services/ToolsService";
 
 type Props = {};
 
@@ -23,9 +23,6 @@ const Newsletter = (props: Props) => {
     }
   }, [email]);
 
-  function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
-  }
   return (
     <div className="flex h-full justify-evenly ">
       <form

@@ -346,9 +346,15 @@ export default function Navbar() {
                   {!state.isAuthenticated && (
                     <div className="  mb-3 flex justify-center ">
                       <button
-                        disabled={!state.isSubmitBtnDisabled}
-                        onClick={async () => await connectWallet()}
-                        className=" mx-5 h-14 w-full rounded-lg bg-orange-400 text-lg font-bold"
+                        onClick={async () => {
+                          if (!state.isSubmitBtnDisabled) {
+                            await connectWallet();
+                          }
+                        }}
+                        className=" 
+                        mx-5 h-14 w-full cursor-pointer rounded-md 
+                        border border-sky-800 bg-sky-700 px-7
+                        py-4 text-lg font-bold leading-none text-white hover:shadow-md"
                       >
                         Connect Wallet
                       </button>

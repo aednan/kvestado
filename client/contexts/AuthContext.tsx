@@ -1,7 +1,12 @@
 import React, { SetStateAction, useState } from "react";
 
 interface useStatePropsType {
-  state: any;
+  state: {
+    isAuthenticated: boolean;
+    provider: any;
+    walletAddress: string;
+    isSubmitBtnDisabled: boolean;
+  };
   setAuthentication: Function;
   setProvider: Function;
   setWalletAddress: Function;

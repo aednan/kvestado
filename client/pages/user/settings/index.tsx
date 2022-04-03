@@ -1,14 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import AuthContext from "../../../contexts/AuthContext";
+import useApiService from "../../../services/hooks/useApiService";
+import useUser from "../../../services/hooks/useUser";
+import { checkEmail } from "../../../services/ToolsService";
 
 type Props = {};
 
 // TODO: profile settings should be showing only when the user, connected the wallet
 
 const settings = (props: Props) => {
+  const { getRequest, postRequest } = useApiService();
+  const { data, mutate, error, loading } = useUser();
+
   //TODO: to be updated to path url
   const [photo, setPhoto]: any = useState(null);
+  const [username, setUsername]: any = useState("");
+  // if validUsername and username matches, then no changes has been done
+  const [validUsername, setValidUsername]: any = useState({
+    is: false,
+    value: "",
+  });
+  const [validEmail, setValidEmail]: any = useState({
+    is: false,
+    value: "",
+  });
+  const [email, setEmail]: any = useState("");
+  const [about, setAbout]: any = useState("");
+
   const { state } = useContext(AuthContext);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -34,7 +54,74 @@ const settings = (props: Props) => {
     },
   });
 
-  return (
+  const saveToApi = () => {
+    if (!validUsername.is) {
+      // TO DO alert, username required
+      console.log("username is required");
+      return;
+    }
+    if (!validEmail.is) {
+      // TO DO alert, email required
+      console.log("email is required");
+      return;
+    }
+    try {
+      postRequest("user/profile", {
+        username,
+        email,
+        about,
+        pictureUrl: "/none",
+      });
+      mutate(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/user/userinfo`);
+      // console.log(data.email);
+    } catch (error) {
+      //
+    }
+  };
+
+  const handleUsernameChange = (e: any) => {
+    setUsername(e.target.value);
+    setValidUsername({ is: false, value: username });
+  };
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
+    setValidEmail({ is: false, value: email });
+  };
+  const handleUsernameValidation = async (e: any) => {
+    if (username !== validUsername.value || username === "") {
+      if (
+        username !== "" &&
+        (await getRequest("user/check_username", { username }))
+      ) {
+        setValidUsername({ is: true, value: username });
+        console.log("username is valid");
+      } else {
+        setValidUsername({ is: false, value: username });
+        console.log("username is invalid");
+      }
+    }
+  };
+  const handleEmailValidation = (e: any) => {
+    if (email !== validEmail.value || email === "") {
+      if (email !== "" && checkEmail(email)) {
+        setValidEmail({ is: true, value: email });
+        console.log("email is valid");
+      } else {
+        setValidEmail({ is: false, value: email });
+        console.log("email is invalid");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      setUsername(data.username);
+      setAbout(data.about);
+      setEmail(data.email);
+    }
+  }, [data]);
+
+  return !loading ? (
     <div className="my-16 flex justify-center">
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         <span className="mb-10 text-center font-roboto text-4xl font-black">
@@ -98,30 +185,40 @@ const settings = (props: Props) => {
 
         <div className=" mx-auto w-full max-w-md">
           <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Username
+            Username *
           </label>
+
           <input
+            value={username}
+            disabled={data.username ? true : false}
+            onChange={handleUsernameChange}
             className="
 h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
 placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
+focus:ring-0 focus:drop-shadow-md disabled:bg-slate-100
+lg:placeholder:text-lg
 "
-            placeholder="Enter username"
+            placeholder={
+              data.username === "" ? "Enter username" : data.username
+            }
           />
         </div>
         <div className=" mx-auto w-full max-w-md">
           <label className="mb-1 block pl-2 font-medium text-gray-700">
-            Email Address
+            Email Address *
           </label>
           <input
+            value={email === data.email ? "" : email}
+            onFocus={handleUsernameValidation}
+            onChange={handleEmailChange}
             className="
 h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
 placeholder:text-base placeholder:text-gray-400 focus:outline-none
 focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
 "
-            placeholder="Enter email"
+            placeholder={data.email ? data.email : "Enter email"}
           />
         </div>
         <div className=" mx-auto w-full max-w-md ">
@@ -129,6 +226,11 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             About
           </label>
           <textarea
+            value={about}
+            onFocus={handleEmailValidation}
+            onChange={(e: any) => {
+              setAbout(e.target.value);
+            }}
             className=" h-32 min-h-[4rem]
 w-full rounded-lg border  p-4  text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -156,11 +258,16 @@ text-base text-gray-400 drop-shadow-sm
           />
         </div>
 
-        <span className="mx-auto w-full max-w-[12rem] cursor-pointer select-none rounded-md border py-2 px-7 text-center font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+        <span
+          onClick={saveToApi}
+          className="mx-auto w-full max-w-[12rem] cursor-pointer select-none rounded-md border py-2 px-7 text-center font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
+        >
           Save changes
         </span>
       </div>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

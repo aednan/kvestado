@@ -42,6 +42,9 @@ public class User implements UserDetails, Serializable {
 
     public User() { }
 
+    public User(String walletAddress) {
+        this.walletAddress = walletAddress;
+    }
 
     public User(String walletAddress, String challengeMessage, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, List<UAuthority> authorities) {
         this.walletAddress = walletAddress;

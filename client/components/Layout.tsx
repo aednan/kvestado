@@ -8,11 +8,11 @@ import React, {
 } from "react";
 import CommandPalette from "./CommandPalette";
 import Footer from "./Footer";
-import { ImSpinner2 } from "react-icons/im";
 // import Header from "./Header";
 import Navbar from "./Navbar";
 import AuthContext from "../contexts/AuthContext";
 import useWeb3Service from "../services/hooks/useWeb3Service";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
@@ -70,9 +70,10 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return !loaded ||
     (router.asPath.match(restrictedRoutes) && !state.isAuthenticated) ? (
-    <div className="flex h-full min-h-screen w-full  bg-gray-100">
-      <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
-    </div>
+    // <div className="flex h-full min-h-screen w-full  bg-gray-100">
+    //   <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
+    // </div>
+    <LoadingSpinner />
   ) : (
     <div className="fixed z-0 h-full min-h-screen w-full">
       <CommandPalette />

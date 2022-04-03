@@ -1,5 +1,6 @@
 package com.kvestado.backend.controller;
 
+import com.kvestado.backend.dto.UserInfo;
 import com.kvestado.backend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:8081"}, methods = {RequestMethod.OPTIONS},
@@ -27,12 +29,6 @@ public class MainController {
     @CrossOrigin(methods = RequestMethod.POST)
     public void logout() {}
 
-    // to be removed: only for testing
-    @GetMapping("/")
-    @CrossOrigin(methods = RequestMethod.GET)
-    public ResponseEntity<String> testingRes() {
-        return ResponseEntity.ok("12345");
-    }
 
     @GetMapping("/request_challenge")
     @CrossOrigin(methods = RequestMethod.GET)
@@ -53,13 +49,6 @@ public class MainController {
             return ResponseEntity.badRequest().body("Please try again later");
         }
     }
-
-    @GetMapping("/userinfo")
-    @CrossOrigin(methods = RequestMethod.GET)
-    public ResponseEntity<String> userInfo(Authentication authentication) {
-        return ResponseEntity.ok().body(authentication.getName());
-    }
-
 
 
  }

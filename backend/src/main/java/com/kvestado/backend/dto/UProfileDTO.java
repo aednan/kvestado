@@ -1,42 +1,19 @@
-package com.kvestado.backend.model;
+package com.kvestado.backend.dto;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-public class UProfile {
+public class UProfileDTO {
 
-    // username is a placeholder instead of the wallet address
-    @Id
     private String username;
-    @Column(columnDefinition = "TEXT")
     private String email;
-    @Column(columnDefinition = "TEXT")
     private String about;
-    private LocalDate joined;
     private String pictureUrl;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    public UProfile() {
-    }
-
-    public UProfile(String username, String email, String about, LocalDate joined, String pictureUrl, User user) {
+    public UProfileDTO(String username, String email, String about, String pictureUrl) {
         this.username = username;
         this.email = email;
         this.about = about;
-        this.joined = joined;
         this.pictureUrl = pictureUrl;
-        this.user = user;
-    }
-
-    public LocalDate getJoined() {
-        return joined;
-    }
-
-    public void setJoined(LocalDate joined) {
-        this.joined = joined;
     }
 
     public String getUsername() {
@@ -69,13 +46,5 @@ public class UProfile {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

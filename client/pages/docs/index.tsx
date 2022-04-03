@@ -1,6 +1,6 @@
 import React from "react";
 import { ArticleCard } from "../../components/MDXArticle/ArticleCard";
-import { getAllArticles } from "../../services/GetAllArticles";
+import { getAllArticles } from "../../services/ToolsService";
 
 // to display all articles
 

@@ -1,45 +1,36 @@
-package com.kvestado.backend.model;
+package com.kvestado.backend.dto;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-
-@Entity
-public class UProfile {
-
-    // username is a placeholder instead of the wallet address
-    @Id
+public class UserInfo {
     private String username;
-    @Column(columnDefinition = "TEXT")
     private String email;
-    @Column(columnDefinition = "TEXT")
     private String about;
-    private LocalDate joined;
     private String pictureUrl;
+    private String joined;
+    private boolean nightMode;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    public UProfile() {
+    public UserInfo() {
     }
 
-    public UProfile(String username, String email, String about, LocalDate joined, String pictureUrl, User user) {
+    public UserInfo(String username, String email, String about, String pictureUrl, String joined, boolean nightMode) {
         this.username = username;
         this.email = email;
         this.about = about;
-        this.joined = joined;
         this.pictureUrl = pictureUrl;
-        this.user = user;
+        this.joined = joined;
+        this.nightMode = nightMode;
     }
 
-    public LocalDate getJoined() {
+    public String getJoined() {
+        if(joined == null) return "";
         return joined;
     }
 
-    public void setJoined(LocalDate joined) {
+    public void setJoined(String joined) {
         this.joined = joined;
     }
 
     public String getUsername() {
+        if(username == null) return "";
         return username;
     }
 
@@ -48,6 +39,7 @@ public class UProfile {
     }
 
     public String getEmail() {
+        if(email == null) return "";
         return email;
     }
 
@@ -56,6 +48,7 @@ public class UProfile {
     }
 
     public String getAbout() {
+        if(about == null) return "";
         return about;
     }
 
@@ -64,6 +57,7 @@ public class UProfile {
     }
 
     public String getPictureUrl() {
+        if(pictureUrl == null) return "";
         return pictureUrl;
     }
 
@@ -71,11 +65,11 @@ public class UProfile {
         this.pictureUrl = pictureUrl;
     }
 
-    public User getUser() {
-        return user;
+    public boolean isNightMode() {
+        return nightMode;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setNightMode(boolean nightMode) {
+        this.nightMode = nightMode;
     }
 }

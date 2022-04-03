@@ -1,7 +1,5 @@
-import { Fragment } from "react";
 import { BsCalendar3 } from "react-icons/bs";
 import { HiPencilAlt } from "react-icons/hi";
-import { Menu, Transition } from "@headlessui/react";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -9,11 +7,15 @@ function classNames(...classes: any) {
 
 import React from "react";
 import Link from "next/link";
+import useUser from "../services/hooks/useUser";
+import LoadingSpinner from "./LoadingSpinner";
 
 type Props = {};
 
 const Profile = (props: Props) => {
-  return (
+  const { data, mutate, error, loading } = useUser();
+
+  return !loading ? (
     <div className="mx-auto mt-16 w-11/12 rounded-t-xl border-2 p-10 sm:mt-32 ">
       <div className="absolute top-3 right-[36%] h-28 w-28 justify-center overflow-hidden rounded-full border-2  bg-white align-middle  sm:top-12 sm:right-[40%] sm:h-36 sm:w-36 xl:right-[45%] ">
         <img
@@ -26,7 +28,7 @@ const Profile = (props: Props) => {
         <div className="items-center lg:flex lg:items-center lg:justify-between">
           <div className="w-full min-w-0 flex-1 ">
             <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl">
-              Username placeholder
+              {data.username}
             </h2>
             <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
               <div className="mt-2 flex items-center text-sm text-gray-500">
@@ -34,7 +36,7 @@ const Profile = (props: Props) => {
                   className="mr-1.5 h-4 w-4 flex-shrink-0 text-gray-400"
                   aria-hidden="true"
                 />
-                Joined {"January 2019"}
+                Joined {data.joined}
               </div>
             </div>
           </div>
@@ -56,17 +58,13 @@ const Profile = (props: Props) => {
           </div>
         </div>
 
-        <span className=" font-roboto font-medium">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+        <span className=" max-h-52 overflow-x-hidden pr-3  font-roboto font-medium">
+          {data.about}
         </span>
       </div>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

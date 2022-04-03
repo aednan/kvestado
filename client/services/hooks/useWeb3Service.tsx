@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
+import { mutate } from "swr";
 declare var window: any;
 const restrictedRoutes = "^/user/.*|^/campaigns/create$";
 axios.defaults.withCredentials = true;
@@ -11,9 +12,20 @@ type Props = {};
 
 export default function useWeb3Service(props?: Props) {
   const fetcher = async (url: string) => {
-    await axios.get(`${process.env.KVESTADO_API_URL}/${url}`, {
-      withCredentials: true,
-    });
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${url}`,
+        {
+          // headers: {
+          //   Authorization: "",
+          // },
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   };
 
   const {
@@ -179,6 +191,9 @@ export default function useWeb3Service(props?: Props) {
     } catch (error) {
       console.log(error);
     }
+    // reset swr cache
+    // mutate(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/user/userinfo`);
+
     // reset state
     setAuthentication(false);
     setProvider({});

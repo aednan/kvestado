@@ -25,6 +25,7 @@ import UserSettingsContext from "../contexts/UserSettingsContext";
 import Link from "next/link";
 import AuthContext from "../contexts/AuthContext";
 import useWeb3Service from "../services/hooks/useWeb3Service";
+import { classNames } from "../services/ToolsService";
 
 const navigation = [
   //   { name: "Dashboard", href: "#", current: true },
@@ -57,10 +58,6 @@ const navigation = [
     mobileOnly: true,
   },
 ];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Navbar() {
   const userSettingsContext = useContext(UserSettingsContext);

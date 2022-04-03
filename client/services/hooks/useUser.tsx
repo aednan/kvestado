@@ -7,11 +7,13 @@ export default function useUser(props?: Props) {
   const { fetcher, logout } = useWeb3Service();
   const { data, mutate, isValidating, error } = useSWR(
     `user/userinfo`,
-    fetcher
-    // {
-    // revalidateOnFocus: false,
-    // refreshInterval: 1800000, revalidateOnReconnect: true } // 30 minutes, refreshInterval in milliseconds
-    // }
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: true,
+      revalidateOnReconnect: false,
+      // refreshInterval: 1800000, revalidateOnReconnect: true } // 30 minutes, refreshInterval in milliseconds
+    }
   );
 
   if (error && localStorage.getItem("Authenticated")) {

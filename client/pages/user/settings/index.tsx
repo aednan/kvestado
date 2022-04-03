@@ -1,10 +1,11 @@
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import AuthContext from "../../../contexts/AuthContext";
 import useApiService from "../../../services/hooks/useApiService";
 import useUser from "../../../services/hooks/useUser";
-import { checkEmail } from "../../../services/ToolsService";
+import { checkEmail, classNames } from "../../../services/ToolsService";
 
 type Props = {};
 
@@ -13,6 +14,8 @@ type Props = {};
 const settings = (props: Props) => {
   const { getRequest, postRequest } = useApiService();
   const { data, mutate, error, isValidating, loading } = useUser();
+
+  const route = useRouter();
 
   //TODO: to be updated to path url
   const [photo, setPhoto]: any = useState(null);
@@ -54,7 +57,7 @@ const settings = (props: Props) => {
     },
   });
 
-  const saveToApi = () => {
+  const saveToApi = async () => {
     if (!validUsername.is) {
       // TO DO alert, username required
       console.log("username is required");
@@ -88,7 +91,7 @@ const settings = (props: Props) => {
     setEmail(e.target.value);
     setValidEmail({ is: false, value: email });
   };
-  const handleUsernameValidation = async (e: any) => {
+  const handleUsernameValidation = async (e?: any) => {
     if (username !== validUsername.value || username === "") {
       if (
         username !== "" &&
@@ -102,10 +105,27 @@ const settings = (props: Props) => {
       }
     }
   };
-  const handleEmailValidation = (e: any) => {
+  const handleEmailValidation = (e?: any) => {
+    // console.log("Here 111");
+    // console.log(email);
+    // if (email === "") {
+    //   console.log("Here 222");
+    //   console.log(data.email);
+
+    //   setEmail(data.email);
+    // }
+    // console.log(email);
     if (email !== validEmail.value || email === "") {
       if (email !== "" && checkEmail(email)) {
         setValidEmail({ is: true, value: email });
+        console.log("email is valid");
+      } else if (
+        email === "" &&
+        data?.email !== undefined &&
+        data?.email !== ""
+      ) {
+        setEmail(data.email);
+        setValidEmail({ is: true, value: data.email });
         console.log("email is valid");
       } else {
         setValidEmail({ is: false, value: email });
@@ -116,13 +136,19 @@ const settings = (props: Props) => {
 
   useEffect(() => {
     if (!loading) {
-      setUsername(data.username === undefined ? "" : data.username);
+      if (data.username !== undefined) {
+        setUsername(data.username);
+        setValidUsername({ is: true, value: data.username });
+      }
+      if (data.email !== undefined) {
+        setEmail(data.email);
+        setValidEmail({ is: true, value: data.email });
+      }
       setAbout(data.about === undefined ? "" : data.about);
-      setEmail(data.email === undefined ? "" : data.email);
     }
   }, [data]);
 
-  return !loading ? (
+  return !loading && data !== undefined ? (
     <div className="my-16 flex justify-center">
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         <span className="mb-10 text-center font-roboto text-4xl font-black">
@@ -190,7 +216,7 @@ const settings = (props: Props) => {
           </label>
 
           <input
-            value={username}
+            value={username === data.username ? "" : username}
             disabled={data.username ? true : false}
             onChange={handleUsernameChange}
             className="
@@ -232,12 +258,13 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             onChange={(e: any) => {
               setAbout(e.target.value);
             }}
-            className=" h-32 min-h-[4rem]
-w-full rounded-lg border  p-4  text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-"
+            className={classNames(
+              about === data.about ? " text-gray-400  " : "text-gray-800",
+              ` h-32  min-h-[4rem] w-full rounded-lg border  p-4  text-xl drop-shadow-sm  placeholder:font-roboto 
+                placeholder:text-base placeholder:text-gray-400 focus:outline-none
+                focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
+                `
+            )}
             placeholder="Brief description for your profile"
           />
         </div>

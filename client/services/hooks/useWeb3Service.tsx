@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
-import { mutate } from "swr";
 declare var window: any;
 const restrictedRoutes = "^/user/.*|^/campaigns/create$";
 axios.defaults.withCredentials = true;
@@ -11,6 +10,7 @@ axios.defaults.withCredentials = true;
 type Props = {};
 
 export default function useWeb3Service(props?: Props) {
+  const route = useRouter();
   const fetcher = async (url: string) => {
     try {
       const response = await axios.get(
@@ -35,7 +35,6 @@ export default function useWeb3Service(props?: Props) {
     setWalletAddress,
     setDisableSubmitBtn,
   } = useContext(AuthContext);
-  const route = useRouter();
 
   //**** */
 
@@ -163,7 +162,10 @@ export default function useWeb3Service(props?: Props) {
       // if the route require authentication && user decline connection
       // redirect to home page
 
-      if (route.asPath.match(restrictedRoutes) && error?.code !== -32002) {
+      if (
+        (await Router.asPath.match(restrictedRoutes)) &&
+        error?.code !== -32002
+      ) {
         route.push("/");
       }
       console.log(error);
@@ -192,6 +194,7 @@ export default function useWeb3Service(props?: Props) {
       console.log(error);
     }
     // reset swr cache
+    // userMutation({});
     // mutate(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/user/userinfo`);
 
     // reset state
@@ -201,7 +204,16 @@ export default function useWeb3Service(props?: Props) {
     setDisableSubmitBtn(false);
 
     // redirect user to home page only when route required authentication
-    if (route.asPath.match(restrictedRoutes)) {
+    // route from hook doesn't retrieve the correct path.
+    // ex: Access the Frontend for the first time, authenticate the user,
+    // navigate to the user settings via the option in the navigation bar,
+    // switch to another wallet account in Metamask.
+    // The initial route value is retained
+    //****** */
+    // asPath: include current route & query
+    // pathname: include only current route
+
+    if (await Router.asPath.match(restrictedRoutes)) {
       route.replace("/");
     }
 

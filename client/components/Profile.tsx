@@ -1,10 +1,6 @@
 import { BsCalendar3 } from "react-icons/bs";
 import { HiPencilAlt } from "react-icons/hi";
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
-
 import React from "react";
 import Link from "next/link";
 import useUser from "../services/hooks/useUser";

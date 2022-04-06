@@ -61,7 +61,7 @@ export async function uploadImage(
       }
     );
 
-    console.log(imagekitAPIResponse.data);
+    // purgeCacheAfterUpload(imagekitAPIResponse.data.url);
     return imagekitAPIResponse.data.filePath;
     //
   } catch (error) {
@@ -86,3 +86,10 @@ const convertToBase64 = (file: File) => {
     };
   });
 };
+
+// export const getRandomAvatar = (seed: string) => {
+//   return createAvatar(style, {
+//     seed: seed,
+//     // ... and other options
+//   });
+// };

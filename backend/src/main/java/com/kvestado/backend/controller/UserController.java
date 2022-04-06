@@ -39,7 +39,6 @@ public class UserController {
     @CrossOrigin(methods = RequestMethod.GET)
     public ResponseEntity<UserInfo> userInfo(Authentication authentication) {
         UserInfo userInfo = userService.getUserInfo(authentication);
-//                new UserInfo("XX","A@A.COM","sdjkf","/sjd", LocalDate.parse("2020-01-07"),true);
         return ResponseEntity.ok().body(userInfo);
     }
 

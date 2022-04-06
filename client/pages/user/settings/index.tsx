@@ -73,13 +73,16 @@ const settings = (props: Props) => {
       console.log("email is required");
       return;
     }
+    let pictureUrl = data.pictureUrl;
     try {
-      const pictureUrl = await uploadImage(
-        photo,
-        false,
-        "/profile",
-        state.walletAddress
-      );
+      if (photo !== null) {
+        pictureUrl = await uploadImage(
+          photo,
+          false,
+          "/profile",
+          state.walletAddress
+        );
+      }
 
       postRequest("user/profile", {
         username,
@@ -147,6 +150,10 @@ const settings = (props: Props) => {
         setUsername(data.username);
         setValidUsername({ is: true, value: data.username });
       }
+      if (data.pictureUrl !== undefined) {
+        // console.log(data.pictureUrl);
+        // setPhoto(data.pictureUrl);
+      }
       if (data.email !== undefined) {
         setEmail(data.email);
         setValidEmail({ is: true, value: data.email });
@@ -163,9 +170,24 @@ const settings = (props: Props) => {
           Profile Settings
         </span>
         <div className="mx-auto w-full max-w-md ">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Profile photo
-          </label>
+          <div className="mb-1 flex items-center justify-between pr-2">
+            <label className="mb-1 block pl-2 font-medium  text-gray-700">
+              Profile photo
+            </label>
+            {/* {photo !== null && ( */}
+            <button
+              disabled={photo === null ? true : false}
+              onClick={() => {
+                setPhoto(null);
+              }}
+              className="
+              cursor-pointer select-none rounded-md border
+              py-1 px-2 font-medium text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md  disabled:cursor-default disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none"
+            >
+              Reset
+            </button>
+            {/* )} */}
+          </div>
           <div
             {...getRootProps()}
             className=" mt-1 flex max-w-md rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 hover:shadow-md"

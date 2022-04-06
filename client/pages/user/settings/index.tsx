@@ -5,7 +5,11 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import AuthContext from "../../../contexts/AuthContext";
 import useApiService from "../../../services/hooks/useApiService";
 import useUser from "../../../services/hooks/useUser";
-import { checkEmail, classNames } from "../../../services/ToolsService";
+import {
+  checkEmail,
+  classNames,
+  uploadImage,
+} from "../../../services/ToolsService";
 // import { IKImage, IKContext, IKUpload } from "imagekitio-react";
 
 type Props = {};
@@ -70,11 +74,18 @@ const settings = (props: Props) => {
       return;
     }
     try {
+      const pictureUrl = await uploadImage(
+        photo,
+        false,
+        "/profile",
+        state.walletAddress
+      );
+
       postRequest("user/profile", {
         username,
         email,
         about,
-        pictureUrl: "/none",
+        pictureUrl: pictureUrl,
       });
       // revalidate data after update
       // mutate({ ...data, username, email, about });
@@ -83,6 +94,10 @@ const settings = (props: Props) => {
       //
     }
   };
+
+  // const getImageUrl = async (e: any) => {
+  //   return await uploadImage(photo, false, "/profile", state.walletAddress);
+  // };
 
   const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
@@ -107,15 +122,6 @@ const settings = (props: Props) => {
     }
   };
   const handleEmailValidation = (e?: any) => {
-    // console.log("Here 111");
-    // console.log(email);
-    // if (email === "") {
-    //   console.log("Here 222");
-    //   console.log(data.email);
-
-    //   setEmail(data.email);
-    // }
-    // console.log(email);
     if (email !== validEmail.value || email === "") {
       if (email !== "" && checkEmail(email)) {
         setValidEmail({ is: true, value: email });
@@ -152,6 +158,7 @@ const settings = (props: Props) => {
   return !loading && data !== undefined ? (
     <div className="my-16 flex justify-center">
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
+        {/* <button onClick={getImageUrl}>Upload it</button> */}
         <span className="mb-10 text-center font-roboto text-4xl font-black">
           Profile Settings
         </span>

@@ -8,7 +8,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:8081"}, methods = {RequestMethod.OPTIONS},
@@ -50,9 +52,15 @@ public class MainController {
     }
 
     @GetMapping("/ik-auth")
-    public Map<String, String> IKAuth(){
-        return ToolsService.getAuthenticatedParams(null,0,"private_Vc8NOKDFqQ3W8oeU0fXN9LJ9Cpo=");
+    @CrossOrigin(methods = RequestMethod.GET)
+    public Map<String, String> IKAuth(@RequestParam(required = true) Long expire){
+        if(expire == null || expire < 0) expire = 0L;
+        expire += Instant.now().getEpochSecond();
+        return ToolsService.getAuthenticatedParams(UUID.randomUUID().toString(),expire,"private_Vc8NOKDFqQ3W8oeU0fXN9LJ9Cpo=");
     }
+
+
+
 
  }
 

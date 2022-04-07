@@ -1,6 +1,8 @@
 package com.kvestado.backend.security;
 
 import com.kvestado.backend.dao.UserRepository;
+import com.kvestado.backend.model.Campaign;
+import com.kvestado.backend.model.Contribution;
 import com.kvestado.backend.model.UAuthority;
 import com.kvestado.backend.model.User;
 import com.kvestado.backend.service.CustomUserDetailsService;
@@ -64,7 +66,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                         userDetails.isAccountNonLocked(),
                         userDetails.isCredentialsNonExpired(),
                         userDetails.isEnabled(),
-                        uAuthorities
+                        uAuthorities,
+                        new ArrayList<Contribution>(),
+                        new ArrayList<Campaign>()
                 );
 
                 userRepository.save(user);

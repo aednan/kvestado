@@ -34,13 +34,15 @@ const Profile = (props: Props) => {
               {data.username}
             </h2>
             <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-              <div className="mt-2 flex items-center text-sm text-gray-500">
-                <BsCalendar3
-                  className="mr-1.5 h-4 w-4 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                />
-                Joined {data.joined}
-              </div>
+              {data.joined && (
+                <div className="mt-2 flex items-center text-sm text-gray-500">
+                  <BsCalendar3
+                    className="mr-1.5 h-4 w-4 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  Joined {data.joined}
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-5 flex lg:mt-0 lg:ml-4">

@@ -146,19 +146,19 @@ const settings = (props: Props) => {
 
   useEffect(() => {
     if (!loading) {
-      if (data.username !== undefined) {
+      if (data?.username !== undefined) {
         setUsername(data.username);
         setValidUsername({ is: true, value: data.username });
       }
-      if (data.pictureUrl !== undefined) {
+      if (data?.pictureUrl !== undefined) {
         // console.log(data.pictureUrl);
         // setPhoto(data.pictureUrl);
       }
-      if (data.email !== undefined) {
-        setEmail(data.email);
+      if (data?.email !== undefined) {
+        setEmail(data?.email);
         setValidEmail({ is: true, value: data.email });
       }
-      setAbout(data.about === undefined ? "" : data.about);
+      setAbout(data?.about === undefined ? "" : data.about);
     }
   }, [data]);
 

@@ -124,13 +124,13 @@ export async function refundClaim(
 
 // Views
 export async function getCampaign(
-  campainOwnerAddress: string,
+  campaignOwnerAddress: string,
   campaignId: number
 ) {
   try {
     const readOnlyContract = await getReadOnlyContract();
     const result = await readOnlyContract.getCampaign(
-      campainOwnerAddress,
+      campaignOwnerAddress,
       campaignId
     );
     console.log(result);

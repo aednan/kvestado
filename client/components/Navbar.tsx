@@ -362,7 +362,13 @@ export default function Navbar() {
                   )}
                   <div className=" absolute h-16 w-screen bg-gray-400 blur-sm"></div>
                   <div className="relative flex h-16 w-screen items-center justify-evenly bg-white ">
-                    <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                    <a
+                      href="https://github.com/aednan"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <AiFillGithub className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
+                    </a>
                     <AiFillTwitterCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
                     <AiFillRedditCircle className=" cursor-pointer text-4xl font-black text-[#8a939b] hover:text-black " />
                   </div>

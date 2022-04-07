@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "W3User")
+@Table(name = "w3user")
 public class User implements UserDetails, Serializable {
 
 
@@ -30,6 +30,11 @@ public class User implements UserDetails, Serializable {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UAuthority> authorities = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Contribution> contributions = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Campaign> campaigns;
 
     // User Authorities and Roles
     public enum Role {
@@ -46,7 +51,7 @@ public class User implements UserDetails, Serializable {
         this.walletAddress = walletAddress;
     }
 
-    public User(String walletAddress, String challengeMessage, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, List<UAuthority> authorities) {
+    public User(String walletAddress, String challengeMessage, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, List<UAuthority> authorities, List<Contribution> contributions,List<Campaign> campaigns) {
         this.walletAddress = walletAddress;
         this.challengeMessage = challengeMessage;
         this.accountNonExpired = accountNonExpired;
@@ -54,6 +59,24 @@ public class User implements UserDetails, Serializable {
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
         this.authorities = authorities;
+        this.contributions = contributions;
+        this.campaigns = campaigns;
+    }
+
+    public List<Contribution> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(List<Contribution> contributions) {
+        this.contributions = contributions;
+    }
+
+    public List<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    public void setCampaigns(List<Campaign> campaigns) {
+        this.campaigns = campaigns;
     }
 
     @Override

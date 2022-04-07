@@ -1,16 +1,73 @@
 import { Switch } from "@headlessui/react";
-import React, { useState } from "react";
+import { BigNumber, ethers } from "ethers";
+import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import AuthContext from "../../../contexts/AuthContext";
+import useApiService from "../../../services/hooks/useApiService";
+import useContractService from "../../../services/hooks/useContractService";
+import {
+  convertFromBigNumberToNumber,
+  generateCampaignSlug,
+  getEpochExpireTime,
+  uploadImage,
+} from "../../../services/ToolsService";
 
 type Props = {};
 
 const Create = (props: Props) => {
   const [photo, setPhoto]: any = useState(null);
+  const [campaignID, setCampaignID]: any = useState(null);
+  const [campaignTitle, setCampaignTitle]: any = useState("");
+  const [campaignDescription, setCampaignDescription]: any = useState("");
+  const [beneficiaryAddress, setBeneficiaryAddress]: any = useState("");
+  const [expireAfter, setExpireAfter]: any = useState("");
+  const [amount, setAmount]: any = useState("");
+
+  const { state } = useContext(AuthContext);
+
   const [mRValue, setMRValue]: any = useState(false);
+  const { addCampaign, getReadOnlyContract } = useContractService();
+  const { postRequest } = useApiService();
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
   }
+  //
+  const createCampaign = async () => {
+    let coverImage: any = "";
+    const slug = generateCampaignSlug(beneficiaryAddress, campaignTitle);
+    const expireTime = getEpochExpireTime(expireAfter);
+    if (photo != null) {
+      coverImage = await uploadImage(photo, true, "/kv/campaigns", slug);
+    }
+    const campaignUrl = `${process.env.NEXT_PUBLIC_URL}/campaigns/${slug}`;
+
+    // adding campaign to the blockchain
+    await addCampaign(
+      beneficiaryAddress,
+      campaignUrl,
+      mRValue,
+      amount,
+      expireTime
+    );
+
+    // persist the added campaign to the database
+    try {
+      postRequest("contract/api/add_campaign", {
+        id: campaignID,
+        coverPicturePath: coverImage,
+        title: campaignTitle,
+        description: campaignDescription,
+        beneficiaryAddress: beneficiaryAddress,
+        expireAfter: expireTime,
+        amount: amount,
+        minimumRaisedValueRequired: mRValue,
+        slug: slug,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/png, image/jpeg, image/gif",
@@ -34,6 +91,26 @@ const Create = (props: Props) => {
       console.log("photo added");
     },
   });
+
+  const connectEvent = async () => {
+    const readOnlyContractget = await getReadOnlyContract();
+    const myCampaignEvent = readOnlyContractget.on(
+      "MyCampaign",
+      (campaignOwner: any, campaignId: BigNumber) => {
+        // to get the last campaign id from the blockchain
+        setCampaignID(convertFromBigNumberToNumber(campaignId) + 1);
+      }
+    );
+
+    // console.log(myCampaignEvent);
+  };
+
+  useEffect(() => {
+    connectEvent();
+    return () => {
+      // myCampaignEvent
+    };
+  }, []);
 
   return (
     <div className="my-16 flex justify-center">
@@ -102,6 +179,10 @@ const Create = (props: Props) => {
             Campaign title
           </label>
           <input
+            value={campaignTitle}
+            onChange={(e) => {
+              setCampaignTitle(e.target.value);
+            }}
             className="
 h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -116,11 +197,22 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             <label className="font-medium text-gray-700">
               Campaign description (Markdown)
             </label>
-            <label className="cursor-pointer select-none rounded-md border py-1 px-2 font-medium  text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+
+            <button
+              disabled={campaignDescription === "" ? true : false}
+              className="
+cursor-pointer select-none rounded-md border
+py-1 px-2 font-medium text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md  disabled:cursor-default disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none
+"
+            >
               Preview
-            </label>
+            </button>
           </div>
           <textarea
+            value={campaignDescription}
+            onChange={(e) => {
+              setCampaignDescription(e.target.value);
+            }}
             className=" h-32 min-h-[4rem]
 w-full rounded-lg border  p-4  text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -135,6 +227,10 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             Beneficiary address
           </label>
           <input
+            value={beneficiaryAddress}
+            onChange={(e) => {
+              setBeneficiaryAddress(e.target.value);
+            }}
             className="
 h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -149,6 +245,10 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             Expire after
           </label>
           <input
+            value={expireAfter}
+            onChange={(e) => {
+              setExpireAfter(e.target.value);
+            }}
             className="
 h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -163,6 +263,10 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             Amount (in Ether)
           </label>
           <input
+            value={amount}
+            onChange={(e) => {
+              setAmount(e.target.value);
+            }}
             className="
 h-14 w-full rounded-lg border  p-4 text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -178,7 +282,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             className="group flex h-16 items-center justify-between rounded-lg border-2  px-3 text-lg font-bold text-gray-600 hover:text-black"
           >
             <Switch.Label className=" block cursor-pointer  font-medium text-gray-700">
-              Minimum raised value
+              Minimum raised value required
             </Switch.Label>
             <Switch
               checked={mRValue}
@@ -198,12 +302,21 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             </Switch>
           </Switch.Group>
           <div className="mt-7 flex w-full justify-center space-x-2 ">
-            <span className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+            <span
+              onClick={createCampaign}
+              className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
+            >
               Create
             </span>
-            <span className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md">
+
+            <button
+              disabled={campaignDescription === "" ? true : false}
+              className="
+              cursor-pointer select-none rounded-md border
+              py-2 px-9 font-roboto text-lg font-bold text-gray-700 shadow-sm hover:bg-slate-50  hover:shadow-md disabled:cursor-default disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none"
+            >
               Preview
-            </span>
+            </button>
           </div>
         </div>
       </div>

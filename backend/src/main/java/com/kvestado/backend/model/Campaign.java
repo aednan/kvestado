@@ -14,16 +14,19 @@ public class Campaign implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String beneficiaryAddress;
-    private Integer expireAfter;
+    private Long expireAfter;
     private Long amount;
     private Boolean minimumRaisedValueRequired;
+    // campaign url slug
+    @Column(unique = true)
+    private String slug;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Campaign() {
     }
-    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Integer expireAfter, Long amount, Boolean minimumRaisedValueRequired, User user) {
+    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired, User user, String slug) {
         this.id = id;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -33,6 +36,7 @@ public class Campaign implements Serializable {
         this.amount = amount;
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
         this.user = user;
+        this.slug = slug;
     }
 
     public Long getId() {
@@ -75,11 +79,11 @@ public class Campaign implements Serializable {
         this.beneficiaryAddress = beneficiaryAddress;
     }
 
-    public Integer getExpireAfter() {
+    public Long getExpireAfter() {
         return expireAfter;
     }
 
-    public void setExpireAfter(Integer expireAfter) {
+    public void setExpireAfter(Long expireAfter) {
         this.expireAfter = expireAfter;
     }
 

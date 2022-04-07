@@ -68,22 +68,6 @@ export default function useWeb3Service(props?: Props) {
           "login",
           `Basic ${btoa(signerAddress + ":" + signedMessage)}`
         );
-        // const response = await axios.get("http://localhost:8080/userinfo", {
-        //   withCredentials: true,
-        // });
-
-        // const { data, error } = useSWR(
-        //   "http://localhost:8080/userinfo",
-        //   fetcher
-        // );
-        // console.log(data);
-
-        // const { data, error } = useSWR(
-        //   "http://localhost:8080/userinfo",
-        //   fetcher
-        // );
-        // console.log(data);
-
         return true;
       }
     }
@@ -101,17 +85,9 @@ export default function useWeb3Service(props?: Props) {
   // Metamask events, accounts
   async function onWalletAddressChange() {
     window.ethereum.on("accountsChanged", (accounts: any) => {
-      // console.log(state.walletAddress);
-      // if (accounts.length > 0) {
-      //   logout();
-      //   connectWallet();
-      // } else {
-
       if (localStorage.getItem("Authenticated")) {
         logout();
       }
-
-      // }
     });
   }
   // networkId
@@ -220,28 +196,6 @@ export default function useWeb3Service(props?: Props) {
     // clear local storage authentication
     localStorage.clear();
   }
-
-  // async function login(
-  //   url: string,
-  //   walletAddress: string,
-  //   signedMessage: string
-  // ) {
-  //   const response = await axios.post(url, null, {
-  //     headers: {
-  //       Authorization: `Basic ${btoa(walletAddress + ":" + signedMessage)}`,
-  //     },
-  //     withCredentials: true,
-  //   });
-  //   return response.data;
-  // }
-
-  // async function backendLogout(url: string) {
-  //   await axios.post(url, null, {
-  //     headers: {
-  //       Authorization: `Basic `,
-  //     },
-  //   });
-  // }
 
   async function userAuthenticationPostTemplate(
     url: string,

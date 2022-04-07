@@ -8,14 +8,15 @@ public class CampaignDTO {
     private String title;
     private String description;
     private String beneficiaryAddress;
-    private Integer expireAfter;
+    private Long expireAfter;
     private Long amount;
     private Boolean minimumRaisedValueRequired;
+    private String slug;
 
     public CampaignDTO() {
     }
 
-    public CampaignDTO(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Integer expireAfter, Long amount, Boolean minimumRaisedValueRequired) {
+    public CampaignDTO(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired,String slug) {
         this.id = id;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -24,6 +25,16 @@ public class CampaignDTO {
         this.expireAfter = expireAfter;
         this.amount = amount;
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
+        this.slug = slug;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        if(slug == null) slug = "";
+        this.slug = slug;
     }
 
     public Long getId() {
@@ -39,6 +50,7 @@ public class CampaignDTO {
     }
 
     public void setCoverPicturePath(String coverPicturePath) {
+        if(coverPicturePath == null) coverPicturePath = "";
         this.coverPicturePath = coverPicturePath;
     }
 
@@ -47,6 +59,7 @@ public class CampaignDTO {
     }
 
     public void setTitle(String title) {
+        if(title == null) title = "";
         this.title = title;
     }
 
@@ -55,6 +68,7 @@ public class CampaignDTO {
     }
 
     public void setDescription(String description) {
+        if(description == null) description = "";
         this.description = description;
     }
 
@@ -63,14 +77,16 @@ public class CampaignDTO {
     }
 
     public void setBeneficiaryAddress(String beneficiaryAddress) {
+        if(beneficiaryAddress == null) beneficiaryAddress = "";
         this.beneficiaryAddress = beneficiaryAddress;
     }
 
-    public Integer getExpireAfter() {
+    public Long getExpireAfter() {
         return expireAfter;
     }
 
-    public void setExpireAfter(Integer expireAfter) {
+    public void setExpireAfter(Long expireAfter) {
+        if(expireAfter == null) expireAfter = 0l;
         this.expireAfter = expireAfter;
     }
 
@@ -79,6 +95,7 @@ public class CampaignDTO {
     }
 
     public void setAmount(Long amount) {
+        if(amount == null) amount = 0l;
         this.amount = amount;
     }
 
@@ -87,6 +104,7 @@ public class CampaignDTO {
     }
 
     public void setMinimumRaisedValueRequired(Boolean minimumRaisedValueRequired) {
+        if(minimumRaisedValueRequired == null) minimumRaisedValueRequired = false;
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
     }
 }

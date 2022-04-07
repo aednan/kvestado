@@ -20,6 +20,7 @@ public class ContributionDTO {
     }
 
     public void setCampaignId(Long campaignId) {
+        if(campaignId == null) campaignId = 0l;
         this.campaignId = campaignId;
     }
 
@@ -32,6 +33,7 @@ public class ContributionDTO {
     }
 
     public Long getAmount() {
+        if(amount == null) amount = 0l;
         return amount;
     }
 

@@ -167,7 +167,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -246,7 +247,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -287,7 +289,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -351,7 +354,8 @@
       "name": "contribute",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -25593,165 +25597,15 @@
   },
   "networks": {
     "5777": {
-      "events": {
-        "0xd8762e1294e388f7530291bd0b5b3c98c73b1a82b4b8deeccbe4ff126f155a58": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_campaignOwner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "_campaignId",
-              "type": "uint256"
-            }
-          ],
-          "name": "MyCampaign",
-          "type": "event"
-        },
-        "0xaf09e3ada607a2dbf6bfeab2d36d87ba8c79317b64746947f00a25b74cbb2894": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_contributor",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_campaignOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "uint256",
-              "name": "_campaignId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "MyContribution",
-          "type": "event"
-        },
-        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "previousOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "newOwner",
-              "type": "address"
-            }
-          ],
-          "name": "OwnershipTransferred",
-          "type": "event"
-        },
-        "0xd3c348f1a0dc838305d7eadbb442092cd32920e992c33c2f7c229aabbcfcf2fa": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_campaignOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "uint256",
-              "name": "_campaignId",
-              "type": "uint256"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_contributor",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "RefundedAmount",
-          "type": "event"
-        },
-        "0x2e6a457d76b90f7f9a351e3242a15cd2e99fc7feb3a124e851c4bdbbfeb888d3": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_campaignOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "uint256",
-              "name": "_campaignId",
-              "type": "uint256"
-            }
-          ],
-          "name": "SuspendedCampaign",
-          "type": "event"
-        },
-        "0xc2b4a290c20fb28939d29f102514fbffd2b73c059ffba8b78250c94161d5fcc6": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_campaignOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "_campaignBeneficiary",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "_campaignId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "Withdrawal",
-          "type": "event"
-        }
-      },
+      "events": {},
       "links": {},
-      "address": "0xDE254f33D60d0C90E58e5dF1811a6cd7f84cD648",
-      "transactionHash": "0x1f70eb737b4aa1e615565834910325c234b848ea628d598dbde063ebbbaa65b0"
+      "address": "0x4b274490f7762683E9e6B820D168735763e00706",
+      "transactionHash": "0xe464f7673ced2faf87c5ffc7f4890f0f637d08faf43baab0db70bd3f49e78a08"
     }
   },
   "schemaVersion": "3.4.5",
-  "updatedAt": "2022-03-15T23:13:01.356Z",
+  "updatedAt": "2022-04-07T09:58:55.657Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {

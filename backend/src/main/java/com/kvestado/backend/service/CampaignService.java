@@ -25,7 +25,8 @@ public class CampaignService {
                campaignDTO.getExpireAfter(),
                campaignDTO.getAmount(),
                campaignDTO.getMinimumRaisedValueRequired(),
-               new User(authentication.getName())
+               new User(authentication.getName()),
+               campaignDTO.getSlug()
        );
        campaignRepository.save(campaign);
    }

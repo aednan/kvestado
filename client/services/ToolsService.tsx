@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BigNumber, ethers } from "ethers";
 
 export function getAllArticles(r: any) {
   return r.keys().map((fileName: any) =>
@@ -71,6 +72,10 @@ export async function uploadImage(
   //
 }
 
+export const convertFromBigNumberToNumber = (bigNumberValue: BigNumber) => {
+  return Number(ethers.utils.formatUnits(bigNumberValue)) * Math.pow(10, 18);
+};
+
 // const base64File = await convertToBase64(file);
 const convertToBase64 = (file: File) => {
   return new Promise((resolve, reject) => {
@@ -85,6 +90,20 @@ const convertToBase64 = (file: File) => {
       reject(err);
     };
   });
+};
+
+export const generateCampaignSlug = (
+  beneficiaryWalletAddress: string,
+  campaignTitle: string
+) => {
+  const slug = ethers.utils.hashMessage(
+    `${beneficiaryWalletAddress}:${campaignTitle}:${1 + Math.random() * 99}`
+  );
+  return slug;
+};
+
+export const getEpochExpireTime = (expireAfter: number) => {
+  return expireAfter * 86400000 + new Date().getTime();
 };
 
 // export const getRandomAvatar = (seed: string) => {

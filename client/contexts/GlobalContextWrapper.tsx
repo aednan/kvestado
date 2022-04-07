@@ -19,6 +19,8 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   // web3 support
   const [provider, setProvider] = useState(null);
   const [walletAddress, setWalletAddress]: any = useState("");
+  // scroll bottom detection
+  const [bottomScrollDetected, setBottomScrollDetected] = useState(false);
 
   const { connectWallet, onWalletAddressChange, restrictedRoutes } =
     useWeb3Service();
@@ -55,10 +57,12 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
     >
       <UserSettingsContext.Provider
         value={{
-          setCPaletteOpen,
           isCPaletteOpen,
+          setCPaletteOpen,
           nModeEnabled,
           setNModeEnabled,
+          bottomScrollDetected,
+          setBottomScrollDetected,
         }}
       >
         {children}

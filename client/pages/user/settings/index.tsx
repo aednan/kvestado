@@ -91,7 +91,10 @@ const settings = (props: Props) => {
         pictureUrl: pictureUrl,
       });
 
-      mutate({ ...data, username, email, about, pictureUrl: pictureUrl });
+      mutate(
+        { ...data, username, email, about, pictureUrl: pictureUrl },
+        false
+      );
       // revalidate data after update
       // mutate({ ...data, username, email, about });
       // console.log(data.email);
@@ -176,7 +179,6 @@ const settings = (props: Props) => {
             <label className="mb-1 block pl-2 font-medium  text-gray-700">
               Profile photo
             </label>
-            {/* {photo !== null && ( */}
             <button
               disabled={photo === null ? true : false}
               onClick={() => {
@@ -188,7 +190,6 @@ const settings = (props: Props) => {
             >
               Reset
             </button>
-            {/* )} */}
           </div>
           <div
             {...getRootProps()}

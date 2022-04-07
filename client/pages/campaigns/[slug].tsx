@@ -39,7 +39,6 @@ function campaign(props: props) {
   skldsldklklklk
   # sjdjkjsdjksdklsdkkldlk
   `;
-
   return !loading && data !== undefined ? (
     <article className=" divide-y-2 px-7 pt-16 pb-14 ">
       <ContributionSidebar />

@@ -13,12 +13,17 @@ import Navbar from "./Navbar";
 import AuthContext from "../contexts/AuthContext";
 import useWeb3Service from "../services/hooks/useWeb3Service";
 import LoadingSpinner from "./LoadingSpinner";
+import UserSettingsContext from "../contexts/UserSettingsContext";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
+
+  const { setBottomScrollDetected } = useContext(UserSettingsContext);
+
   const { state } = useContext(AuthContext);
+  // const { isScrolling } = useContext(AuthContext);
 
   const {
     checkIfConnected,
@@ -26,7 +31,19 @@ export default function Layout({ children }: { children: ReactNode }) {
     connectWallet,
     restrictedRoutes,
   } = useWeb3Service();
-
+  // see campaigns infinite scroll implementation
+  const handleScroll = (event: any) => {
+    if (
+      divRef.current?.scrollTop != undefined &&
+      divRef.current?.getBoundingClientRect().bottom != undefined &&
+      divRef.current?.scrollTop >
+        divRef.current?.getBoundingClientRect().bottom - 150
+    ) {
+      setBottomScrollDetected(true);
+    } else {
+      setBottomScrollDetected(false);
+    }
+  };
   useEffect(() => {
     if (!state.isSubmitBtnDisabled) {
       // after refresh: Auto connects to the wallet if the user is already connected
@@ -45,6 +62,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       // while page is loading
       setLoaded(false);
     };
+
     const handleRouteChangeComplete = (url: any, { shallow }: any) => {
       // on route navigation only
       // window scrolling is disabled. This resets the scrolling within the div with ref: divRef
@@ -79,6 +97,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <CommandPalette />
       <Navbar />
       <div
+        onScroll={handleScroll}
         ref={divRef}
         className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth pt-16 "
       >

@@ -119,9 +119,22 @@ const Create = (props: Props) => {
           New Campaign
         </span>
         <div className="mx-auto w-full max-w-md ">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Campaign Cover
-          </label>
+          <div className="mb-1 flex items-center justify-between pr-2">
+            <label className="mb-1 block pl-2 font-medium  text-gray-700">
+              Campaign Cover
+            </label>
+            <button
+              disabled={photo === null ? true : false}
+              onClick={() => {
+                setPhoto(null);
+              }}
+              className="
+              cursor-pointer select-none rounded-md border
+              py-1 px-2 font-medium text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md  disabled:cursor-default disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none"
+            >
+              Reset
+            </button>
+          </div>
           <div
             {...getRootProps()}
             className=" mt-1 flex max-w-md rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 hover:shadow-md"
@@ -302,13 +315,6 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             </Switch>
           </Switch.Group>
           <div className="mt-7 flex w-full justify-center space-x-2 ">
-            <span
-              onClick={createCampaign}
-              className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
-            >
-              Create
-            </span>
-
             <button
               disabled={campaignDescription === "" ? true : false}
               className="
@@ -317,6 +323,12 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             >
               Preview
             </button>
+            <span
+              onClick={createCampaign}
+              className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
+            >
+              Create
+            </span>
           </div>
         </div>
       </div>

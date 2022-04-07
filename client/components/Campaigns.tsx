@@ -10,7 +10,7 @@ type Props = {};
 export default function Campaigns({}: Props) {
   const { data, mutate, error, loading } = useResource({
     resourcePath: "contract/api/get_campaigns",
-    params: { offset: 0, pageSize: 3 },
+    params: { offset: 0, pageSize: 4 },
     skip: false,
   });
 

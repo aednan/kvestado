@@ -42,12 +42,13 @@ public class CampaignService {
 
    public Page<CampaignDTO> getPage(int offset, int pageSize){
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
-       campaignRepository.findAll()
+       Page<Campaign> pCampaigns = campaignRepository.findAll(PageRequest.of(offset,pageSize));
+       pCampaigns
                .stream().parallel().forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));
                });
 
-     return new PageImpl<CampaignDTO>(campaignDTOs);
+     return new PageImpl<CampaignDTO>(campaignDTOs,pCampaigns.getPageable(),pCampaigns.getTotalPages());
    }
 
     public CampaignDTO getCampaign(String slug) {

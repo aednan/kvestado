@@ -4,6 +4,7 @@ import com.kvestado.backend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +29,8 @@ public class SecurityConfiguration {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .mvcMatchers("/request_challenge" ).permitAll()
+                                .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaigns" ).permitAll()
+                                .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaign" ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .cors()

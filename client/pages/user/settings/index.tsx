@@ -90,6 +90,8 @@ const settings = (props: Props) => {
         about,
         pictureUrl: pictureUrl,
       });
+
+      mutate({ ...data, username, email, about, pictureUrl: pictureUrl });
       // revalidate data after update
       // mutate({ ...data, username, email, about });
       // console.log(data.email);
@@ -114,7 +116,7 @@ const settings = (props: Props) => {
     if (username !== validUsername.value || username === "") {
       if (
         username !== "" &&
-        (await getRequest("user/check_username", { username }))
+        (await getRequest("user/check_username", { username }, true))
       ) {
         setValidUsername({ is: true, value: username });
         console.log("username is valid");

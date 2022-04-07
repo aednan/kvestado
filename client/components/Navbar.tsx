@@ -88,9 +88,9 @@ export default function Navbar() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className=" flex flex-shrink-0 items-center ">
                   <Link href="/">
-                    <span className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline font-roboto text-2xl font-light  text-transparent odd:p-1 hover:to-cyan-300">
+                    <a className="cursor-pointer select-none border-y-2 bg-gradient-to-br from-gray-900 to-slate-300 bg-clip-text align-baseline font-roboto text-2xl font-light  text-transparent odd:p-1 hover:to-cyan-300">
                       KVESTADO
-                    </span>
+                    </a>
                   </Link>
                   {/* TODO: onClick = redirect to home */}
                   {/* <img

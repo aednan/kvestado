@@ -38,7 +38,7 @@ const Create = (props: Props) => {
     const slug = generateCampaignSlug(beneficiaryAddress, campaignTitle);
     const expireTime = getEpochExpireTime(expireAfter);
     if (photo != null) {
-      coverImage = await uploadImage(photo, true, "/kv/campaigns", slug);
+      coverImage = await uploadImage(photo, true, "campaigns", slug);
     }
     const campaignUrl = `${process.env.NEXT_PUBLIC_URL}/campaigns/${slug}`;
 

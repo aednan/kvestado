@@ -2,13 +2,18 @@ package com.kvestado.backend.controller;
 
 import com.kvestado.backend.dto.CampaignDTO;
 import com.kvestado.backend.dto.ContributionDTO;
+import com.kvestado.backend.model.Campaign;
 import com.kvestado.backend.service.CampaignService;
 import com.kvestado.backend.service.ContributionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/contract/api")
@@ -36,6 +41,35 @@ public class ContractController {
         contributionService.addContribution(contributionDTO,authentication);
         return ResponseEntity.noContent().build();
     }
+
+
+    @GetMapping("/get_campaigns")
+    @CrossOrigin(methods = RequestMethod.GET)
+    public ResponseEntity<Page<CampaignDTO>> getCampaigns(@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize) {
+         Page<CampaignDTO> page = new PageImpl<CampaignDTO>(new ArrayList<>());
+       try {
+           page = campaignService.getPage(offset,pageSize);
+       }catch (Exception ex) {
+           System.out.println("get_campaigns - Error");
+           return ResponseEntity.badRequest().build();
+       }
+        return ResponseEntity.ok(page);
+    }
+    @GetMapping("/get_campaign")
+    @CrossOrigin(methods = RequestMethod.GET)
+    public ResponseEntity<CampaignDTO> getCampaigns(@RequestParam(required = true) String slug) {
+         CampaignDTO campaign = null;
+       try {
+           campaign = campaignService.getCampaign(slug);
+       }catch (Exception ex) {
+           System.out.println("get_campaigns - Error");
+           return ResponseEntity.badRequest().build();
+       }
+       if(campaign == null) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(campaign);
+    }
+
+
 
 
 

@@ -1,6 +1,8 @@
 package com.kvestado.backend.dto;
 
 
+import java.time.LocalDate;
+
 public class CampaignDTO {
 
     private Long id;
@@ -12,11 +14,12 @@ public class CampaignDTO {
     private Long amount;
     private Boolean minimumRaisedValueRequired;
     private String slug;
+    private String createdAt;
 
     public CampaignDTO() {
     }
 
-    public CampaignDTO(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired,String slug) {
+    public CampaignDTO(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
         this.id = id;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -26,6 +29,15 @@ public class CampaignDTO {
         this.amount = amount;
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
         this.slug = slug;
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getSlug() {

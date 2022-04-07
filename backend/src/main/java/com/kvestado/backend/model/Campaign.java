@@ -2,6 +2,7 @@ package com.kvestado.backend.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 public class Campaign implements Serializable {
@@ -20,13 +21,14 @@ public class Campaign implements Serializable {
     // campaign url slug
     @Column(unique = true)
     private String slug;
+    private LocalDate createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Campaign() {
     }
-    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired, User user, String slug) {
+    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired, User user, String slug,LocalDate createdAt) {
         this.id = id;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -37,6 +39,31 @@ public class Campaign implements Serializable {
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
         this.user = user;
         this.slug = slug;
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

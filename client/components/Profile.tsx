@@ -11,7 +11,7 @@ type Props = {};
 const Profile = (props: Props) => {
   const { data, mutate, error, loading } = useUser();
 
-  return !loading ? (
+  return !loading && data !== undefined ? (
     <div className="mx-auto mt-16 w-11/12 rounded-t-xl border-2 p-10 sm:mt-32 ">
       <div className="absolute top-3 right-[36%] h-28 w-28 justify-center overflow-hidden rounded-full border-2  bg-white align-middle  sm:top-12 sm:right-[40%] sm:h-36 sm:w-36 xl:right-[45%] ">
         <img

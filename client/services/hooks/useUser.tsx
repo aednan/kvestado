@@ -20,6 +20,6 @@ export default function useUser(props?: Props) {
     logout();
   }
 
-  const loading = !data && !error;
+  const loading = !data && data !== undefined && !error;
   return { data, mutate, isValidating, error, loading };
 }

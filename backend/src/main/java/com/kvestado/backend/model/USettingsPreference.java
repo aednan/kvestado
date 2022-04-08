@@ -14,6 +14,9 @@ public class USettingsPreference implements Serializable {
     private String walletAddress;
     private Boolean nightMode;
 
+    public USettingsPreference() {
+    }
+
     public USettingsPreference(Boolean nightMode) {
         this.nightMode = nightMode;
     }

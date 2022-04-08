@@ -1,22 +1,22 @@
-spring:
-  datasource:
-    url: "jdbc:postgresql://localhost:5432/kvestado?serverTimezone=CET"
-    username: "postgres"
-    password: "123456"
-#    driver-class-name: "org.mariadb.jdbc.Driver"
-  jpa:
-    database-platform: "org.hibernate.dialect.PostgreSQLDialect"
-    hibernate:
-      ddl-auto: "update"
-
+# Gives priority to the controller
+#always-use-default-target: true
 
 server:
+  # Heruko gives a random port at startup
+  # heroku logs --tail
+  port: ${PORT:8080}
   servlet:
     session:
       cookie:
         name: KVESTADOSESSIONID
         http-only: true
         secure: true
-        same-site: STRICT
+        # as long as in dev mode and the server is not running in the same domain
+        same-site: NONE
 #        path: /
 #        max-age: 30M
+
+
+spring:
+  profiles:
+    active: ${SPRING_PACTIVE:dev}

@@ -19,7 +19,7 @@ const Profile = (props: Props) => {
           src={
             data.pictureUrl === ""
               ? "/img/dPhoto.svg"
-              : `${process.env.NEXT_PUBLIC_URLENDPOINT}tr:w-200,h-200${
+              : `${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-200,h-200${
                   data.pictureUrl
                 }?${Date.now()}`
           }

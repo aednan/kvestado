@@ -5,13 +5,15 @@ type Props = {
   resourcePath: String;
   params?: any;
   skip: boolean;
+  withCredentials: boolean;
 };
 
 export default function useResource(props: Props) {
   const { getRequest } = useApiService();
   const { data, mutate, isValidating, error } = useSWR(
     props.resourcePath,
-    (url: string) => getRequest(url, props.params, false, props.skip),
+    (url: string) =>
+      getRequest(url, props.params, props.withCredentials, props.skip),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
@@ -22,7 +24,7 @@ export default function useResource(props: Props) {
   if (error && error.message !== "Skip Request") {
     console.log(error);
   }
-  const loading = !data && !error;
+  const loading = !data && data !== undefined && !error;
 
   return { data, mutate, isValidating, error, loading };
 }

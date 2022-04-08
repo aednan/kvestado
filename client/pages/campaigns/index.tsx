@@ -14,21 +14,22 @@ export default function campaigns({}: Props) {
 
   const [pagination, setPagination] = useState({
     offset: 0,
-    pageSize: 10,
+    pageSize: 8,
   });
 
   const { data, mutate, error, loading } = useResource({
     resourcePath: "contract/api/get_campaigns",
     params: pagination,
     skip: false,
+    withCredentials: false,
   });
 
   useEffect(() => {
     if (data != undefined) {
       if (bottomScrollDetected && !data.last && !data.first) {
         setPagination({
-          offset: pagination.offset + 10,
-          pageSize: 10,
+          offset: pagination.offset + 8,
+          pageSize: 8,
         });
         // console.log("last");
         // TODO: show loading animation

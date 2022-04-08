@@ -110,4 +110,15 @@ public class CampaignService {
             throw new OperationNotAllowedException("missing_slug_value");
         }
     }
+
+
+    public Page<CampaignDTO> getUserCampaigns(Authentication authentication, int offset, int pageSize ){
+       List<CampaignDTO> campaignDTOs = new ArrayList<>();
+       Page<Campaign> campaigns = campaignRepository.findByUser(new User(authentication.getName()),PageRequest.of(offset,pageSize));
+        campaigns
+                .stream().parallel().forEach(campaign -> {
+                    campaignDTOs.add(campaignToCampaignDTO(campaign));
+                });
+        return new PageImpl<CampaignDTO>(campaignDTOs,campaigns.getPageable(),campaigns.getTotalPages());
+    }
 }

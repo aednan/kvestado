@@ -20,6 +20,7 @@ function campaign(props: props) {
       slug: slugValue,
     },
     skip: slugValue ? false : true,
+    withCredentials: false,
   });
 
   useEffect(() => {

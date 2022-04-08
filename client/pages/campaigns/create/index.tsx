@@ -191,7 +191,7 @@ const Create = (props: Props) => {
 
         <div className=" mx-auto w-full max-w-md">
           <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Campaign title
+            Campaign title *
           </label>
           <input
             value={campaignTitle}
@@ -210,7 +210,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
         <div className=" mx-auto w-full max-w-md ">
           <div className="mb-1 flex items-center justify-between px-2">
             <label className="font-medium text-gray-700">
-              Campaign description (Markdown)
+              Campaign description (Markdown) *
             </label>
 
             <button
@@ -239,7 +239,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
         </div>
         <div className=" mx-auto w-full max-w-md">
           <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Beneficiary address
+            Beneficiary address *
           </label>
           <input
             value={beneficiaryAddress}
@@ -257,7 +257,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
         </div>
         <div className=" mx-auto w-full max-w-md">
           <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Expire after
+            Expire after *
           </label>
           <input
             value={expireAfter}
@@ -275,7 +275,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
         </div>
         <div className=" mx-auto w-full max-w-md">
           <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Amount (in Ether)
+            Amount (in Ether) *
           </label>
           <input
             value={amount}

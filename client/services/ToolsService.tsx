@@ -96,7 +96,7 @@ export const generateCampaignSlug = (
   beneficiaryWalletAddress: string,
   campaignTitle: string
 ) => {
-  const slug = ethers.utils.hashMessage(
+  const slug = ethers.utils.keccak256(
     `${beneficiaryWalletAddress}:${campaignTitle}:${1 + Math.random() * 99}`
   );
   return slug;

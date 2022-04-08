@@ -1,41 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { classNames } from "../services/ToolsService";
+import useResource from "../services/hooks/useResource";
+import Card from "./Card";
 
 export default function Tabs() {
+  const { data: campaignData, loading: campaignLoading } = useResource({
+    resourcePath: "contract/api/get_my_campaigns",
+    params: { offset: 0, pageSize: 4 },
+    skip: false,
+    withCredentials: true,
+  });
+
+  // const { data: contributionData, loading: contributionLoading } = useResource({
+  //   resourcePath: "contract/api/get_my_contribution",
+  //   params: { offset: 0, pageSize: 4 },
+  //   skip: false,
+  //   withCredentials: true,
+  // });
+
   let [categories] = useState({
-    Campaigns: [
-      {
-        id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: "2h ago",
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Contributions: [
-      {
-        id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
+    Campaigns: { id: "campaign" },
+    Contributions: { id: "contribution" },
   });
 
   return (
@@ -60,42 +46,21 @@ export default function Tabs() {
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
-          {Object.values(categories).map((posts, idx) => (
+          {Object.values(categories).map((category) => (
             <Tab.Panel
-              key={idx}
+              key={category.id}
               className={classNames(
                 "rounded-xl bg-white p-3",
-                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                "h-[34rem] overflow-y-auto overflow-x-hidden border-2 border-slate-200 ring-0 ring-white ring-opacity-60 ring-offset-2 focus:outline-none"
               )}
             >
-              <ul>
-                {posts.map((post) => (
-                  <li
-                    key={post.id}
-                    className="hover:bg-coolGray-100 relative rounded-md p-3"
-                  >
-                    <h3 className="text-sm font-medium leading-5">
-                      {post.title}
-                    </h3>
+              {category.id === "campaign" && !campaignLoading && (
+                <Card products={campaignData?.content} title="" />
+              )}
 
-                    <ul className="text-coolGray-500 mt-1 flex space-x-1 text-xs font-normal leading-4">
-                      <li>{post.date}</li>
-                      <li>&middot;</li>
-                      <li>{post.commentCount} comments</li>
-                      <li>&middot;</li>
-                      <li>{post.shareCount} shares</li>
-                    </ul>
-
-                    <a
-                      href="#"
-                      className={classNames(
-                        "absolute inset-0 rounded-md",
-                        "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
-                      )}
-                    />
-                  </li>
-                ))}
-              </ul>
+              {/* {category.id === "contribution" && !contributionLoading && (
+                <Card products={contributionData?.content} title="" />
+              )} */}
             </Tab.Panel>
           ))}
         </Tab.Panels>

@@ -42,6 +42,8 @@ const Create = (props: Props) => {
     }
     const campaignUrl = `${process.env.NEXT_PUBLIC_URL}/campaigns/${slug}`;
 
+    // values check should be done before submit
+
     // adding campaign to the blockchain
     await addCampaign(
       beneficiaryAddress,
@@ -52,21 +54,21 @@ const Create = (props: Props) => {
     );
 
     // persist the added campaign to the database
-    try {
-      postRequest("contract/api/add_campaign", {
-        id: campaignID,
-        coverPicturePath: coverImage,
-        title: campaignTitle,
-        description: campaignDescription,
-        beneficiaryAddress: beneficiaryAddress,
-        expireAfter: expireTime,
-        amount: amount,
-        minimumRaisedValueRequired: mRValue,
-        slug: slug,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    postRequest("contract/api/add_campaign", {
+      id: campaignID,
+      coverPicturePath: coverImage,
+      title: campaignTitle,
+      description: campaignDescription,
+      beneficiaryAddress: beneficiaryAddress,
+      expireAfter: expireTime,
+      amount: amount,
+      minimumRaisedValueRequired: mRValue,
+      slug: slug,
+    }).catch((err) => {
+      console.log(err?.response.data.message);
+    });
+
+    //
   };
 
   const { getRootProps, getInputProps } = useDropzone({

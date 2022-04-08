@@ -12,8 +12,9 @@ type props = {};
 
 function campaign(props: props) {
   const router = useRouter();
+  console.log(router.query);
   const [slugValue, setSlugValue] = useState<any>(undefined);
-  const { data, mutate, error, loading } = useResource({
+  const { data, loading } = useResource({
     resourcePath: "contract/api/get_campaign",
     params: {
       slug: slugValue,
@@ -26,22 +27,11 @@ function campaign(props: props) {
       const { slug } = router.query;
       setSlugValue(slug);
     }
-  }, [router]);
+  }, []);
 
-  // to be removed
-  // const { state } = useContext(AuthContext);
-  // /to be removed
-
-  // the slug of the campaign should be, the username of the campaign creator wallet public address + campaign random identifier
-
-  const markdown = `# sjdjkjsdjksd
-  ![Alt text](https://hddesktopwallpapers.in/wp-content/uploads/2015/09/meerkat-picture.jpg "a title")
-  skldsldklklklk
-  # sjdjkjsdjksdklsdkkldlk
-  `;
   return !loading && data !== undefined ? (
     <article className=" divide-y-2 px-7 pt-16 pb-14 ">
-      <ContributionSidebar />
+      {/* <ContributionSidebar /> */}
       {/* {title && ( */}
       <div className="mb-7">
         <h1 className="leading-tighter mx-auto mb-8 w-full max-w-7xl text-center text-3xl font-extrabold sm:text-4xl md:text-5xl lg:mb-10 lg:text-6xl">

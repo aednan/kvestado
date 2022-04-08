@@ -13,7 +13,7 @@ export default function useResource(props: Props) {
     props.resourcePath,
     (url: string) => getRequest(url, props.params, false, props.skip),
     {
-      revalidateOnFocus: true,
+      revalidateOnFocus: false,
       revalidateOnMount: true,
       revalidateOnReconnect: true,
     }

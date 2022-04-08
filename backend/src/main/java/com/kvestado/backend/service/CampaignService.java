@@ -2,6 +2,7 @@ package com.kvestado.backend.service;
 
 import com.kvestado.backend.dao.CampaignRepository;
 import com.kvestado.backend.dto.CampaignDTO;
+import com.kvestado.backend.exception.OperationNotAllowedException;
 import com.kvestado.backend.model.Campaign;
 import com.kvestado.backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class CampaignService {
     @Autowired
     CampaignRepository campaignRepository;
 
-   public void createNewCampaign(CampaignDTO campaignDTO, Authentication authentication){
-
+   public void createNewCampaign(CampaignDTO campaignDTO, Authentication authentication) throws OperationNotAllowedException {
+       checkCampaignValidity(campaignDTO);
        Campaign campaign = new Campaign(
                campaignDTO.getId(),
                campaignDTO.getCoverPicturePath(),
@@ -72,5 +73,41 @@ public class CampaignService {
                campaign.getSlug(),
                campaign.getCreatedAt()==null?"":campaign.getCreatedAt().toString()
        );
+    }
+
+    public void checkCampaignValidity(CampaignDTO campaignDTO) throws OperationNotAllowedException {
+
+        if (campaignDTO.getId() == null){
+            throw new OperationNotAllowedException("missing_id_value");
+        }
+        if (campaignDTO.getAmount() == null){
+            throw new OperationNotAllowedException("missing_amount_value");
+        }
+        if (campaignDTO.getExpireAfter() == null){
+            throw new OperationNotAllowedException("missing_expireAfter_value");
+        }
+        if (campaignDTO.getMinimumRaisedValueRequired() == null){
+            throw new OperationNotAllowedException("missing_minimumRaisedValueRequired_value");
+        }
+        if (campaignDTO.getTitle() == null
+               || campaignDTO.getTitle().isBlank() || campaignDTO.getTitle().isEmpty()){
+            throw new OperationNotAllowedException("missing_title_value");
+        }
+        if (campaignDTO.getDescription() == null
+               || campaignDTO.getDescription().isBlank() || campaignDTO.getDescription().isEmpty()){
+            throw new OperationNotAllowedException("missing_description_value");
+        }
+        if (campaignDTO.getDescription() == null
+               || campaignDTO.getBeneficiaryAddress().isBlank() || campaignDTO.getBeneficiaryAddress().isEmpty()){
+            throw new OperationNotAllowedException("missing_beneficiaryAddress_value");
+        }
+        if (campaignDTO.getDescription() == null
+               || campaignDTO.getBeneficiaryAddress().isBlank() || campaignDTO.getBeneficiaryAddress().isEmpty()){
+            throw new OperationNotAllowedException("missing_beneficiaryAddress_value");
+        }
+        if (campaignDTO.getSlug() == null
+               || campaignDTO.getSlug().isBlank() || campaignDTO.getSlug().isEmpty()){
+            throw new OperationNotAllowedException("missing_slug_value");
+        }
     }
 }

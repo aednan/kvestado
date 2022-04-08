@@ -2,8 +2,10 @@ package com.kvestado.backend.service;
 
 import com.kvestado.backend.dao.UProfileRepository;
 import com.kvestado.backend.dao.USettingsPreferenceRepository;
+import com.kvestado.backend.dto.CampaignDTO;
 import com.kvestado.backend.dto.UProfileDTO;
 import com.kvestado.backend.dto.UserInfo;
+import com.kvestado.backend.exception.OperationNotAllowedException;
 import com.kvestado.backend.model.UProfile;
 import com.kvestado.backend.model.USettingsPreference;
 import com.kvestado.backend.model.User;
@@ -22,10 +24,11 @@ public class UserService {
     @Autowired
     USettingsPreferenceRepository uSettingsPreferenceRepository;
 
-    public void saveUserProfile(UProfileDTO profile, Authentication authentication) {
-
+    public void saveUserProfile(UProfileDTO profile, Authentication authentication) throws OperationNotAllowedException {
         Optional<UProfile> uProfilePersistence = uProfileRepository.findByUser(new User(authentication.getName()));
+        checkUProfileValidity(profile,uProfilePersistence);
         if (uProfilePersistence.isPresent()) {
+            // no username update allowed after creation
             uProfilePersistence.get().setAbout(profile.getAbout());
             uProfilePersistence.get().setEmail(profile.getEmail().toLowerCase());
             uProfilePersistence.get().setPictureUrl(profile.getPictureUrl());
@@ -63,6 +66,18 @@ public class UserService {
             userInfo.setNightMode(uSettingsPreference.get().getNightMode());
         }
         return userInfo;
+    }
+
+    public void checkUProfileValidity(UProfileDTO uProfileDTO, Optional<UProfile> uProfilePersistence) throws OperationNotAllowedException {
+        if (!uProfilePersistence.isPresent() &&
+                (uProfileDTO.getUsername() == null
+                || uProfileDTO.getUsername().isBlank() || uProfileDTO.getUsername().isEmpty())){
+            throw new OperationNotAllowedException("missing_username_value");
+        }
+        if (uProfileDTO.getEmail() == null
+                || uProfileDTO.getEmail().isBlank() || uProfileDTO.getEmail().isEmpty()){
+            throw new OperationNotAllowedException("missing_email_value");
+        }
     }
 
 

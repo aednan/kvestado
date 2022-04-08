@@ -2,6 +2,7 @@ package com.kvestado.backend.controller;
 
 import com.kvestado.backend.dto.UProfileDTO;
 import com.kvestado.backend.dto.UserInfo;
+import com.kvestado.backend.exception.OperationNotAllowedException;
 import com.kvestado.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,15 @@ public class UserController {
     @CrossOrigin(methods = RequestMethod.POST)
     public ResponseEntity<String> editProfile(@RequestBody(required = true) UProfileDTO profile, Authentication authentication) {
         if(authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        userService.saveUserProfile(profile,authentication);
+        try {
+            userService.saveUserProfile(profile,authentication);
+        }catch (OperationNotAllowedException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
 

@@ -26,7 +26,7 @@ export default function useApiService(props?: Props) {
 
       // console.log(response);
     } catch (error: any) {
-      if (error?.status === "401") logout();
+      if (error?.response.status === "401") logout();
       throw error;
     }
   }

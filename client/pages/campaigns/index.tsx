@@ -1,10 +1,7 @@
-import Link from "next/link";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import Campaigns from "../../components/Campaigns";
 import Card from "../../components/Card";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import UserSettingsContext from "../../contexts/UserSettingsContext";
-import useApiService from "../../services/hooks/useApiService";
 import useResource from "../../services/hooks/useResource";
 // import Hero from "../../components/Hero";
 

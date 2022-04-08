@@ -2,7 +2,7 @@ package com.kvestado.backend.controller;
 
 import com.kvestado.backend.dto.CampaignDTO;
 import com.kvestado.backend.dto.ContributionDTO;
-import com.kvestado.backend.model.Campaign;
+import com.kvestado.backend.exception.OperationNotAllowedException;
 import com.kvestado.backend.service.CampaignService;
 import com.kvestado.backend.service.ContributionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,14 @@ public class ContractController {
     @CrossOrigin(methods = RequestMethod.POST)
     public ResponseEntity<String> addCampaign(@RequestBody(required = true) CampaignDTO campaignDTO, Authentication authentication) {
         if(authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        campaignService.createNewCampaign(campaignDTO,authentication);
+        try {
+            campaignService.createNewCampaign(campaignDTO,authentication);
+        }catch (OperationNotAllowedException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.noContent().build();
     }
 
@@ -38,7 +45,15 @@ public class ContractController {
     @CrossOrigin(methods = RequestMethod.POST)
     public ResponseEntity<String> addContribution(@RequestBody(required = true) ContributionDTO contributionDTO, Authentication authentication) {
         if(authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        contributionService.addContribution(contributionDTO,authentication);
+        try {
+            contributionService.addContribution(contributionDTO,authentication);
+        }catch (OperationNotAllowedException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+
         return ResponseEntity.noContent().build();
     }
 

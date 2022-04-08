@@ -33,15 +33,17 @@ export default function Layout({ children }: { children: ReactNode }) {
   } = useWeb3Service();
   // see campaigns infinite scroll implementation
   const handleScroll = (event: any) => {
-    if (
-      divRef.current?.scrollTop != undefined &&
-      divRef.current?.getBoundingClientRect().bottom != undefined &&
-      divRef.current?.scrollTop >
-        divRef.current?.getBoundingClientRect().bottom - 150
-    ) {
-      setBottomScrollDetected(true);
-    } else {
-      setBottomScrollDetected(false);
+    if (router.asPath.match("^/campaigns$")) {
+      if (
+        divRef.current?.scrollTop != undefined &&
+        divRef.current?.getBoundingClientRect().bottom != undefined &&
+        divRef.current?.scrollTop >
+          divRef.current?.getBoundingClientRect().bottom - 150
+      ) {
+        setBottomScrollDetected(true);
+      } else {
+        setBottomScrollDetected(false);
+      }
     }
   };
   useEffect(() => {
@@ -71,7 +73,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         left: 0,
         behavior: "smooth",
       });
-
+      setBottomScrollDetected(false);
       // after page loaded
       setLoaded(true);
     };

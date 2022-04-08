@@ -165,7 +165,8 @@ export default function useWeb3Service(props?: Props) {
     try {
       // clear cookies or jwt token
       // Authentication will be done using the cookie
-      await userAuthenticationPostTemplate("logout", "");
+      // await userAuthenticationPostTemplate("logout", null);
+      await logoutAPI();
     } catch (error) {
       console.log(error);
     }
@@ -230,6 +231,16 @@ export default function useWeb3Service(props?: Props) {
         headers: {
           Authorization: authorization,
         },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  }
+  async function logoutAPI() {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/logout`,
+      null,
+      {
         withCredentials: true,
       }
     );

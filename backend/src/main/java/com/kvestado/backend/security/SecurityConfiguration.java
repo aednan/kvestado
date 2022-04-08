@@ -36,10 +36,10 @@ public class SecurityConfiguration {
                                 .anyRequest().authenticated()
                 )
                 .cors()
-                .and().csrf()
-                .csrfTokenRepository(cookieCsrfTokenRepository())
-                .ignoringAntMatchers("/login")
-                .and()
+                .and().csrf().disable()
+//                .csrfTokenRepository(cookieCsrfTokenRepository())
+//                .ignoringAntMatchers("/login")
+//                .and()
                 .logout( logout -> {
                     logout.logoutUrl("/logout")
                             .logoutSuccessHandler((request, response, authentication) -> {

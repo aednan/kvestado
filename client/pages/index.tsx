@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import Hero from "../components/Hero";
 import Campaigns from "../components/Campaigns";
-import { getMyContribution } from "../services/ContractService";
 
 type Props = {};
 

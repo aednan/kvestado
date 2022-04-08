@@ -89,6 +89,8 @@ const settings = (props: Props) => {
         email,
         about,
         pictureUrl: pictureUrl,
+      }).catch((err) => {
+        console.log(err);
       });
 
       mutate(

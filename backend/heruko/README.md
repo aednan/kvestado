@@ -26,6 +26,7 @@ https://devcenter.heroku.com/articles/heroku-cli
 
 ## Show server log
 - ``` heroku logs --tail ```
+- ``` heroku logs --tail --app kvestado ```
 
 
 

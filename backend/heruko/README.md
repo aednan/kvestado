@@ -12,6 +12,8 @@ https://devcenter.heroku.com/articles/heroku-cli
 ## Setting up local repo with:
 + JAR file (kvestado.jar), Dockerfile, heroku.yml
 - ``` cd kvestado-project/ ```
+- Both Dockerfile and heroku.yml files to be copied into the folder (kvestado-project), as well as the created jar file.
+
 - ``` git init ```
 - ``` heroku git:remote -a kvestado ```
 

@@ -34,5 +34,5 @@ build/
 
 ## KCustom ###
 
-deployRepo/kvestado.jar
-deployRepo/.git
+/ts1/kvestado.jar
+/deployRepo/.git

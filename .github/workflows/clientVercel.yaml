@@ -21,7 +21,6 @@ jobs:
         npm install
         npm run vercel-build
         cd .next
-        rm -rf .vercel
 
       - name: Step 2 - build & deploy
         uses: amondnet/vercel-action@v20

@@ -15,12 +15,12 @@ jobs:
       - name: Step 1 - Checkout master branch
         uses: actions/checkout@v2
 
-      - name: Step 2 - Build
-        run: |
-          cd client
-          npm install
-          npm run build
-          rm -rf .vercel
+      # - name: Step 2 - Build
+      #   run: |
+      #     cd client
+      #     npm install
+      #     npm run build
+      #     rm -rf .vercel
 
       - name: Step 2 - build & deploy
         uses: amondnet/vercel-action@v20
@@ -29,3 +29,4 @@ jobs:
           vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
+          working-directory: ./client

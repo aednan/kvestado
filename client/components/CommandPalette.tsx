@@ -88,7 +88,7 @@ export default function CommandPalette() {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [commandPaletteContext.isCPaletteOpen]);
+  }, [commandPaletteContext.isCPaletteOpen, commandPaletteContext]);
 
   return (
     <Transition.Root

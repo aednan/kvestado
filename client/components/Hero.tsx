@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
@@ -29,7 +30,7 @@ export default function Hero({}: Props) {
           <div className="mt-5 flex w-full justify-center ">
             <div className="flex max-w-fit items-center justify-center gap-4 divide-x divide-gray-500 rounded-md bg-gray-800 px-7 py-4 leading-none shadow-md ">
               {state.isAuthenticated ? (
-                <Link href="/campaigns/create">
+                <Link href="/campaigns/create" passHref>
                   <span className="cursor-pointer font-roboto font-bold text-white transition-transform hover:scale-105">
                     Create Campaign
                   </span>
@@ -46,7 +47,7 @@ export default function Hero({}: Props) {
                   Connect Wallet
                 </span>
               )}
-              <Link href="/campaigns">
+              <Link href="/campaigns" passHref>
                 <span className="cursor-pointer pl-4 font-roboto font-bold text-indigo-300 transition-transform hover:scale-105">
                   Discover &rarr;
                 </span>
@@ -71,6 +72,7 @@ export default function Hero({}: Props) {
 
       <div className=" hidden items-center md:flex">
         <img
+          // layout="fill"
           className=" h-[30rem] justify-center drop-shadow-2xl"
           src="/img/cexchange.svg"
           alt=""

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -16,7 +17,7 @@ type Props = {};
 
 // TODO: profile settings should be showing only when the user, connected the wallet
 
-const settings = (props: Props) => {
+const Settings = (props: Props) => {
   const { getRequest, postRequest } = useApiService();
   const { data, mutate, error, isValidating, loading } = useUser({
     skip: false,
@@ -180,7 +181,7 @@ const settings = (props: Props) => {
       }
       setAbout(data?.about === undefined ? "" : data.about);
     }
-  }, [data]);
+  }, [data, loading]);
 
   return !loading && data !== undefined ? (
     <div className="my-16 flex justify-center">
@@ -213,6 +214,7 @@ const settings = (props: Props) => {
             <div className="w-full space-y-1 text-center">
               {photo ? (
                 <img
+                  // layout="fill"
                   src={photo.preview}
                   alt="preview"
                   className="mx-auto h-12 w-12 rounded-full border border-gray-400"
@@ -347,4 +349,4 @@ text-base text-gray-400 drop-shadow-sm
   );
 };
 
-export default settings;
+export default Settings;

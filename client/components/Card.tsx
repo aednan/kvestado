@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -91,6 +92,7 @@ export default function Card(props: Props) {
                     </span>
                   </div>
                   <img
+                    // layout="fill"
                     src={`${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${product.coverPicturePath}`}
                     alt="Campaign"
                     className=" h-full w-full object-fill object-center"

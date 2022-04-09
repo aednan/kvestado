@@ -86,7 +86,15 @@ export default function Layout({ children }: { children: ReactNode }) {
       router.events.off("routeChangeStart", handleRouteChangeStart);
       router.events.off("routeChangeComplete", handleRouteChangeComplete);
     };
-  }, []);
+  }, [
+    checkIfConnected,
+    connectWallet,
+    onWalletAddressChange,
+    restrictedRoutes,
+    router.events,
+    setBottomScrollDetected,
+    state.isSubmitBtnDisabled,
+  ]);
 
   return !loaded ||
     (router.asPath.match(restrictedRoutes) && !state.isAuthenticated) ? (

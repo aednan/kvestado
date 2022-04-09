@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -8,7 +9,7 @@ import useResource from "../../services/hooks/useResource";
 
 type props = {};
 
-function campaign(props: props) {
+function Campaign(props: props) {
   const router = useRouter();
   const [slugValue, setSlugValue] = useState<any>(undefined);
   const { data, loading } = useResource({
@@ -25,7 +26,7 @@ function campaign(props: props) {
       const { slug } = router.query;
       setSlugValue(slug);
     }
-  }, []);
+  }, [router]);
 
   return !loading && data !== undefined ? (
     <article className=" divide-y-2 px-7 pt-16 pb-14 ">
@@ -40,20 +41,24 @@ function campaign(props: props) {
         {/* )} */}
         <div className="mx-auto max-w-5xl justify-center rounded-md bg-cover">
           <img
+            // layout="fill"
             alt="campaign_cover"
             src={`${process.env.NEXT_PUBLIC_URLENDPOINT}${data.coverPicturePath}`}
             className=" mx-auto rounded-md "
           />
         </div>
       </div>
-      <ReactMarkdown
+      {/* <ReactMarkdown
         className="prose prose-stone mx-auto max-w-4xl pt-10 prose-pre:max-h-80 prose-pre:overflow-auto prose-img:rounded-md lg:prose-xl"
         children={data?.description}
-      />
+      /> */}
+      <ReactMarkdown className="prose prose-stone mx-auto max-w-4xl pt-10 prose-pre:max-h-80 prose-pre:overflow-auto prose-img:rounded-md lg:prose-xl">
+        {data?.description}
+      </ReactMarkdown>
     </article>
   ) : (
     <LoadingSpinner />
   );
 }
 
-export default campaign;
+export default Campaign;

@@ -1,5 +1,6 @@
 import { Switch } from "@headlessui/react";
 import { BigNumber } from "ethers";
+import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import AuthContext from "../../../contexts/AuthContext";
@@ -94,25 +95,24 @@ const Create = (props: Props) => {
     },
   });
 
-  const connectEvent = async () => {
-    const readOnlyContractget = await getReadOnlyContract();
-    const myCampaignEvent = readOnlyContractget.on(
-      "MyCampaign",
-      (campaignOwner: any, campaignId: BigNumber) => {
-        // to get the last campaign id from the blockchain
-        setCampaignID(convertFromBigNumberToNumber(campaignId) + 1);
-      }
-    );
-
-    // console.log(myCampaignEvent);
-  };
-
   useEffect(() => {
+    const connectEvent = async () => {
+      const readOnlyContractget = await getReadOnlyContract();
+      const myCampaignEvent = readOnlyContractget.on(
+        "MyCampaign",
+        (campaignOwner: any, campaignId: BigNumber) => {
+          // to get the last campaign id from the blockchain
+          setCampaignID(convertFromBigNumberToNumber(campaignId) + 1);
+        }
+      );
+
+      // console.log(myCampaignEvent);
+    };
     connectEvent();
     return () => {
       // myCampaignEvent
     };
-  }, []);
+  }, [getReadOnlyContract]);
 
   return (
     <div className="my-16 flex justify-center">
@@ -144,6 +144,7 @@ const Create = (props: Props) => {
             <div className="w-full space-y-1 text-center">
               {photo ? (
                 <img
+                  // layout="fill"
                   src={photo.preview}
                   alt="preview"
                   className="mx-auto h-12 w-12 rounded-full border border-gray-400"

@@ -7,7 +7,7 @@ import useResource from "../../services/hooks/useResource";
 
 type Props = {};
 
-export default function campaigns({}: Props) {
+export default function Campaigns({}: Props) {
   const divRef = useRef<HTMLDivElement>(null);
 
   const { bottomScrollDetected } = useContext(UserSettingsContext);
@@ -36,7 +36,7 @@ export default function campaigns({}: Props) {
         // load more campaigns
       }
     }
-  }, [data, bottomScrollDetected]);
+  }, [data, bottomScrollDetected, pagination.offset]);
 
   return !loading && data !== undefined ? (
     <div className="flex flex-col gap-0 pt-7 pb-28">

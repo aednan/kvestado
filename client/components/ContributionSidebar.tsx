@@ -2,6 +2,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 
 const products = [
   {
@@ -93,6 +94,7 @@ export default function ContributionSidebar() {
                             <li key={product.id} className="flex py-6">
                               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                 <img
+                                  // layout="fill"
                                   src={product.imageSrc}
                                   alt={product.imageAlt}
                                   className="h-full w-full object-cover object-center"

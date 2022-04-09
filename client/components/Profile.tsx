@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import useUser from "../services/hooks/useUser";
 import LoadingSpinner from "./LoadingSpinner";
+import Image from "next/image";
 
 type Props = {};
 
@@ -15,6 +16,7 @@ const Profile = (props: Props) => {
     <div className="mx-auto mt-16 w-11/12 rounded-t-xl border-2 p-10 sm:mt-32 ">
       <div className="absolute top-3 right-[36%] h-28 w-28 justify-center overflow-hidden rounded-full border-2  bg-white align-middle  sm:top-12 sm:right-[40%] sm:h-36 sm:w-36 xl:right-[45%] ">
         <img
+          // layout="fill"
           //?${Date.now() overcome the issue of caching when updating the image by changing the URL
           src={
             data.pictureUrl === ""

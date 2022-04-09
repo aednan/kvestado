@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { MdMail } from "react-icons/md";
@@ -71,8 +72,9 @@ const Newsletter = (props: Props) => {
           </Link>
         </div>
       </form>
-      <div className="max-w-400 max-h-400 hidden justify-center md:flex  ">
+      <div className="relative max-w-400 max-h-400 hidden justify-center md:flex  ">
         <img
+          // layout="fill"
           src="/img/newsletter.svg"
           alt=""
           // layout="responsive"

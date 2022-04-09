@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
-
-module.exports = nextConfig
+// const nextConfig = {
+//   reactStrictMode: true,
+// }
+// module.exports = nextConfig
 
 
 // MDX Support
-const withMDX = require('@next/mdx')({
+const withMDXNextConfig = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
@@ -17,7 +16,11 @@ const withMDX = require('@next/mdx')({
   },
 })
 
-module.exports = withMDX({
+module.exports = withMDXNextConfig({
+  images: {
+    domains: ["ik.imagekit.io"],
+  },
+  reactStrictMode: true,
   // Append the default value with md extensions
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
 })

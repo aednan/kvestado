@@ -20,6 +20,7 @@ jobs:
           cd client
           npm install
           npm run build
+          npm run export
           rm -rf .vercel
 
       - name: Step 3 - deploy
@@ -29,4 +30,4 @@ jobs:
           vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
-          working-directory: ./.next
+          working-directory: ./client/out

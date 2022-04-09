@@ -3,24 +3,28 @@ on:
   push:
     branches: [main]
 jobs:
-  deploy:
-    name: Build on (${{ matrix.os }})
+  build:
+    name: Build (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
       fail-fast: false
+
     steps:
-      - name: Step - build
-      - uses: actions/checkout@v2
-      - run: |
+      - name: Step 1 - Checkout master branch
+        uses: actions/checkout@v2
+
+      - name: Step 2 - Build
+        run: |
           cd client
           npm install
           npm run build
           npm run export
           rm -rf .vercel
-      - name: Step - deploy
-      - uses: amondnet/vercel-action@v20
+
+      - name: Step 3 - deploy
+        uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-args: "--prod" #Optional

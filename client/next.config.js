@@ -4,9 +4,8 @@
 // }
 // module.exports = nextConfig
 
-
 // MDX Support
-const withMDXNextConfig = require('@next/mdx')({
+const withMDXNextConfig = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
@@ -14,7 +13,7 @@ const withMDXNextConfig = require('@next/mdx')({
     // If you use `MDXProvider`, uncomment the following line.
     // providerImportSource: "@mdx-js/react",
   },
-})
+});
 
 module.exports = withMDXNextConfig({
   images: {
@@ -22,5 +21,5 @@ module.exports = withMDXNextConfig({
   },
   reactStrictMode: true,
   // Append the default value with md extensions
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-})
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+});

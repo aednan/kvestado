@@ -19,7 +19,7 @@ jobs:
         run: |
           cd client
           npm install
-          npm run build
+          npm run vercel-build
           rm -rf .vercel
 
       - name: Step 2 - build & deploy

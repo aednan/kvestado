@@ -20,7 +20,7 @@ jobs:
           cd client
           npm install
           npm run build
-          cd .next
+          rm -rf .vercel
 
       - name: Step 2 - build & deploy
         uses: amondnet/vercel-action@v20
@@ -29,4 +29,4 @@ jobs:
           vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
-          working-directory: ./client
+          working-directory: ./client/

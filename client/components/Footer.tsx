@@ -14,7 +14,7 @@ export default function Footer() {
   const router = useRouter();
   return (
     <footer className="bottom-0 z-10 mt-auto h-20 w-full items-center justify-center divide-y-2 bg-slate-50  ">
-      {/* to show only at home page or everything after /# */}
+      {/* to show only at home page or everything after /# **/}
       {router.asPath.match("^(/#)|^(/)$") && !state.isAuthenticated && (
         <div className=" h-80 border-t-2 bg-slate-50 px-4 md:px-8">
           <Newsletter />

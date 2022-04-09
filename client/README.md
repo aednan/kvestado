@@ -1,3 +1,31 @@
+https://github.com/marketplace/actions/vercel-action
+https://github.com/marketplace/actions/deploy-to-vercel-action
+https://github.com/marketplace/actions/deploy-to-vercel-action
+
+### Vercel Project
+
+Before you can start using this Action you have to link your project with [Vercel](https://vercel.com/download) locally.
+
+Run the command `vercel` inside your projects root and follow the steps described by the [Vercel CLI](https://vercel.com/docs/cli).
+
+Once set up, a new `.vercel` directory will be added to your directory. The `.vercel/project.json` file contains both the organization (`orgId`) and project (`projectId`) id of your project.
+
+You can then specify them as `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` in the Actions inputs.
+
+> **Note:** It is recommended to set them as [Repository Secrets](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+
+---
+
+vercel --prod
+
+- no
+- no
+- kvestado
+- no
+- no
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

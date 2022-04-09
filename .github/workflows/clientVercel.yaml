@@ -15,13 +15,13 @@ jobs:
       - name: Step 1 - Checkout master branch
         uses: actions/checkout@v2
 
-      # - name: Step 2 -  Build
-      # run: |
-      #   cd client
-      #   npm install
-      #   npm run build
-      #   cd .next
-      #   rm -rf .vercel
+      - name: Step 2 -  Build
+      run: |
+        cd client
+        npm install
+        npm run vercel-build
+        cd .next
+        rm -rf .vercel
 
       - name: Step 2 - build & deploy
         uses: amondnet/vercel-action@v20

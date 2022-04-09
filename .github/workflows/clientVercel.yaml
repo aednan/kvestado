@@ -11,6 +11,7 @@ jobs:
           cd client
           npm install
           npm run build
+          npm run export
       - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required

@@ -91,12 +91,14 @@ export default function Card(props: Props) {
                       XilyanD
                     </span>
                   </div>
-                  <img
-                    // layout="fill"
-                    src={`${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${product.coverPicturePath}`}
-                    alt="Campaign"
-                    className=" h-full w-full object-fill object-center"
-                  />
+                  <Link href={`/campaigns/${product.slug}`} passHref>
+                    <img
+                      // layout="fill"
+                      src={`${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${product.coverPicturePath}`}
+                      alt="Campaign"
+                      className="h-full w-full cursor-pointer object-fill object-center"
+                    />
+                  </Link>
                 </div>
                 <div className="flex h-40 flex-col justify-between px-6 py-4">
                   <div className="flex flex-col  space-y-3 ">

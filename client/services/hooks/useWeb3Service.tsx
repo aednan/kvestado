@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ethers } from "ethers";
 import Router, { useRouter } from "next/router";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
+import { ValidationError } from "../ToolsService";
 declare var window: any;
 const restrictedRoutes = "^/user/.*|^/campaigns/create$";
 axios.defaults.withCredentials = true;
@@ -11,17 +12,16 @@ type Props = {};
 
 export default function useWeb3Service(props?: Props) {
   const route = useRouter();
-  const fetcher = async (url: string) => {
+  const fetcher = async (url: string, skip: boolean) => {
+    if (skip) throw new ValidationError();
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${url}`,
         {
-          // headers: {
-          //   Authorization: "",
-          // },
           withCredentials: true,
         }
       );
+      setUserInfo(response.data);
       return response.data;
     } catch (error) {
       throw error;
@@ -34,6 +34,7 @@ export default function useWeb3Service(props?: Props) {
     setProvider,
     setWalletAddress,
     setDisableSubmitBtn,
+    setUserInfo,
   } = useContext(AuthContext);
 
   //**** */
@@ -165,8 +166,8 @@ export default function useWeb3Service(props?: Props) {
     try {
       // clear cookies or jwt token
       // Authentication will be done using the cookie
-      // await userAuthenticationPostTemplate("logout", null);
-      await logoutAPI();
+      await userAuthenticationPostTemplate("logout", "");
+      // await logoutAPI();
     } catch (error) {
       console.log(error);
     }
@@ -179,6 +180,7 @@ export default function useWeb3Service(props?: Props) {
     setProvider({});
     setWalletAddress("");
     setDisableSubmitBtn(false);
+    setUserInfo({});
 
     // redirect user to home page only when route required authentication
     // route from hook doesn't retrieve the correct path.
@@ -236,22 +238,37 @@ export default function useWeb3Service(props?: Props) {
     );
     return response.data;
   }
-  async function logoutAPI() {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/logout`,
-      null,
-      {
-        withCredentials: true,
-      }
-    );
-    return response.data;
-  }
+  // async function logoutAPI() {
+  //   const response = await axios.post(
+  //     `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/logout`,
+  //     null,
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   return response.data;
+  // }
 
   //**** */
 
   useEffect(() => {
     // check user session if logged in
-  }, []);
+
+    if (state.isAuthenticated) {
+      userAuthenticationPostTemplate("login", "")
+        .then((res) => {
+          if (
+            Object.keys(state.userInfo).length == 0 ||
+            state.userInfo.username === ""
+          )
+            fetcher("user/userinfo", false);
+        })
+        .catch((err) => {
+          console.log("Session not valid");
+          logout();
+        });
+    }
+  }, [state.isAuthenticated]);
 
   return {
     userRegistration,

@@ -9,7 +9,7 @@ import LoadingSpinner from "./LoadingSpinner";
 type Props = {};
 
 const Profile = (props: Props) => {
-  const { data, mutate, error, loading } = useUser();
+  const { data, loading } = useUser({ skip: false });
 
   return !loading && data !== undefined ? (
     <div className="mx-auto mt-16 w-11/12 rounded-t-xl border-2 p-10 sm:mt-32 ">

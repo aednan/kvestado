@@ -1,15 +1,9 @@
 import axios from "axios";
+import { ValidationError } from "../ToolsService";
 import useWeb3Service from "./useWeb3Service";
 // axios.defaults.withCredentials = true;
 
 type Props = {};
-
-class ValidationError extends Error {
-  constructor() {
-    super("Skip Request");
-    this.name = "VError";
-  }
-}
 
 export default function useApiService(props?: Props) {
   const { logout } = useWeb3Service();

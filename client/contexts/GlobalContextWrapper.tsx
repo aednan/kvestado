@@ -1,11 +1,6 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
 import useWeb3Service from "../services/hooks/useWeb3Service";
-// import {
-//   connectWallet,
-//   onWalletAddressChange,
-//   restrictedRoutes,
-// } from "../services/Web3Service";
 import AuthContext from "./AuthContext";
 import UserSettingsContext from "./UserSettingsContext";
 
@@ -21,9 +16,9 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const [walletAddress, setWalletAddress]: any = useState("");
   // scroll bottom detection
   const [bottomScrollDetected, setBottomScrollDetected] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
-  const { connectWallet, onWalletAddressChange, restrictedRoutes } =
-    useWeb3Service();
+  const { connectWallet, restrictedRoutes } = useWeb3Service();
 
   // Night mode state
   // TODO: to store the preferred settings theme mode in a database to be send back in a cookie or JWT token
@@ -47,11 +42,13 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
         setProvider,
         setWalletAddress,
         setDisableSubmitBtn,
+        setUserInfo,
         state: {
           walletAddress,
           provider,
           isAuthenticated,
           isSubmitBtnDisabled,
+          userInfo,
         },
       }}
     >

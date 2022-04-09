@@ -112,3 +112,10 @@ export const getEpochExpireTime = (expireAfter: number) => {
 //     // ... and other options
 //   });
 // };
+
+export class ValidationError extends Error {
+  constructor() {
+    super("Skip Request");
+    this.name = "VError";
+  }
+}

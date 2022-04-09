@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import ContributionSidebar from "../../components/ContributionSidebar";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import AuthContext from "../../contexts/AuthContext";
 import useResource from "../../services/hooks/useResource";
 
 // import Markdown from "react-markdown";
@@ -12,7 +10,6 @@ type props = {};
 
 function campaign(props: props) {
   const router = useRouter();
-  console.log(router.query);
   const [slugValue, setSlugValue] = useState<any>(undefined);
   const { data, loading } = useResource({
     resourcePath: "contract/api/get_campaign",

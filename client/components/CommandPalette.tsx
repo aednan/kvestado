@@ -2,8 +2,9 @@ import React, { Fragment, useContext, useEffect } from "react";
 import { Dialog, Combobox, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import UserContext from "../contexts/UserSettingsContext";
+import UserSettingsContext from "../contexts/UserSettingsContext";
 import { useRouter } from "next/router";
+import AuthContext from "../contexts/AuthContext";
 
 interface cPData {
   id: number;
@@ -16,7 +17,8 @@ export default function CommandPalette() {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
-  const commandPaletteContext = useContext(UserContext);
+  const commandPaletteContext = useContext(UserSettingsContext);
+  const { state } = useContext(AuthContext);
 
   const cPData: cPData[] = [
     { id: 1, title: "> Home", description: "Navigate to home page" },
@@ -28,9 +30,16 @@ export default function CommandPalette() {
   ];
 
   const filteredData = query
-    ? cPData.filter((data) =>
-        data.title.toLowerCase().includes(query.toLowerCase())
-      )
+    ? cPData.filter((data) => {
+        if ((data.id === 4 || data.id === 5) && !state.isAuthenticated) return;
+        if (
+          state.isAuthenticated &&
+          data.id === 5 &&
+          state.userInfo.username === ""
+        )
+          return;
+        return data.title.toLowerCase().includes(query.toLowerCase());
+      })
     : [];
 
   const onCBSelectionChange = (cPData: any) => {
@@ -54,7 +63,7 @@ export default function CommandPalette() {
       case 5:
         commandPaletteContext.setCPaletteOpen(false);
         // TODO: custom profile url - to change (username)
-        router.push("/user/username");
+        router.push(`/user/${state.userInfo.username}`);
         break;
       case 6:
         commandPaletteContext.setCPaletteOpen(false);

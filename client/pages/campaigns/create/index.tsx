@@ -1,5 +1,5 @@
 import { Switch } from "@headlessui/react";
-import { BigNumber, ethers } from "ethers";
+import { BigNumber } from "ethers";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import AuthContext from "../../../contexts/AuthContext";

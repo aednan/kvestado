@@ -1,9 +1,7 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import useApiService from "../services/hooks/useApiService";
+import React from "react";
 import useResource from "../services/hooks/useResource";
 import Card from "./Card";
-import LoadingSpinner from "./LoadingSpinner";
 
 type Props = {};
 

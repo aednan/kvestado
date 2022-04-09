@@ -18,7 +18,9 @@ type Props = {};
 
 const settings = (props: Props) => {
   const { getRequest, postRequest } = useApiService();
-  const { data, mutate, error, isValidating, loading } = useUser();
+  const { data, mutate, error, isValidating, loading } = useUser({
+    skip: false,
+  });
 
   const route = useRouter();
 
@@ -37,7 +39,7 @@ const settings = (props: Props) => {
   const [email, setEmail]: any = useState("");
   const [about, setAbout]: any = useState("");
 
-  const { state } = useContext(AuthContext);
+  const { state, setUserInfo } = useContext(AuthContext);
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/png, image/jpeg, image/gif",
@@ -89,19 +91,30 @@ const settings = (props: Props) => {
         email,
         about,
         pictureUrl: pictureUrl,
-      }).catch((err) => {
-        console.log(err);
-      });
+      })
+        .then((res) => {
+          mutate(
+            { ...data, username, email, about, pictureUrl: pictureUrl },
+            false
+          );
+          setUserInfo({
+            ...data,
+            username,
+            email,
+            about,
+            pictureUrl: pictureUrl,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-      mutate(
-        { ...data, username, email, about, pictureUrl: pictureUrl },
-        false
-      );
       // revalidate data after update
       // mutate({ ...data, username, email, about });
       // console.log(data.email);
     } catch (error) {
       //
+      console.log(error);
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import React from "react";
 
 interface useStatePropsType {
   state: {
@@ -6,11 +6,20 @@ interface useStatePropsType {
     provider: any;
     walletAddress: string;
     isSubmitBtnDisabled: boolean;
+    userInfo: {
+      username?: string;
+      email?: string;
+      about?: string;
+      pictureUrl?: string;
+      joined?: string;
+      nightMode?: boolean;
+    };
   };
   setAuthentication: Function;
   setProvider: Function;
   setWalletAddress: Function;
   setDisableSubmitBtn: Function;
+  setUserInfo: Function;
 }
 export default React.createContext<useStatePropsType>({
   state: {
@@ -18,10 +27,12 @@ export default React.createContext<useStatePropsType>({
     provider: {},
     walletAddress: "",
     isSubmitBtnDisabled: false,
+    userInfo: {},
   },
 
   setAuthentication: () => {},
   setProvider: () => {},
   setWalletAddress: () => {},
   setDisableSubmitBtn: () => {},
+  setUserInfo: () => {},
 });

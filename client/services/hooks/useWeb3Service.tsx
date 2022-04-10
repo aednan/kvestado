@@ -70,7 +70,8 @@ export default function useWeb3Service(props?: Props) {
 
         await userAuthenticationPostTemplate(
           "login",
-          `Basic ${btoa(signerAddress + ":" + signedMessage)}`
+          // `Basic ${btoa(signerAddress + ":" + signedMessage)}`
+          { username: signerAddress, password: signedMessage }
         );
         return true;
       }
@@ -177,7 +178,7 @@ export default function useWeb3Service(props?: Props) {
     try {
       // clear cookies or jwt token
       // Authentication will be done using the cookie
-      await userAuthenticationPostTemplate("logout", "");
+      await userAuthenticationPostTemplate("logout");
       // await logoutAPI();
     } catch (error) {
       console.log(error);
@@ -235,12 +236,13 @@ export default function useWeb3Service(props?: Props) {
 
   async function userAuthenticationPostTemplate(
     url: string,
-    authorization: string
+    authorization?: { username: string; password: string } | undefined
   ) {
     const response = await instance.post(`${url}`, null, {
-      headers: {
-        Authorization: authorization,
-      },
+      // headers: {
+      //   Authorization: authorization,
+      // },
+      auth: authorization,
       withCredentials: true,
     });
     return response.data;
@@ -297,7 +299,7 @@ export default function useWeb3Service(props?: Props) {
 
     // check user session if logged in
     if (state.isAuthenticated) {
-      userAuthenticationPostTemplate("login", "")
+      userAuthenticationPostTemplate("login")
         .then((res) => {
           if (
             Object.keys(state.userInfo).length == 0 ||

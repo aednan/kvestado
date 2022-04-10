@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Router, { useRouter } from "next/router";
 import axios from "axios";
@@ -11,16 +11,19 @@ axios.defaults.withCredentials = true;
 type Props = {};
 
 export default function useWeb3Service(props?: Props) {
+  const instance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/`,
+    timeout: 1000,
+    // headers: {'X-Custom-Header': 'kvestado'}
+  });
+
   const route = useRouter();
   const fetcher = async (url: string, skip: boolean) => {
     if (skip) throw new ValidationError();
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${url}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await instance.get(`${url}`, {
+        withCredentials: true,
+      });
       setUserInfo(response.data);
       return response.data;
     } catch (error) {
@@ -47,7 +50,7 @@ export default function useWeb3Service(props?: Props) {
     let signedMessage: any = "";
 
     const challenge = await userRegistration(
-      `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/request_challenge`,
+      `request_challenge`,
       signerAddress
     );
     if (challenge !== "") {
@@ -77,28 +80,51 @@ export default function useWeb3Service(props?: Props) {
 
   // Errors will be caught at connectWallet level
   async function userRegistration(url: string, walletAddress: string) {
-    const response = await axios.get(url, {
+    const response = await instance.get(url, {
       params: { wallet_address: walletAddress },
     });
     return response.data;
   }
+
+  const redirectCallBack = () => {
+    console.log("DD");
+
+    if (!state.isAuthenticated) {
+      route.replace("/");
+    }
+    // clearInterval(intervalId);
+  };
 
   async function connectWallet() {
     // TODO: onConnect the user should sign the message received by the backend
 
     // Metamask is present, try connect wallet
     setDisableSubmitBtn(true);
+    // let id = setTimeout(redirectCallBack, 10000);
     try {
       if (window.ethereum) {
+        // const accounts: any = await withTimeoutWrapper(
+        //   () =>
+        //     window.ethereum.request({
+        //       method: "eth_requestAccounts",
+        //     }),
+        //   10000,
+        //   redirectCallBack
+        // );
+
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
+
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         if (accounts.length > 0) {
           setWalletAddress(accounts[0]);
           setProvider(provider);
         }
         //
+
+        // clearTimeout(id);
+        // Delay
 
         if (
           !localStorage.getItem("Authenticated") &&
@@ -111,16 +137,13 @@ export default function useWeb3Service(props?: Props) {
           // To reconnect user after page refresh if already authenticated
           if (!localStorage.getItem("Authenticated")) {
             localStorage.setItem("Authenticated", "true");
+          } else if (localStorage.getItem("Authenticated")) {
+            setAuthentication(true);
+          } else {
+            // TODO alert "need a wallet provider to be installed"
+            console.log("wallet Provider is needed");
           }
-          // }
-        } else if (localStorage.getItem("Authenticated")) {
-          setAuthentication(true);
         }
-
-        //
-      } else {
-        // TODO alert "need a wallet provider to be installed"
-        console.log("wallet Provider is needed");
       }
     } catch (error: any) {
       // if the route require authentication && user decline connection
@@ -134,6 +157,7 @@ export default function useWeb3Service(props?: Props) {
       }
       console.log(error);
     }
+
     setDisableSubmitBtn(false);
   }
 
@@ -213,16 +237,12 @@ export default function useWeb3Service(props?: Props) {
     url: string,
     authorization: string
   ) {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${url}`,
-      null,
-      {
-        headers: {
-          Authorization: authorization,
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await instance.post(`${url}`, null, {
+      headers: {
+        Authorization: authorization,
+      },
+      withCredentials: true,
+    });
     return response.data;
   }
   // async function logoutAPI() {
@@ -239,11 +259,13 @@ export default function useWeb3Service(props?: Props) {
   //**** */
 
   useEffect(() => {
+    let isEnabled = true;
+
     checkIfConnected();
 
     const updateUser = () => {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${"user/userinfo"}`, {
+      instance
+        .get(`${"user/userinfo"}`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -259,7 +281,7 @@ export default function useWeb3Service(props?: Props) {
       //TODO: to unsubscribe
       // ethereum.removeListener('accountsChanged', logAccounts);
       if (localStorage.getItem("Authenticated")) {
-        logout();
+        await logout();
       }
       // window.ethereum.on("accountsChanged", function);
     }

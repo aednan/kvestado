@@ -38,7 +38,7 @@ export default function Campaigns({}: Props) {
     }
   }, [data, bottomScrollDetected, pagination.offset]);
 
-  return !loading && data !== undefined ? (
+  return (!loading && data !== undefined) || error ? (
     <div className="flex flex-col gap-0 pt-7 pb-28">
       <Card products={data?.content} title="Campaigns" />
       {/* <div className=" flex justify-center">

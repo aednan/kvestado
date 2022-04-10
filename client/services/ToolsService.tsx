@@ -119,3 +119,43 @@ export class ValidationError extends Error {
     this.name = "VError";
   }
 }
+
+// export const withTimeoutWrapper = async (
+//   toRun: Function,
+//   delay: any,
+//   callbackAfterDelayExceeded: any
+// ) => {
+// // console.log("XX");
+
+// try {
+//   const accounts = await toRun();
+//   console.log(accounts);
+//   const id = setTimeout(callbackAfterDelayExceeded, delay);
+//   await new Promise((resolve) => {
+//     const tid = setTimeout(resolve, delay);
+//     if (accounts) {
+//       clearTimeout(tid);
+//     }
+//   });
+//   console.log("X");
+//   clearTimeout(id);
+//   return accounts;
+// } catch (error) {
+//   throw error;
+// }
+// toRun()
+//   .then((res: any) => {
+//     console.log("X1");
+//     console.log(res);
+//     return res;
+//   })
+//   .catch((err: any) => {
+//     console.log("X2");
+//     throw err;
+//   });
+// const id = setTimeout(callbackAfterDelayExceeded, delay);
+// await new Promise((resolve) => {
+//   setTimeout(resolve, delay);
+// });
+// clearTimeout(id);
+// };

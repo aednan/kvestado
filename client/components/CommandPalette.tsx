@@ -155,7 +155,7 @@ export default function CommandPalette() {
             {filteredData.length > 0 && (
               <Combobox.Options
                 static
-                className="max-h-96 space-y-1 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
+                className="max-h-96 space-y-2 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
               >
                 {filteredData.map((dataObject: cPData) => (
                   <Combobox.Option value={dataObject} key={dataObject.id}>

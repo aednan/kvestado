@@ -2,7 +2,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import Image from "next/image";
+import ContributionCard from "./ContributionCard";
 
 const products = [
   {
@@ -32,15 +32,20 @@ const products = [
   // More products...
 ];
 
-export default function ContributionSidebar() {
+type Props = {
+  open: any;
+  setOpen: any;
+};
+
+export default function ContributionSidebar(props: Props) {
   const [open, setOpen] = useState(true);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 overflow-hidden"
-        onClose={setOpen}
+        onClose={props.setOpen}
       >
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
@@ -76,7 +81,7 @@ export default function ContributionSidebar() {
                         <button
                           type="button"
                           className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                          onClick={() => setOpen(false)}
+                          onClick={() => props.setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
                           <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -91,47 +96,10 @@ export default function ContributionSidebar() {
                           className="-my-6 divide-y divide-gray-200"
                         >
                           {products.map((product) => (
-                            <li key={product.id} className="flex py-6">
-                              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                <img
-                                  // layout="fill"
-                                  src={product.imageSrc}
-                                  alt={product.imageAlt}
-                                  className="h-full w-full object-cover object-center"
-                                />
-                              </div>
-
-                              <div className="ml-4 flex flex-1 flex-col">
-                                <div>
-                                  <div className="flex justify-between text-base font-medium text-gray-900">
-                                    <h3>
-                                      <a href={product.href}>
-                                        {" "}
-                                        {product.name}{" "}
-                                      </a>
-                                    </h3>
-                                    <p className="ml-4">{product.price}</p>
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    {product.color}
-                                  </p>
-                                </div>
-                                <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-gray-500">
-                                    Qty {product.quantity}
-                                  </p>
-
-                                  <div className="flex">
-                                    <button
-                                      type="button"
-                                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                                    >
-                                      Remove
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
+                            <ContributionCard
+                              key={product.id}
+                              product={product}
+                            />
                           ))}
                         </ul>
                       </div>

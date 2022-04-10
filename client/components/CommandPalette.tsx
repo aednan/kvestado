@@ -5,6 +5,8 @@ import { MdSearch } from "react-icons/md";
 import UserSettingsContext from "../contexts/UserSettingsContext";
 import { useRouter } from "next/router";
 import AuthContext from "../contexts/AuthContext";
+import { CgHashtag } from "react-icons/cg";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 interface cPData {
   id: number;
@@ -21,12 +23,12 @@ export default function CommandPalette() {
   const { state } = useContext(AuthContext);
 
   const cPData: cPData[] = [
-    { id: 1, title: "> Home", description: "Navigate to home page" },
-    { id: 2, title: "> Create", description: "Create new campaign" },
-    { id: 3, title: "> Find", description: "Find existing campaign" },
-    { id: 4, title: "> Settings", description: "Navigate to profile settings" },
-    { id: 5, title: "> Profile", description: "Navigate to your profile" },
-    { id: 6, title: "> Docs", description: "Open documentation" },
+    { id: 1, title: "Home", description: "Navigate to home page" },
+    { id: 2, title: "Create", description: "Create new campaign" },
+    { id: 3, title: "Find", description: "Find existing campaign" },
+    { id: 4, title: "Settings", description: "Navigate to profile settings" },
+    { id: 5, title: "Profile", description: "Navigate to your profile" },
+    { id: 6, title: "Docs", description: "Open documentation" },
   ];
 
   const filteredData = query
@@ -128,13 +130,13 @@ export default function CommandPalette() {
             onChange={(dataObject: any) => onCBSelectionChange(dataObject)}
           >
             <div className="flex items-center gap-2 px-4">
-              <MdSearch className="text-3xl text-gray-400" />
+              <MdSearch className="text-4xl text-cyan-400" />
 
               <Combobox.Input
                 onChange={(event) => {
                   setQuery(event.target.value);
                 }}
-                className="h-[4.3rem] w-full border-0 bg-transparent text-xl  
+                className="h-[4rem] w-full border-0 bg-transparent text-xl  
             text-gray-800 placeholder:font-roboto placeholder:text-lg
               placeholder:text-gray-400 focus:border-none focus:outline-none focus:ring-0 "
                 placeholder="Search"
@@ -153,22 +155,32 @@ export default function CommandPalette() {
             {filteredData.length > 0 && (
               <Combobox.Options
                 static
-                className="max-h-96 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
+                className="max-h-96 space-y-1 divide-y divide-gray-50 overflow-y-auto py-4  text-base"
               >
                 {filteredData.map((dataObject: cPData) => (
                   <Combobox.Option value={dataObject} key={dataObject.id}>
                     {({ active }) => (
                       <div
-                        className={`cursor-pointer space-x-2 py-2 px-6 ${
-                          active ? "bg-cyan-400" : "bg-white"
+                        className={`mx-4  flex max-h-20 cursor-pointer justify-between overflow-hidden rounded-lg py-3 px-6 ${
+                          active ? "bg-cyan-400" : "bg-slate-100"
                         }  `}
                       >
-                        <span className="text-base font-medium text-gray-900">
-                          {dataObject.title}
-                        </span>
-                        <span className="text-sm text-gray-400">
-                          {dataObject.description}
-                        </span>
+                        <div className="flex space-x-4 ">
+                          <CgHashtag className="my-auto h-9 w-9 text-slate-400" />
+                          <div className="flex flex-col">
+                            <span className="my-auto font-roboto text-lg font-medium text-gray-900">
+                              {dataObject.title}
+                            </span>
+                            <span
+                              className={`my-auto font-roboto text-base text-gray-400 ${
+                                active ? "text-white" : "text-gray-400"
+                              }  `}
+                            >
+                              {dataObject.description}
+                            </span>
+                          </div>
+                        </div>
+                        <BsArrowReturnLeft className="my-auto h-7 w-7 text-slate-400" />
                       </div>
                     )}
                   </Combobox.Option>

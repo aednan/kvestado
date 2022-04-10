@@ -10,7 +10,7 @@ export const ArticleCard = (props: any) => {
           <span className="h-full w-full select-none font-roboto text-base font-bold">
             {meta.readTime}{" "}
           </span>
-          <span className=" max-w-sm select-all font-roboto text-base font-thin text-gray-900">
+          <span className="  max-w-sm select-all font-roboto text-base font-thin text-gray-900">
             min read
           </span>
         </div>
@@ -18,18 +18,18 @@ export const ArticleCard = (props: any) => {
       <div className="flex h-60 flex-col justify-between px-6 py-4">
         <div className="flex flex-col  space-y-3 ">
           <div className="max-h-12 items-center justify-between overflow-clip ">
-            <h2 className="font-semibold ">{meta.title}</h2>
+            <h2 className="font-roboto font-semibold ">{meta.title}</h2>
           </div>
-          <div className="max-h-[4.5rem] overflow-y-auto overflow-x-hidden text-base text-gray-600">
+          <div className="max-h-[4.5rem] overflow-y-auto overflow-x-hidden font-roboto text-base text-gray-600">
             {meta.description}
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="max-w-md overflow-clip py-3 text-sm font-semibold tracking-wide text-gray-800">
+          <span className="max-w-md overflow-clip py-3 font-roboto text-sm font-semibold tracking-wide text-gray-800">
             {meta.publishedAt}
           </span>
           <Link scroll={true} href={props.path}>
-            <a className="bottom-0 inline-block border-separate border-t pt-3 pb-1 text-center text-sm font-semibold text-blue-500 hover:font-bold hover:text-blue-600 hover:drop-shadow-md">
+            <a className="bottom-0 inline-block border-separate border-t pt-3 pb-1 text-center font-roboto text-sm font-semibold text-blue-500 hover:font-bold hover:text-blue-600 hover:drop-shadow-md">
               Read more &rarr;
             </a>
           </Link>

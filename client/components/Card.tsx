@@ -114,7 +114,7 @@ export default function Card(props: Props) {
                       {product.createdAt}
                     </span>
                     <Link href={`/campaigns/${product.slug}`}>
-                      <a className="bottom-0 inline-block border-separate cursor-pointer border-t pt-3 pb-1 text-center text-sm font-semibold text-blue-500 hover:font-bold hover:text-blue-600 hover:drop-shadow-md">
+                      <a className="bottom-0 inline-block border-separate cursor-pointer border-t pt-3 pb-1 text-center font-roboto text-sm font-semibold text-blue-500 hover:font-bold hover:text-blue-600 hover:drop-shadow-md">
                         View Campaign &rarr;
                       </a>
                     </Link>

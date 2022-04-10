@@ -55,10 +55,10 @@ export default function PopoverComponent() {
                             <item.icon aria-hidden="true" />
                           </div>
                           <div className="ml-4">
-                            <p className="font-roboto text-sm font-medium text-gray-900">
+                            <p className="font-roboto text-sm font-semibold text-gray-900">
                               {item.name}
                             </p>
-                            <p className="font-roboto text-sm text-gray-500">
+                            <p className="font-roboto text-sm font-normal text-gray-500">
                               {item.description}
                             </p>
                           </div>
@@ -72,11 +72,11 @@ export default function PopoverComponent() {
                       // href="##"
                       >
                         <span className="flex items-center">
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="font-roboto text-sm font-semibold text-gray-900">
                             Documentation
                           </span>
                         </span>
-                        <span className="block text-sm text-gray-500">
+                        <span className="block font-roboto text-sm font-normal text-gray-500">
                           Get started with KVESTADO
                         </span>
                       </a>

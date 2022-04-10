@@ -55,10 +55,10 @@ export default function PopoverComponent() {
                             <item.icon aria-hidden="true" />
                           </div>
                           <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-900">
+                            <p className="font-roboto text-sm font-medium text-gray-900">
                               {item.name}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="font-roboto text-sm text-gray-500">
                               {item.description}
                             </p>
                           </div>

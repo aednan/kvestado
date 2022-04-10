@@ -54,7 +54,7 @@ export default function useWeb3Service(props?: Props) {
       signerAddress
     );
     if (challenge !== "") {
-      signedMessage = await window.ethereum.request({
+      signedMessage = await window.ethereum?.request({
         method: "personal_sign",
         params: [challenge, signerAddress],
       });
@@ -145,6 +145,10 @@ export default function useWeb3Service(props?: Props) {
             console.log("wallet Provider is needed");
           }
         }
+      } else {
+        // TODO show alert
+        console.log("Metamask isn't installed");
+        route.replace("/");
       }
     } catch (error: any) {
       // if the route require authentication && user decline connection
@@ -163,13 +167,17 @@ export default function useWeb3Service(props?: Props) {
   }
 
   async function checkIfConnected() {
-    const accounts = await window.ethereum.request({ method: "eth_accounts" });
-    if (accounts > 0 && localStorage.getItem("Authenticated")) {
-      connectWallet();
-      return true;
-    }
-    if (localStorage.getItem("Authenticated")) {
-      await logout();
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      if (accounts > 0 && localStorage.getItem("Authenticated")) {
+        connectWallet();
+        return true;
+      }
+      if (localStorage.getItem("Authenticated")) {
+        await logout();
+      }
     }
     return false;
   }
@@ -261,8 +269,6 @@ export default function useWeb3Service(props?: Props) {
   //**** */
 
   useEffect(() => {
-    let isEnabled = true;
-
     checkIfConnected();
 
     const updateUser = () => {
@@ -294,7 +300,7 @@ export default function useWeb3Service(props?: Props) {
     }
 
     // Metamask accountsChanged event
-    window.ethereum.on("accountsChanged", onWalletAddressChange);
+    window.ethereum?.on("accountsChanged", onWalletAddressChange);
     // window.ethereum.on("networkChanged", onNetworkChange);
 
     // check user session if logged in
@@ -314,7 +320,7 @@ export default function useWeb3Service(props?: Props) {
     }
 
     return () => {
-      window.ethereum.removeListener("accountsChanged", onWalletAddressChange);
+      window.ethereum?.removeListener("accountsChanged", onWalletAddressChange);
       // window.ethereum.removeListener("networkChanged", onNetworkChange);
     };
   }, [state.isAuthenticated]);

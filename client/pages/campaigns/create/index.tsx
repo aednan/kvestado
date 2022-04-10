@@ -97,8 +97,8 @@ const Create = (props: Props) => {
 
   useEffect(() => {
     const connectEvent = async () => {
-      const readOnlyContractget = await getReadOnlyContract();
-      const myCampaignEvent = readOnlyContractget.on(
+      const readOnlyContract = await getReadOnlyContract();
+      const myCampaignEvent = readOnlyContract.on(
         "MyCampaign",
         (campaignOwner: any, campaignId: BigNumber) => {
           // to get the last campaign id from the blockchain

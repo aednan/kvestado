@@ -33,7 +33,7 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
       // setDisableSubmitBtn(true);
       connectWallet();
     }
-  }, [connectWallet, isSubmitBtnDisabled, restrictedRoutes, router.asPath]);
+  }, []);
 
   return (
     <AuthContext.Provider

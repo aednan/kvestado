@@ -5,7 +5,7 @@ import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
 import { ValidationError } from "../ToolsService";
 declare var window: any;
-const restrictedRoutes = "^/user/.*|^/campaigns/create$";
+const restrictedRoutes = "^/user/.*/|^/campaigns/create/$";
 axios.defaults.withCredentials = true;
 
 type Props = {};
@@ -81,19 +81,6 @@ export default function useWeb3Service(props?: Props) {
       params: { wallet_address: walletAddress },
     });
     return response.data;
-  }
-
-  // Metamask events, accounts
-  async function onWalletAddressChange() {
-    window.ethereum.on("accountsChanged", (accounts: any) => {
-      if (localStorage.getItem("Authenticated")) {
-        logout();
-      }
-    });
-  }
-  // networkId
-  async function onNetworkChange(a: Function) {
-    window.ethereum.on("networkChanged", a);
   }
 
   async function connectWallet() {
@@ -252,8 +239,41 @@ export default function useWeb3Service(props?: Props) {
   //**** */
 
   useEffect(() => {
-    // check user session if logged in
+    checkIfConnected();
 
+    const updateUser = () => {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/${"user/userinfo"}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setUserInfo(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    // Metamask events, accounts
+    async function onWalletAddressChange(accounts: any) {
+      //TODO: to unsubscribe
+      // ethereum.removeListener('accountsChanged', logAccounts);
+      if (localStorage.getItem("Authenticated")) {
+        logout();
+      }
+      // window.ethereum.on("accountsChanged", function);
+    }
+    // networkId
+    async function onNetworkChange(a: Function) {
+      // window.ethereum.on("networkChanged", a);
+      //
+    }
+
+    // Metamask accountsChanged event
+    window.ethereum.on("accountsChanged", onWalletAddressChange);
+    // window.ethereum.on("networkChanged", onNetworkChange);
+
+    // check user session if logged in
     if (state.isAuthenticated) {
       userAuthenticationPostTemplate("login", "")
         .then((res) => {
@@ -261,13 +281,18 @@ export default function useWeb3Service(props?: Props) {
             Object.keys(state.userInfo).length == 0 ||
             state.userInfo.username === ""
           )
-            fetcher("user/userinfo", false);
+            updateUser();
         })
         .catch((err) => {
           console.log("Session not valid");
           logout();
         });
     }
+
+    return () => {
+      window.ethereum.removeListener("accountsChanged", onWalletAddressChange);
+      // window.ethereum.removeListener("networkChanged", onNetworkChange);
+    };
   }, [state.isAuthenticated]);
 
   return {
@@ -275,10 +300,8 @@ export default function useWeb3Service(props?: Props) {
     restrictedRoutes,
     fetcher,
     logout,
-    checkIfConnected,
+    // checkIfConnected,
     connectWallet,
-    onNetworkChange,
-    onWalletAddressChange,
     userAuthentication,
   };
 }

@@ -25,15 +25,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { state } = useContext(AuthContext);
   // const { isScrolling } = useContext(AuthContext);
 
-  const {
-    checkIfConnected,
-    onWalletAddressChange,
-    connectWallet,
-    restrictedRoutes,
-  } = useWeb3Service();
+  const { connectWallet, restrictedRoutes } = useWeb3Service();
   // see campaigns infinite scroll implementation
   const handleScroll = (event: any) => {
-    if (router.asPath.match("^/campaigns$")) {
+    if (router.asPath.match("^/campaigns/$")) {
       if (
         divRef.current?.scrollTop != undefined &&
         divRef.current?.getBoundingClientRect().bottom != undefined &&
@@ -46,14 +41,8 @@ export default function Layout({ children }: { children: ReactNode }) {
       }
     }
   };
-  useEffect(() => {
-    if (!state.isSubmitBtnDisabled) {
-      // after refresh: Auto connects to the wallet if the user is already connected
-      checkIfConnected();
-    }
-    // Metamask accountsChanged event
-    onWalletAddressChange();
 
+  useEffect(() => {
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
       // To auto connect wallet on authentication required routes
 
@@ -77,6 +66,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       // after page loaded
       setLoaded(true);
     };
+
     router.events.on("routeChangeStart", handleRouteChangeStart);
     router.events.on("routeChangeComplete", handleRouteChangeComplete);
 
@@ -87,9 +77,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       router.events.off("routeChangeComplete", handleRouteChangeComplete);
     };
   }, [
-    checkIfConnected,
     connectWallet,
-    onWalletAddressChange,
     restrictedRoutes,
     router.events,
     setBottomScrollDetected,

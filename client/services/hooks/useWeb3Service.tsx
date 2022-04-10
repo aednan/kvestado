@@ -148,6 +148,7 @@ export default function useWeb3Service(props?: Props) {
       } else {
         // TODO show alert
         console.log("Metamask isn't installed");
+        route.push("/campaigns/");
         route.replace("/");
       }
     } catch (error: any) {
@@ -162,7 +163,6 @@ export default function useWeb3Service(props?: Props) {
       }
       console.log(error);
     }
-
     setDisableSubmitBtn(false);
   }
 

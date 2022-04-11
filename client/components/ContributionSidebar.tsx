@@ -3,6 +3,8 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import ContributionCard from "./ContributionCard";
+import InputField from "./InputField";
+import { FaEthereum } from "react-icons/fa";
 
 const products = [
   {
@@ -38,7 +40,7 @@ type Props = {
 };
 
 export default function ContributionSidebar(props: Props) {
-  const [open, setOpen] = useState(true);
+  const [contributionAmount, setContributionAmount] = useState("");
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -91,11 +93,15 @@ export default function ContributionSidebar(props: Props) {
 
                     <div className="mt-8">
                       <div className="flow-root">
-                        <input
-                          className="h-12 w-full rounded-md border-0 bg-slate-300 pl-5 text-xl  
-            text-gray-800 placeholder:font-roboto placeholder:text-lg
-              placeholder:text-gray-400 focus:border-none focus:outline-none focus:ring-0"
-                        ></input>
+                        <InputField
+                          title="Contribution Amount (ETH) *"
+                          placeholder="Enter Amount"
+                          value={contributionAmount}
+                          onChangeFunction={(e: any) =>
+                            setContributionAmount(e.target.value)
+                          }
+                        />
+
                         {/* <ul
                           role="list"
                           className="-my-6 divide-y divide-gray-200"
@@ -114,7 +120,10 @@ export default function ContributionSidebar(props: Props) {
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>$262.00</p>
+                      <p className="my-auto flex max-w-[12rem] overflow-hidden  text-center">
+                        {contributionAmount ? contributionAmount : "0.00"}{" "}
+                        <FaEthereum className="my-auto" />
+                      </p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Thank you for your contribution.

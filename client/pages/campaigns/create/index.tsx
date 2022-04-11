@@ -257,7 +257,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
           onChangeFunction={handleExpireAfterChange}
         />
         <InputField
-          title="Amount (in Ether) *"
+          title="Amount (ETH) *"
           placeholder="Enter amount"
           value={amount}
           onChangeFunction={handleAmountChange}

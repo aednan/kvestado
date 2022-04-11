@@ -359,8 +359,8 @@ export default function Navbar() {
                         }}
                         className=" 
                         mx-5 h-14 w-full cursor-pointer rounded-md 
-                        border border-sky-800 bg-sky-700 px-7
-                        py-4 text-lg font-bold leading-none text-white hover:shadow-md"
+                        bg-sky-700 px-7 py-4
+                        text-lg font-bold leading-none text-white hover:bg-sky-800 hover:shadow-md"
                       >
                         Connect Wallet
                       </button>

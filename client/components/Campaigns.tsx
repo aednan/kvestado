@@ -18,7 +18,7 @@ export default function Campaigns({}: Props) {
       <Card products={data?.content} title="Existing Campaigns" />
       <div className=" flex justify-center">
         <Link href="/campaigns">
-          <a className=" font-mono items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 text-base font-bold text-slate-700 hover:border-cyan-600 hover:text-cyan-600 md:text-lg">
+          <a className=" items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg">
             VIEW MORE
           </a>
         </Link>

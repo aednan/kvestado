@@ -76,7 +76,7 @@ export default function ContributionSidebar(props: Props) {
                 <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                   <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div className="flex items-start justify-between">
-                      <Dialog.Title className="text-lg font-medium text-gray-900">
+                      <Dialog.Title className="font-roboto text-lg font-bold text-gray-900">
                         Contribution
                       </Dialog.Title>
                       <div className="ml-3 flex h-7 items-center">
@@ -118,30 +118,33 @@ export default function ContributionSidebar(props: Props) {
                   </div>
 
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-                    <div className="flex justify-between text-base font-medium text-gray-900">
+                    <div className="flex justify-between  text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p className="my-auto flex max-w-[12rem] overflow-hidden  text-center">
-                        {contributionAmount ? contributionAmount : "0.00"}{" "}
-                        <FaEthereum className="my-auto" />
-                      </p>
+                      <div className="flex h-full  ">
+                        <FaEthereum className="my-auto min-h-[1.3rem] min-w-[1.3rem] " />
+                        <p className=" m-auto h-full max-w-[12rem] overflow-x-auto   ">
+                          {" "}
+                          {contributionAmount ? contributionAmount : "0.00"}
+                        </p>
+                      </div>
                     </div>
-                    <p className="mt-0.5 text-sm text-gray-500">
+                    <p className="mt-0.5 font-roboto text-sm text-gray-500">
                       Thank you for your contribution.
                     </p>
                     <div className="mt-6">
                       <a
                         href="#"
-                        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                        className="flex items-center justify-center rounded-md border border-transparent bg-sky-700 px-6 py-3 font-roboto text-base font-medium text-white shadow-sm hover:bg-sky-800"
                       >
                         CONTRIBUTE
                       </a>
                     </div>
-                    <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                    <div className="mt-6 flex justify-center text-center font-roboto text-sm text-gray-500">
                       <p>
                         or{" "}
                         <button
                           type="button"
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          className="font-roboto font-medium text-indigo-600 hover:text-indigo-500"
                           onClick={() => props.setOpen(false)}
                         >
                           Back to campaign

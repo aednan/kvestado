@@ -12,7 +12,7 @@ type props = {};
 
 function Campaign(props: props) {
   // Contribution slider
-  const [openContribution, setOpenContribution] = useState(true);
+  const [openContribution, setOpenContribution] = useState(false);
 
   const router = useRouter();
   const [slugValue, setSlugValue] = useState<any>(undefined);
@@ -44,10 +44,7 @@ function Campaign(props: props) {
         <div className="relative  mb-7">
           <h1 className="leading-tighter mx-auto mb-8 w-full max-w-7xl text-center text-3xl font-extrabold sm:text-4xl md:text-5xl lg:mb-10 lg:text-6xl">
             {data?.title}
-            {/* sdkjfjkkjsdfkj skjfkjsdjkf sdhjsd sdjs kjsdk dsj sdjk sjdfjskjdf
-          sdjkfjksdkjfjsd fjsdkjfkjsd */}
           </h1>
-          {/* )} */}
           <div className="mx-auto max-w-5xl justify-center rounded-md bg-cover">
             <img
               // layout="fill"
@@ -57,10 +54,6 @@ function Campaign(props: props) {
             />
           </div>
         </div>
-        {/* <ReactMarkdown
-        className="prose prose-stone mx-auto max-w-4xl pt-10 prose-pre:max-h-80 prose-pre:overflow-auto prose-img:rounded-md lg:prose-xl"
-        children={data?.description}
-      /> */}
         <ReactMarkdown className="prose prose-stone mx-auto max-w-4xl pt-10 prose-pre:max-h-80 prose-pre:overflow-auto prose-img:rounded-md lg:prose-xl">
           {data?.description}
         </ReactMarkdown>

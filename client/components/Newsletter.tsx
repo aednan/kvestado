@@ -52,8 +52,8 @@ const Newsletter = (props: Props) => {
               <button
                 disabled={isValidEmail ? false : true}
                 className="
-              font-mono cursor-pointer items-center justify-center self-center rounded-md rounded-l-none border-2 border-l-0  border-cyan-400 bg-cyan-400  p-4 text-base font-bold
-               text-gray-500 
+              font-mono cursor-pointer items-center justify-center self-center rounded-md rounded-l-none border-2 border-l-0  border-cyan-400 bg-cyan-400 p-4  text-base font-bold text-gray-500
+               hover:bg-cyan-500 
               disabled:cursor-not-allowed disabled:border-gray-500
               disabled:bg-slate-400 disabled:text-slate-500 disabled:opacity-30 "
                 type="submit"
@@ -72,7 +72,7 @@ const Newsletter = (props: Props) => {
           </Link>
         </div>
       </form>
-      <div className="relative max-w-400 max-h-400 hidden justify-center md:flex  ">
+      <div className="max-w-400 max-h-400 relative hidden justify-center md:flex  ">
         <img
           // layout="fill"
           src="/img/newsletter.svg"

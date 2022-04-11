@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import InputField from "../../../components/InputField";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import AuthContext from "../../../contexts/AuthContext";
 import useApiService from "../../../services/hooks/useApiService";
@@ -260,44 +261,21 @@ const Settings = (props: Props) => {
           </div>
         </div>
 
-        <div className=" mx-auto w-full max-w-md">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Username *
-          </label>
+        <InputField
+          title="Username *"
+          value={username === data.username ? "" : username}
+          disabled={data.username ? true : false}
+          onChangeFunction={handleUsernameChange}
+          placeholder={data.username === "" ? "Enter username" : data.username}
+        />
 
-          <input
-            value={username === data.username ? "" : username}
-            disabled={data.username ? true : false}
-            onChange={handleUsernameChange}
-            className="
-h-14 w-full rounded-lg border  p-4 text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md disabled:bg-slate-100
-lg:placeholder:text-lg
-"
-            placeholder={
-              data.username === "" ? "Enter username" : data.username
-            }
-          />
-        </div>
-        <div className=" mx-auto w-full max-w-md">
-          <label className="mb-1 block pl-2 font-medium text-gray-700">
-            Email Address *
-          </label>
-          <input
-            value={email === data.email ? "" : email}
-            onFocus={handleUsernameValidation}
-            onChange={handleEmailChange}
-            className="
-h-14 w-full rounded-lg border  p-4 text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-"
-            placeholder={data.email ? data.email : "Enter email"}
-          />
-        </div>
+        <InputField
+          title="Email Address *"
+          placeholder={data.email ? data.email : "Enter email"}
+          value={email === data.email ? "" : email}
+          onChangeFunction={handleEmailChange}
+          onFocusFunction={handleUsernameValidation}
+        />
         <div className=" mx-auto w-full max-w-md ">
           <label className="mb-1 block pl-2 font-medium text-gray-700">
             About

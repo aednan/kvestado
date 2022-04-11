@@ -8,7 +8,7 @@ type Props = {};
 export default function useApiService(props?: Props) {
   const instance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/`,
-    timeout: 1000,
+    timeout: 1500,
     // headers: {'X-Custom-Header': 'kvestado'}
   });
 

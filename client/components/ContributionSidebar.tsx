@@ -91,7 +91,12 @@ export default function ContributionSidebar(props: Props) {
 
                     <div className="mt-8">
                       <div className="flow-root">
-                        <ul
+                        <input
+                          className="h-12 w-full rounded-md border-0 bg-slate-300 pl-5 text-xl  
+            text-gray-800 placeholder:font-roboto placeholder:text-lg
+              placeholder:text-gray-400 focus:border-none focus:outline-none focus:ring-0"
+                        ></input>
+                        {/* <ul
                           role="list"
                           className="-my-6 divide-y divide-gray-200"
                         >
@@ -101,7 +106,7 @@ export default function ContributionSidebar(props: Props) {
                               product={product}
                             />
                           ))}
-                        </ul>
+                        </ul> */}
                       </div>
                     </div>
                   </div>
@@ -112,14 +117,14 @@ export default function ContributionSidebar(props: Props) {
                       <p>$262.00</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
-                      Shipping and taxes calculated at checkout.
+                      Thank you for your contribution.
                     </p>
                     <div className="mt-6">
                       <a
                         href="#"
                         className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                       >
-                        Contribute
+                        CONTRIBUTE
                       </a>
                     </div>
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -128,9 +133,9 @@ export default function ContributionSidebar(props: Props) {
                         <button
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
-                          onClick={() => setOpen(false)}
+                          onClick={() => props.setOpen(false)}
                         >
-                          Continue Shopping
+                          Back to campaign
                           <span aria-hidden="true"> &rarr;</span>
                         </button>
                       </p>

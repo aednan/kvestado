@@ -13,7 +13,7 @@ type Props = {};
 export default function useWeb3Service(props?: Props) {
   const instance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/`,
-    timeout: 1000,
+    timeout: 1500,
     // headers: {'X-Custom-Header': 'kvestado'}
   });
 
@@ -135,21 +135,16 @@ export default function useWeb3Service(props?: Props) {
           // const auth = ;
           // if (auth === true) {
           setAuthentication(true);
+          localStorage.setItem("Authenticated", "true");
           // To reconnect user after page refresh if already authenticated
-          if (!localStorage.getItem("Authenticated")) {
-            localStorage.setItem("Authenticated", "true");
-          } else if (localStorage.getItem("Authenticated")) {
-            setAuthentication(true);
-          } else {
-            // TODO alert "need a wallet provider to be installed"
-            console.log("wallet Provider is needed");
-          }
+        } else if (localStorage.getItem("Authenticated")) {
+          setAuthentication(true);
         }
       } else {
         // TODO show alert
         console.log("Metamask isn't installed");
-        route.push("/campaigns/");
-        route.replace("/");
+        // route.push("/campaigns/");
+        // route.replace("/");
       }
     } catch (error: any) {
       // if the route require authentication && user decline connection

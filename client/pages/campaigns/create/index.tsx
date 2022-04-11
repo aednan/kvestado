@@ -3,6 +3,7 @@ import { BigNumber } from "ethers";
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import InputField from "../../../components/InputField";
 import AuthContext from "../../../contexts/AuthContext";
 import useApiService from "../../../services/hooks/useApiService";
 import useContractService from "../../../services/hooks/useContractService";
@@ -23,6 +24,18 @@ const Create = (props: Props) => {
   const [beneficiaryAddress, setBeneficiaryAddress]: any = useState("");
   const [expireAfter, setExpireAfter]: any = useState("");
   const [amount, setAmount]: any = useState("");
+
+  const handleExpireAfterChange = (e: any) => {
+    // check value to be a number
+    // show alert
+    setExpireAfter(e.target.value);
+  };
+  const handleAmountChange = (e: any) => {
+    // check value to be a number
+    // show alert
+    console.log(e.target.value);
+    setAmount(e.target.value);
+  };
 
   const { state } = useContext(AuthContext);
 
@@ -190,24 +203,14 @@ const Create = (props: Props) => {
           </div>
         </div>
 
-        <div className=" mx-auto w-full max-w-md">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Campaign title *
-          </label>
-          <input
-            value={campaignTitle}
-            onChange={(e) => {
-              setCampaignTitle(e.target.value);
-            }}
-            className="
-h-14 w-full rounded-lg border  p-4 text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-"
-            placeholder="Enter title"
-          />
-        </div>
+        <InputField
+          title="Campaign title *"
+          placeholder="Enter title"
+          value={campaignTitle}
+          onChangeFunction={(e: any) => {
+            setCampaignTitle(e.target.value);
+          }}
+        />
         <div className=" mx-auto w-full max-w-md ">
           <div className="mb-1 flex items-center justify-between px-2">
             <label className="font-medium text-gray-700">
@@ -238,60 +241,27 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             placeholder="Description for your campaign"
           />
         </div>
-        <div className=" mx-auto w-full max-w-md">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Beneficiary address *
-          </label>
-          <input
-            value={beneficiaryAddress}
-            onChange={(e) => {
-              setBeneficiaryAddress(e.target.value);
-            }}
-            className="
-h-14 w-full rounded-lg border  p-4 text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-"
-            placeholder="Enter a valid address"
-          />
-        </div>
-        <div className=" mx-auto w-full max-w-md">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Expire after *
-          </label>
-          <input
-            value={expireAfter}
-            onChange={(e) => {
-              setExpireAfter(e.target.value);
-            }}
-            className="
-h-14 w-full rounded-lg border  p-4 text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-"
-            placeholder="ex: 2 days"
-          />
-        </div>
-        <div className=" mx-auto w-full max-w-md">
-          <label className="mb-1 block pl-2 font-medium  text-gray-700">
-            Amount (in Ether) *
-          </label>
-          <input
-            value={amount}
-            onChange={(e) => {
-              setAmount(e.target.value);
-            }}
-            className="
-h-14 w-full rounded-lg border  p-4 text-xl
-text-gray-800 drop-shadow-sm  placeholder:font-roboto 
-placeholder:text-base placeholder:text-gray-400 focus:outline-none
-focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
-"
-            placeholder="Enter amount"
-          />
-        </div>
+
+        <InputField
+          title="Beneficiary address *"
+          placeholder="Enter a valid address"
+          value={beneficiaryAddress}
+          onChangeFunction={(e: any) => {
+            setBeneficiaryAddress(e.target.value);
+          }}
+        />
+        <InputField
+          title="Expire after *"
+          placeholder="ex: 2 'days'"
+          value={expireAfter}
+          onChangeFunction={handleExpireAfterChange}
+        />
+        <InputField
+          title="Amount (in Ether) *"
+          placeholder="Enter amount"
+          value={amount}
+          onChangeFunction={handleAmountChange}
+        />
         <div className=" mx-auto w-full max-w-md">
           <Switch.Group
             as="div"

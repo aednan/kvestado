@@ -41,8 +41,8 @@ public class UserController {
         if(authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if(username.length() < 3 || username.length() > 20) return ResponseEntity.ok(false);
         // Should start with a letter and contains only allowed characters (-,_,letters,numbers)
-        if(!username.toLowerCase().matches("^[a-z][a-z0-9\\-\\_]+$")) return ResponseEntity.ok(false);
-        if(username.toUpperCase().matches("\\b(ADMIN|USER|ROOT|MANAGER|HELP|SUPPORT|INFO)\\b")) return ResponseEntity.ok(false);
+        if(!username.trim().toLowerCase().matches("^[a-z][a-z0-9\\-\\_]+$")) return ResponseEntity.ok(false);
+        if(username.trim().toUpperCase().matches("\\b(ADMIN|USER|ROOT|MANAGER|HELP|SUPPORT|INFO)\\b")) return ResponseEntity.ok(false);
         return ResponseEntity.ok(userService.usernameIsValid(username, authentication));
     }
 

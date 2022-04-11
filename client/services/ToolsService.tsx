@@ -96,7 +96,7 @@ export const generateCampaignSlug = (
   beneficiaryWalletAddress: string,
   campaignTitle: string
 ) => {
-  const slug = ethers.utils.keccak256(
+  const slug = ethers.utils.hashMessage(
     `${beneficiaryWalletAddress}:${campaignTitle}:${1 + Math.random() * 99}`
   );
   return slug;
@@ -119,6 +119,10 @@ export class ValidationError extends Error {
     this.name = "VError";
   }
 }
+
+export const isEmptyOrContainsSpaceOnly = (value: string) => {
+  return value.replace(/\s/g, "").length === 0;
+};
 
 // export const withTimeoutWrapper = async (
 //   toRun: Function,

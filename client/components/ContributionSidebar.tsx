@@ -41,6 +41,22 @@ type Props = {
 
 export default function ContributionSidebar(props: Props) {
   const [contributionAmount, setContributionAmount] = useState("");
+  const [submitNotAllowed, setSubmitNotAllowed] = useState(true);
+
+  const handleContributionAmountChange = (e: any) => {
+    setContributionAmount(e.target.value);
+    //
+    if (
+      // !e.target.value ||
+      !e.target.value.match("^(([0-9]+))(\\.[0-9]+)?$")
+    ) {
+      // TODO: Alert
+      console.log("Amount is required");
+      setSubmitNotAllowed(true);
+      return;
+    }
+    setSubmitNotAllowed(false);
+  };
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -97,9 +113,7 @@ export default function ContributionSidebar(props: Props) {
                           title="Contribution Amount (ETH) *"
                           placeholder="Enter Amount"
                           value={contributionAmount}
-                          onChangeFunction={(e: any) =>
-                            setContributionAmount(e.target.value)
-                          }
+                          onChangeFunction={handleContributionAmountChange}
                         />
 
                         {/* <ul
@@ -124,7 +138,9 @@ export default function ContributionSidebar(props: Props) {
                         <FaEthereum className="my-auto min-h-[1.3rem] min-w-[1.3rem] " />
                         <p className=" m-auto h-full max-w-[12rem] overflow-x-auto   ">
                           {" "}
-                          {contributionAmount ? contributionAmount : "0.00"}
+                          {contributionAmount && !submitNotAllowed
+                            ? contributionAmount
+                            : "0.00"}
                         </p>
                       </div>
                     </div>
@@ -132,24 +148,27 @@ export default function ContributionSidebar(props: Props) {
                       Thank you for your contribution.
                     </p>
                     <div className="mt-6">
-                      <a
-                        href="#"
-                        className="flex items-center justify-center rounded-md border border-transparent bg-sky-700 px-6 py-3 font-roboto text-base font-medium text-white shadow-sm hover:bg-sky-800"
+                      <button
+                        disabled={submitNotAllowed}
+                        className="
+                        flex w-full
+                        items-center justify-center rounded-md border border-transparent bg-sky-700 px-6 py-3 font-roboto text-base font-medium text-white shadow-sm hover:bg-sky-800 disabled:opacity-30 disabled:hover:bg-sky-700"
                       >
                         CONTRIBUTE
-                      </a>
+                      </button>
                     </div>
                     <div className="mt-6 flex justify-center text-center font-roboto text-sm text-gray-500">
                       <p>
                         or{" "}
-                        <button
-                          type="button"
-                          className="font-roboto font-medium text-indigo-600 hover:text-indigo-500"
+                        <span
+                          className="
+                          cursor-pointer font-roboto 
+                          font-medium text-sky-600 hover:text-sky-700"
                           onClick={() => props.setOpen(false)}
                         >
                           Back to campaign
                           <span aria-hidden="true"> &rarr;</span>
-                        </button>
+                        </span>
                       </p>
                     </div>
                   </div>

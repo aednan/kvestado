@@ -8,6 +8,7 @@ import AuthContext from "../../../contexts/AuthContext";
 import useApiService from "../../../services/hooks/useApiService";
 import useContractService from "../../../services/hooks/useContractService";
 import {
+  isEmptyOrContainsSpaceOnly,
   convertFromBigNumberToNumber,
   generateCampaignSlug,
   getEpochExpireTime,
@@ -25,16 +26,93 @@ const Create = (props: Props) => {
   const [expireAfter, setExpireAfter]: any = useState("");
   const [amount, setAmount]: any = useState("");
 
+  const [submitNotAllowed, setSubmitNotAllowed] = useState(true);
+
   const handleExpireAfterChange = (e: any) => {
-    // check value to be a number
-    // show alert
     setExpireAfter(e.target.value);
+    if (!e.target.value.match("^([0-9]+)$")) {
+      // TODO: alert
+      console.log("Expire After - is required");
+      setSubmitNotAllowed(true);
+      return;
+    }
+    checkValuesBeforeSubmit();
   };
   const handleAmountChange = (e: any) => {
-    // check value to be a number
-    // show alert
-    console.log(e.target.value);
     setAmount(e.target.value);
+    if (
+      !e.target.value ||
+      e.target.value === "" ||
+      !e.target.value.match("^(([0-9]+))(\\.[0-9]+)?$")
+    ) {
+      // TODO: alert
+      console.log("Amount - is required");
+      setSubmitNotAllowed(true);
+      return;
+    }
+    checkValuesBeforeSubmit();
+  };
+  const handleCampaignTitleChange = (e: any) => {
+    setCampaignTitle(e.target.value);
+    if (isEmptyOrContainsSpaceOnly(e.target.value)) {
+      // TODO: alert
+      console.log("Campaign Title - is required");
+      setSubmitNotAllowed(true);
+      return;
+    }
+    checkValuesBeforeSubmit();
+  };
+  const handleCampaignDescriptionChange = (e: any) => {
+    setCampaignDescription(e.target.value);
+    if (isEmptyOrContainsSpaceOnly(e.target.value)) {
+      // TODO: alert
+      console.log("Campaign Description - is required");
+      setSubmitNotAllowed(true);
+      return;
+    }
+    checkValuesBeforeSubmit();
+  };
+  const handleBeneficiaryAddressChange = (e: any) => {
+    setBeneficiaryAddress(e.target.value);
+    if (isEmptyOrContainsSpaceOnly(e.target.value)) {
+      // TODO: alert
+      console.log("Beneficiary Address - is required");
+      setSubmitNotAllowed(true);
+      return;
+    }
+    checkValuesBeforeSubmit();
+  };
+
+  const checkValuesBeforeSubmit = () => {
+    let check = false;
+    if (isEmptyOrContainsSpaceOnly(campaignTitle)) {
+      // TODO: alert
+      console.log("Campaign title - is required");
+      check = true;
+    }
+    if (isEmptyOrContainsSpaceOnly(campaignDescription)) {
+      // TODO: alert
+      console.log("Campaign description - is required");
+      check = true;
+    }
+    if (isEmptyOrContainsSpaceOnly(beneficiaryAddress)) {
+      // TODO: alert
+      console.log("Beneficiary address - is required");
+      check = true;
+    }
+    // Only Whole numbers are allowed
+    if (!expireAfter.match("^([0-9]+)$")) {
+      // TODO: alert
+      console.log("Expire after - is required");
+      check = true;
+    }
+    if (!amount.match("^(([0-9]+))(\\.[0-9]+)?$")) {
+      // TODO: alert
+      console.log("Amount - is required");
+      check = true;
+    }
+
+    setSubmitNotAllowed(check);
   };
 
   const { state } = useContext(AuthContext);
@@ -48,6 +126,8 @@ const Create = (props: Props) => {
   }
   //
   const createCampaign = async () => {
+    if (submitNotAllowed) return;
+
     let coverImage: any = "";
     const slug = generateCampaignSlug(beneficiaryAddress, campaignTitle);
     const expireTime = getEpochExpireTime(expireAfter);
@@ -207,9 +287,7 @@ const Create = (props: Props) => {
           title="Campaign title *"
           placeholder="Enter title"
           value={campaignTitle}
-          onChangeFunction={(e: any) => {
-            setCampaignTitle(e.target.value);
-          }}
+          onChangeFunction={handleCampaignTitleChange}
         />
         <div className=" mx-auto w-full max-w-md ">
           <div className="mb-1 flex items-center justify-between px-2">
@@ -229,9 +307,7 @@ py-1 px-2 font-medium text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md 
           </div>
           <textarea
             value={campaignDescription}
-            onChange={(e) => {
-              setCampaignDescription(e.target.value);
-            }}
+            onChange={handleCampaignDescriptionChange}
             className=" h-32 min-h-[4rem]
 w-full rounded-lg border  p-4  text-xl
 text-gray-800 drop-shadow-sm  placeholder:font-roboto 
@@ -246,9 +322,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
           title="Beneficiary address *"
           placeholder="Enter a valid address"
           value={beneficiaryAddress}
-          onChangeFunction={(e: any) => {
-            setBeneficiaryAddress(e.target.value);
-          }}
+          onChangeFunction={handleBeneficiaryAddressChange}
         />
         <InputField
           title="Expire after *"
@@ -296,12 +370,14 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             >
               Preview
             </button>
-            <span
+            <button
+              disabled={submitNotAllowed}
               onClick={createCampaign}
-              className="cursor-pointer select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
+              className="select-none rounded-md border py-2 px-9 font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md
+              disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none"
             >
               Create
-            </span>
+            </button>
           </div>
         </div>
       </div>

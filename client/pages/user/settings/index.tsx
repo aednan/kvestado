@@ -10,6 +10,7 @@ import useUser from "../../../services/hooks/useUser";
 import {
   checkEmail,
   classNames,
+  isEmptyOrContainsSpaceOnly,
   uploadImage,
 } from "../../../services/ToolsService";
 // import { IKImage, IKContext, IKUpload } from "imagekitio-react";
@@ -135,7 +136,7 @@ const Settings = (props: Props) => {
   const handleUsernameValidation = async (e?: any) => {
     if (username !== validUsername.value || username === "") {
       if (
-        username !== "" &&
+        !isEmptyOrContainsSpaceOnly(username) &&
         (await getRequest("user/check_username", { username }, true))
       ) {
         setValidUsername({ is: true, value: username });
@@ -148,7 +149,7 @@ const Settings = (props: Props) => {
   };
   const handleEmailValidation = (e?: any) => {
     if (email !== validEmail.value || email === "") {
-      if (email !== "" && checkEmail(email)) {
+      if (checkEmail(email)) {
         setValidEmail({ is: true, value: email });
         console.log("email is valid");
       } else if (

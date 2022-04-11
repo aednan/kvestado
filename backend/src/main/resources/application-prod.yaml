@@ -1,8 +1,10 @@
+# https://devcenter.heroku.com/articles/connecting-to-relational-databases-on-heroku-with-java#using-the-spring_datasource_url-in-a-spring-boot-app
 spring:
+  DATABASE_URL: {DATABASE_URL}
   datasource:
-    url: "jdbc:postgresql://ec2-99-80-170-190.eu-west-1.compute.amazonaws.com:5432/d9qu1ipl56on9k"
-    username: "frnzjssyyilive"
-    password: "1dc4eabd6c0f0bf7eca130ef655696aa4f4c2956bf3f5742fcf88f19cdf1efec"
+#    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/kvestado?serverTimezone=CET}
+#    username: ${JDBC_DATABASE_USERNAME:postgres}
+#    password: ${JDBC_DATABASE_PASSWORD:123456}
   #    driver-class-name: "org.mariadb.jdbc.Driver"
   jpa:
     database-platform: "org.hibernate.dialect.PostgreSQLDialect"

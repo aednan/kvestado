@@ -3,6 +3,7 @@ import { Tab } from "@headlessui/react";
 import { classNames } from "../services/ToolsService";
 import useResource from "../services/hooks/useResource";
 import Card from "./Card";
+import ContributionCard from "./ContributionCard";
 
 export default function Tabs() {
   const { data: campaignData, loading: campaignLoading } = useResource({
@@ -12,12 +13,12 @@ export default function Tabs() {
     withCredentials: true,
   });
 
-  // const { data: contributionData, loading: contributionLoading } = useResource({
-  //   resourcePath: "contract/api/get_my_contribution",
-  //   params: { offset: 0, pageSize: 4 },
-  //   skip: false,
-  //   withCredentials: true,
-  // });
+  const { data: contributionData, loading: contributionLoading } = useResource({
+    resourcePath: "contract/api/get_my_contributions",
+    params: { offset: 0, pageSize: 4 },
+    skip: false,
+    withCredentials: true,
+  });
 
   let [categories] = useState({
     Campaigns: { id: "campaign" },
@@ -56,6 +57,9 @@ export default function Tabs() {
             >
               {category.id === "campaign" && !campaignLoading && (
                 <Card products={campaignData?.content} title="" />
+              )}
+              {category.id === "contribution" && !campaignLoading && (
+                <ContributionCard contributions={contributionData?.content} />
               )}
 
               {/* {category.id === "contribution" && !contributionLoading && (

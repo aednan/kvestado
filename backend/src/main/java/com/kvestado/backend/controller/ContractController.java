@@ -71,12 +71,26 @@ public class ContractController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/get_my_contributions")
+    @CrossOrigin(methods = RequestMethod.GET)
+    public ResponseEntity<Page<ContributionDTO>> getUserContributions(@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize, Authentication authentication) {
+        if(authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        Page<ContributionDTO> page = new PageImpl<ContributionDTO>(new ArrayList<>());
+        try {
+            page = contributionService.getUserContributions(authentication,offset,pageSize);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(page);
+    }
+
     @GetMapping("/get_campaigns")
     @CrossOrigin(methods = RequestMethod.GET)
     public ResponseEntity<Page<CampaignDTO>> getCampaigns(@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize) {
          Page<CampaignDTO> page = new PageImpl<CampaignDTO>(new ArrayList<>());
        try {
-           page = campaignService.getPage(offset,pageSize);
+           page = campaignService.getCampaignsPage(offset,pageSize);
        }catch (Exception ex) {
            ex.printStackTrace();
            return ResponseEntity.badRequest().build();

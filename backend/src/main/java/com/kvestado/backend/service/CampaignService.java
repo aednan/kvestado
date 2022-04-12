@@ -41,7 +41,7 @@ public class CampaignService {
        campaignRepository.save(campaign);
    }
 
-   public Page<CampaignDTO> getPage(int offset, int pageSize){
+   public Page<CampaignDTO> getCampaignsPage(int offset, int pageSize){
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
        Page<Campaign> pCampaigns = campaignRepository.findAll(PageRequest.of(offset,pageSize));
        pCampaigns

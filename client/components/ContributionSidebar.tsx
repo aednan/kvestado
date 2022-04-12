@@ -5,6 +5,7 @@ import { XIcon } from "@heroicons/react/outline";
 import ContributionCard from "./ContributionCard";
 import InputField from "./InputField";
 import { FaEthereum } from "react-icons/fa";
+import CampaignInfoCard from "./CampaignInfoCard";
 
 const products = [
   {
@@ -88,33 +89,33 @@ export default function ContributionSidebar(props: Props) {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <div className="pointer-events-auto w-screen max-w-md">
-                <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+              <div className="pointer-events-auto w-screen max-w-md ">
+                <div className="flex h-full flex-col overflow-y-scroll rounded-l-xl bg-white shadow-xl">
                   <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div className="flex items-start justify-between">
                       <Dialog.Title className="font-roboto text-lg font-bold text-gray-900">
                         Contribution
                       </Dialog.Title>
-                      <div className="ml-3 flex h-7 items-center">
-                        <button
-                          type="button"
-                          className="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                      <div className=" ml-3 flex h-7 items-center">
+                        <span
+                          className="-m-2 cursor-pointer p-2 text-gray-400 hover:text-gray-500"
                           onClick={() => props.setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
-                          <XIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
+                          <XIcon className="h-8 w-8" aria-hidden="true" />
+                        </span>
                       </div>
                     </div>
-
                     <div className="mt-8">
-                      <div className="flow-root">
+                      <div className=" flow-root space-y-12">
                         <InputField
                           title="Contribution Amount (ETH) *"
                           placeholder="Enter Amount"
                           value={contributionAmount}
                           onChangeFunction={handleContributionAmountChange}
                         />
+
+                        <CampaignInfoCard />
 
                         {/* <ul
                           role="list"
@@ -136,7 +137,7 @@ export default function ContributionSidebar(props: Props) {
                       <p>Subtotal</p>
                       <div className="flex h-full  ">
                         <FaEthereum className="my-auto min-h-[1.3rem] min-w-[1.3rem] " />
-                        <p className=" m-auto h-full max-w-[12rem] overflow-x-auto   ">
+                        <p className=" m-auto h-full max-w-[12rem] overflow-x-auto font-roboto font-semibold   ">
                           {" "}
                           {contributionAmount && !submitNotAllowed
                             ? contributionAmount

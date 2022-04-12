@@ -30,7 +30,8 @@ public class SecurityConfiguration {
                 .and().authenticationProvider(authenticationProvider)
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .mvcMatchers("/request_challenge" ).permitAll()
+                                .mvcMatchers(HttpMethod.GET,"/request_challenge" ).permitAll()
+                                .mvcMatchers(HttpMethod.GET,"/favicon.ico" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaigns" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaign" ).permitAll()
                                 .anyRequest().authenticated()

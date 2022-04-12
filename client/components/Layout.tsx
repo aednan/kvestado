@@ -14,11 +14,14 @@ import AuthContext from "../contexts/AuthContext";
 import useWeb3Service from "../services/hooks/useWeb3Service";
 import LoadingSpinner from "./LoadingSpinner";
 import UserSettingsContext from "../contexts/UserSettingsContext";
+import { resetScroll } from "../services/ToolsService";
+import ResetScrollButton from "./ResetScrollButton";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
+  const [scrollResetToShow, setScrollResetToShow] = useState(false);
 
   const { setBottomScrollDetected } = useContext(UserSettingsContext);
 
@@ -28,6 +31,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { connectWallet, restrictedRoutes } = useWeb3Service();
   // see campaigns infinite scroll implementation
   const handleScroll = (event: any) => {
+    if (divRef?.current?.scrollTop && divRef?.current?.scrollTop > 100) {
+      setScrollResetToShow(true);
+    } else {
+      setScrollResetToShow(false);
+    }
+
     if (router.asPath.match("^/campaigns/$")) {
       if (
         divRef.current?.scrollTop != undefined &&
@@ -57,11 +66,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     const handleRouteChangeComplete = (url: any, { shallow }: any) => {
       // on route navigation only
       // window scrolling is disabled. This resets the scrolling within the div with ref: divRef
-      divRef.current?.scroll({
-        top: 0,
-        left: 0,
-        behavior: "smooth",
-      });
+      resetScroll(divRef);
       setBottomScrollDetected(false);
       // after page loaded
       setLoaded(true);
@@ -92,6 +97,10 @@ export default function Layout({ children }: { children: ReactNode }) {
     <LoadingSpinner />
   ) : (
     <div className="fixed z-0 h-full min-h-screen w-full">
+      <ResetScrollButton
+        scrollResetToShow={scrollResetToShow}
+        divRef={divRef}
+      />
       <CommandPalette />
       <Navbar />
       <div

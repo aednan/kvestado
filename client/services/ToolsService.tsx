@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BigNumber, ethers } from "ethers";
+import { RefObject } from "react";
 
 export function getAllArticles(r: any) {
   return r.keys().map((fileName: any) =>
@@ -122,6 +123,14 @@ export class ValidationError extends Error {
 
 export const isEmptyOrContainsSpaceOnly = (value: string) => {
   return value.replace(/\s/g, "").length === 0;
+};
+
+export const resetScroll = (divRef: RefObject<HTMLDivElement> | undefined) => {
+  divRef?.current?.scroll({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 };
 
 // export const withTimeoutWrapper = async (

@@ -87,19 +87,19 @@ const Create = (props: Props) => {
     let check = false;
     if (isEmptyOrContainsSpaceOnly(campaignTitle)) {
       // TODO: alert
-      if (campaignTitle !== "") console.log("Campaign title - is required");
+      // if (campaignTitle !== "") console.log("Campaign title - is required");
       check = true;
     }
     if (isEmptyOrContainsSpaceOnly(campaignDescription)) {
       // TODO: alert
-      if (campaignDescription !== "")
-        console.log("Campaign description - is required");
+      // if (campaignDescription !== "")
+      //   console.log("Campaign description - is required");
       check = true;
     }
     if (isEmptyOrContainsSpaceOnly(beneficiaryAddress)) {
       // TODO: alert
-      if (beneficiaryAddress !== "")
-        console.log("Beneficiary address - is required");
+      // if (beneficiaryAddress !== "")
+      //   console.log("Beneficiary address - is required");
       check = true;
     }
     // Only Whole numbers are allowed

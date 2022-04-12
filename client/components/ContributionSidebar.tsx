@@ -124,19 +124,12 @@ export default function ContributionSidebar(props: Props) {
                           onChangeFunction={handleContributionAmountChange}
                         />
 
-                        <CampaignInfoCard />
-
-                        {/* <ul
-                          role="list"
-                          className="-my-6 divide-y divide-gray-200"
-                        >
-                          {products.map((product) => (
-                            <ContributionCard
-                              key={product.id}
-                              contribution={product}
-                            />
-                          ))}
-                        </ul> */}
+                        <CampaignInfoCard
+                          campaignId={props.campaignId}
+                          campaignOwnerWalletAddress={
+                            props.campaignOwnerWalletAddress
+                          }
+                        />
                       </div>
                     </div>
                   </div>

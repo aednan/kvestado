@@ -93,20 +93,22 @@ const Create = (props: Props) => {
       amount,
       expireTime
     ).then((res) => {
-      // persist the added campaign to the database
-      postRequest("contract/api/add_campaign", {
-        id: campaignID,
-        coverPicturePath: coverImage,
-        title: campaignTitle,
-        description: campaignDescription,
-        beneficiaryAddress: beneficiaryAddress,
-        expireAfter: expireTime,
-        amount: amount,
-        minimumRaisedValueRequired: mRValue,
-        slug: slug,
-      }).catch((err) => {
-        console.log(err?.response.data.message);
-      });
+      console.log(res);
+    });
+
+    // persist the added campaign to the database
+    postRequest("contract/api/add_campaign", {
+      id: campaignID,
+      coverPicturePath: coverImage,
+      title: campaignTitle,
+      description: campaignDescription,
+      beneficiaryAddress: beneficiaryAddress,
+      expireAfter: expireTime,
+      amount: amount,
+      minimumRaisedValueRequired: mRValue,
+      slug: slug,
+    }).catch((err) => {
+      console.log(err?.response.data.message);
     });
 
     //

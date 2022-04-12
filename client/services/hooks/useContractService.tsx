@@ -51,7 +51,7 @@ export default function useContractService(props?: Props) {
         beneficiaryAddress,
         campaignUrl,
         hasMinimumRaisedValue,
-        minimumRaisedValue,
+        ethers.utils.parseEther(String(minimumRaisedValue)),
         expireAfter
       );
       return result;
@@ -76,6 +76,7 @@ export default function useContractService(props?: Props) {
         }
       );
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -86,6 +87,7 @@ export default function useContractService(props?: Props) {
       const readWriteContract: any = await getReadWriteContract();
       const result = await readWriteContract.withdraw(campaignId);
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -102,6 +104,7 @@ export default function useContractService(props?: Props) {
         campaignId
       );
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -115,6 +118,7 @@ export default function useContractService(props?: Props) {
         campaignId
       );
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -129,6 +133,7 @@ export default function useContractService(props?: Props) {
         campaignId
       );
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -143,6 +148,7 @@ export default function useContractService(props?: Props) {
         campaignId
       );
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -159,6 +165,7 @@ export default function useContractService(props?: Props) {
         campaignId
       );
       console.log(result);
+      return result;
     } catch (error) {
       throw error;
     }

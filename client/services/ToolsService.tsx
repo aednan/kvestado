@@ -74,6 +74,7 @@ export async function uploadImage(
 }
 
 export const convertFromBigNumberToNumber = (bigNumberValue: BigNumber) => {
+  // if (typeof bigNumberValue !== "bigint") return "";
   return Number(ethers.utils.formatUnits(bigNumberValue)) * Math.pow(10, 18);
 };
 

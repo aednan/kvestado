@@ -16,7 +16,7 @@ public class Campaign implements Serializable {
     private String description;
     private String beneficiaryAddress;
     private Long expireAfter;
-    private Long amount;
+    private Double amount;
     private Boolean minimumRaisedValueRequired;
     // campaign url slug
     @Column(unique = true)
@@ -28,7 +28,7 @@ public class Campaign implements Serializable {
 
     public Campaign() {
     }
-    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired, User user, String slug,LocalDate createdAt) {
+    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired, User user, String slug,LocalDate createdAt) {
         this.id = id;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -114,11 +114,11 @@ public class Campaign implements Serializable {
         this.expireAfter = expireAfter;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ContributionSidebar from "../../components/ContributionSidebar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SliderButton from "../../components/SliderButton";
+import AuthContext from "../../contexts/AuthContext";
 import useResource from "../../services/hooks/useResource";
 
 // import Markdown from "react-markdown";
@@ -13,6 +14,7 @@ type props = {};
 function Campaign(props: props) {
   // Contribution slider
   const [openContribution, setOpenContribution] = useState(false);
+  const { state } = useContext(AuthContext);
 
   const router = useRouter();
   const [slugValue, setSlugValue] = useState<any>(undefined);
@@ -34,18 +36,24 @@ function Campaign(props: props) {
 
   return !loading && data !== undefined ? (
     <>
-      <SliderButton setOpenContribution={setOpenContribution} />
-      <ContributionSidebar
-        open={openContribution}
-        setOpen={setOpenContribution}
-      />
+      {state.isAuthenticated && (
+        <>
+          <SliderButton setOpenContribution={setOpenContribution} />
+          <ContributionSidebar
+            campaignId={data.id}
+            campaignOwnerWalletAddress={data.campaignOwner}
+            open={openContribution}
+            setOpen={setOpenContribution}
+          />
+        </>
+      )}
       <article className=" divide-y-2 px-7 pt-16 pb-14 ">
         {/* {title && ( */}
-        <div className="relative  mb-7">
+        <div className="relative mb-7">
           <h1 className="leading-tighter mx-auto mb-8 w-full max-w-7xl text-center text-3xl font-extrabold sm:text-4xl md:text-5xl lg:mb-10 lg:text-6xl">
             {data?.title}
           </h1>
-          <div className="mx-auto max-w-5xl justify-center rounded-md bg-cover">
+          <div className="mx-auto max-h-[64rem] max-w-5xl justify-center rounded-md bg-cover">
             <img
               // layout="fill"
               alt="campaign_cover"

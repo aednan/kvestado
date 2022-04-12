@@ -15,10 +15,12 @@ const CampaignInfoCard = (props: Props) => {
       </div>
       <span className=" pl-3">
         Pledged of
-        <span className="font-roboto font-black text-sky-500">
-          <FaEthereum className="my-auto inline-block h-4 min-h-[1rem]" />
-          13,023
-        </span>{" "}
+        <div className="inline-block max-w-[5rem] overflow-clip text-sky-500">
+          <FaEthereum className="inline-block max-h-[1.1rem] min-h-[1.1rem]" />
+          <span className=" inline-block  font-roboto font-black ">
+            13,0232
+          </span>
+        </div>{" "}
         goal
       </span>
       <div className="px-3">

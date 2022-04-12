@@ -135,7 +135,7 @@ export default function Navbar() {
                       }}
                       className=" group hidden w-full max-w-3xl cursor-pointer items-center gap-2 rounded-lg border-2 px-4 hover:shadow-md md:flex"
                     >
-                      <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-700" />
+                      <MdSearch className="min-h-[1.7rem] min-w-[1.7rem] text-3xl text-gray-400 group-hover:text-gray-700" />
 
                       <input
                         readOnly

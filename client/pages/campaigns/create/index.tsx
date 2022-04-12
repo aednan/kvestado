@@ -27,62 +27,6 @@ const Create = (props: Props) => {
   const [expireAfter, setExpireAfter]: any = useState("");
   const [amount, setAmount]: any = useState("");
 
-  // const [submitNotAllowed, setSubmitNotAllowed] = useState(true);
-  // const handleExpireAfterChange = (e: any) => {
-  //   setExpireAfter(e.target.value);
-  //   if (!e.target.value.match("^([0-9]+)$")) {
-  //     // TODO: alert
-  //     console.log("Expire After - is required");
-  //     setSubmitNotAllowed(true);
-  //     return;
-  //   }
-  //   checkValuesBeforeSubmit();
-  // };
-  // const handleAmountChange = (e: any) => {
-  //   setAmount(e.target.value);
-  //   if (
-  //     !e.target.value ||
-  //     e.target.value === "" ||
-  //     !e.target.value.match("^(([0-9]+))(\\.[0-9]+)?$")
-  //   ) {
-  //     // TODO: alert
-  //     console.log("Amount - is required");
-  //     setSubmitNotAllowed(true);
-  //     return;
-  //   }
-  //   checkValuesBeforeSubmit();
-  // };
-  // const handleCampaignTitleChange = (e: any) => {
-  //   setCampaignTitle(e.target.value);
-  //   if (isEmptyOrContainsSpaceOnly(e.target.value)) {
-  //     // TODO: alert
-  //     console.log("Campaign Title - is required");
-  //     setSubmitNotAllowed(true);
-  //     return;
-  //   }
-  //   checkValuesBeforeSubmit();
-  // };
-  // const handleCampaignDescriptionChange = (e: any) => {
-  //   setCampaignDescription(e.target.value);
-  //   if (isEmptyOrContainsSpaceOnly(e.target.value)) {
-  //     // TODO: alert
-  //     console.log("Campaign Description - is required");
-  //     setSubmitNotAllowed(true);
-  //     return;
-  //   }
-  //   checkValuesBeforeSubmit();
-  // };
-  // const handleBeneficiaryAddressChange = (e: any) => {
-  //   setBeneficiaryAddress(e.target.value);
-  //   if (isEmptyOrContainsSpaceOnly(e.target.value)) {
-  //     // TODO: alert
-  //     console.log("Beneficiary Address - is required");
-  //     setSubmitNotAllowed(true);
-  //     return;
-  //   }
-  //   checkValuesBeforeSubmit();
-  // };
-
   const checkValuesBeforeSubmit = () => {
     let check = false;
     if (isEmptyOrContainsSpaceOnly(campaignTitle)) {
@@ -148,21 +92,21 @@ const Create = (props: Props) => {
       mRValue,
       amount,
       expireTime
-    );
-
-    // persist the added campaign to the database
-    postRequest("contract/api/add_campaign", {
-      id: campaignID,
-      coverPicturePath: coverImage,
-      title: campaignTitle,
-      description: campaignDescription,
-      beneficiaryAddress: beneficiaryAddress,
-      expireAfter: expireTime,
-      amount: amount,
-      minimumRaisedValueRequired: mRValue,
-      slug: slug,
-    }).catch((err) => {
-      console.log(err?.response.data.message);
+    ).then((res) => {
+      // persist the added campaign to the database
+      postRequest("contract/api/add_campaign", {
+        id: campaignID,
+        coverPicturePath: coverImage,
+        title: campaignTitle,
+        description: campaignDescription,
+        beneficiaryAddress: beneficiaryAddress,
+        expireAfter: expireTime,
+        amount: amount,
+        minimumRaisedValueRequired: mRValue,
+        slug: slug,
+      }).catch((err) => {
+        console.log(err?.response.data.message);
+      });
     });
 
     //

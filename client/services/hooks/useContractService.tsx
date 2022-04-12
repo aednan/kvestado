@@ -57,7 +57,7 @@ export default function useContractService(props?: Props) {
       return result;
       // console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -77,7 +77,7 @@ export default function useContractService(props?: Props) {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -87,7 +87,7 @@ export default function useContractService(props?: Props) {
       const result = await readWriteContract.withdraw(campaignId);
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -103,7 +103,7 @@ export default function useContractService(props?: Props) {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -116,7 +116,7 @@ export default function useContractService(props?: Props) {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -130,7 +130,7 @@ export default function useContractService(props?: Props) {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -144,7 +144,7 @@ export default function useContractService(props?: Props) {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -160,7 +160,7 @@ export default function useContractService(props?: Props) {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 

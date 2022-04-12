@@ -12,14 +12,14 @@ public class Contribution implements Serializable {
     @Id
     private Long campaignId;
     private String campaignOwnerWalletAddress;
-    private Long amount;
+    private Double amount;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Contribution() {
     }
 
-    public Contribution(Long campaignId,String campaignOwnerWalletAddress, Long amount, User user) {
+    public Contribution(Long campaignId,String campaignOwnerWalletAddress, Double amount, User user) {
         this.campaignId = campaignId;
         this.campaignOwnerWalletAddress = campaignOwnerWalletAddress;
         this.amount = amount;
@@ -50,11 +50,11 @@ public class Contribution implements Serializable {
         this.user = user;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

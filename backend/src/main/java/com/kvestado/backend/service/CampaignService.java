@@ -63,6 +63,7 @@ public class CampaignService {
     private CampaignDTO campaignToCampaignDTO(Campaign campaign){
        return new CampaignDTO(
                campaign.getId(),
+               campaign.getUser().getUsername(),
                campaign.getCoverPicturePath(),
                campaign.getTitle(),
                campaign.getDescription(),

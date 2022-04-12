@@ -1,7 +1,5 @@
 package com.kvestado.backend.dto;
 
-import java.time.LocalDate;
-
 public class UProfileDTO {
 
     private String username;

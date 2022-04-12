@@ -88,7 +88,7 @@ export default function Card(props: Props) {
                       by{" "}
                     </span>
                     <span className=" max-w-sm select-all font-roboto text-base font-thin text-gray-900">
-                      XilyanD
+                      KVESTADO
                     </span>
                   </div>
                   <Link href={`/campaigns/${product.slug}`} passHref>

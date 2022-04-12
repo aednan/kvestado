@@ -2,47 +2,26 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import ContributionCard from "./ContributionCard";
 import InputField from "./InputField";
 import { FaEthereum } from "react-icons/fa";
 import CampaignInfoCard from "./CampaignInfoCard";
-
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
+import useApiService from "../services/hooks/useApiService";
+import useContractService from "../services/hooks/useContractService";
+import ContributionCard from "./ContributionCard";
 
 type Props = {
-  open: any;
+  campaignId: number;
+  campaignOwnerWalletAddress: string;
+  open: boolean;
   setOpen: any;
 };
 
 export default function ContributionSidebar(props: Props) {
   const [contributionAmount, setContributionAmount] = useState("");
   const [submitNotAllowed, setSubmitNotAllowed] = useState(true);
+
+  const { postRequest } = useApiService();
+  const { contribute } = useContractService();
 
   const handleContributionAmountChange = (e: any) => {
     setContributionAmount(e.target.value);
@@ -57,6 +36,36 @@ export default function ContributionSidebar(props: Props) {
       return;
     }
     setSubmitNotAllowed(false);
+  };
+
+  const saveContributionToAPI = async () => {
+    if (contributionAmount.match("^(([0-9]+))(\\.[0-9]+)?$")) {
+      // adding campaign to the blockchain
+      await contribute(
+        props.campaignOwnerWalletAddress,
+        props.campaignId,
+        Number(contributionAmount)
+      )
+        .then((res) => {
+          postRequest("contract/api/add_contribution", {
+            campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
+            campaignId: props.campaignId,
+            amount: contributionAmount,
+          })
+            .then((res) => {
+              setContributionAmount("");
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log(console.log("Amount is required"));
+    }
   };
 
   return (
@@ -124,7 +133,7 @@ export default function ContributionSidebar(props: Props) {
                           {products.map((product) => (
                             <ContributionCard
                               key={product.id}
-                              product={product}
+                              contribution={product}
                             />
                           ))}
                         </ul> */}
@@ -151,6 +160,7 @@ export default function ContributionSidebar(props: Props) {
                     <div className="mt-6">
                       <button
                         disabled={submitNotAllowed}
+                        onClick={saveContributionToAPI}
                         className="
                         flex w-full
                         items-center justify-center rounded-md border border-transparent bg-sky-700 px-6 py-3 font-roboto text-base font-medium text-white shadow-sm hover:bg-sky-800 disabled:opacity-30 disabled:hover:bg-sky-700"

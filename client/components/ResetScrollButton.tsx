@@ -14,7 +14,7 @@ const ResetScrollButton = (props: Props) => {
       disabled={!props.scrollResetToShow}
       onClick={() => resetScroll(props.divRef)}
     >
-      <BiArrowFromBottom className="h-15 fixed bottom-24 right-8 z-20 min-h-[3rem] w-16 min-w-[3rem] text-sky-700 opacity-25 hover:opacity-100" />
+      <BiArrowFromBottom className="h-15 fixed bottom-24 right-0.5 z-20 min-h-[3rem] w-16 min-w-[3rem] text-sky-700 opacity-25 hover:opacity-100" />
     </button>
   );
 };

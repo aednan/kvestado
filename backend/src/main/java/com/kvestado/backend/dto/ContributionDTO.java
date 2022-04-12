@@ -4,12 +4,12 @@ public class ContributionDTO {
 
     private Long campaignId;
     private String campaignOwnerWalletAddress;
-    private Long amount;
+    private Double amount;
 
     public ContributionDTO() {
     }
 
-    public ContributionDTO(Long campaignId, String campaignOwnerWalletAddress, Long amount) {
+    public ContributionDTO(Long campaignId, String campaignOwnerWalletAddress, Double amount) {
         this.campaignId = campaignId;
         this.campaignOwnerWalletAddress = campaignOwnerWalletAddress;
         this.amount = amount;
@@ -32,12 +32,12 @@ public class ContributionDTO {
         this.campaignOwnerWalletAddress = campaignOwnerWalletAddress;
     }
 
-    public Long getAmount() {
-        if(amount == null) amount = 0l;
+    public Double getAmount() {
+        if(amount == null) amount = 0d;
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

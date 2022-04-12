@@ -1,17 +1,16 @@
 package com.kvestado.backend.dto;
 
-
-import java.time.LocalDate;
-
 public class CampaignDTO {
 
     private Long id;
     private String coverPicturePath;
+    private String campaignOwner;
     private String title;
     private String description;
     private String beneficiaryAddress;
     private Long expireAfter;
-    private Long amount;
+    // raised amount
+    private Double amount;
     private Boolean minimumRaisedValueRequired;
     private String slug;
     private String createdAt;
@@ -19,8 +18,9 @@ public class CampaignDTO {
     public CampaignDTO() {
     }
 
-    public CampaignDTO(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Long amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
+    public CampaignDTO(Long id,String campaignOwner,String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
         this.id = id;
+        this.campaignOwner = campaignOwner;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
         this.description = description;
@@ -30,6 +30,14 @@ public class CampaignDTO {
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
         this.slug = slug;
         this.createdAt = createdAt;
+    }
+
+    public String getCampaignOwner() {
+        return campaignOwner;
+    }
+
+    public void setCampaignOwner(String campaignOwner) {
+        this.campaignOwner = campaignOwner;
     }
 
     public String getCreatedAt() {
@@ -102,12 +110,12 @@ public class CampaignDTO {
         this.expireAfter = expireAfter;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
-        if(amount == null) amount = 0l;
+    public void setAmount(Double amount) {
+        if(amount == null) amount = 0d;
         this.amount = amount;
     }
 

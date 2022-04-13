@@ -20,7 +20,7 @@ type Props = {};
 
 const Create = (props: Props) => {
   const [photo, setPhoto]: any = useState(null);
-  const [campaignID, setCampaignID]: any = useState(null);
+  const [campaignID, setCampaignID]: any = useState("");
   const [campaignTitle, setCampaignTitle]: any = useState("");
   const [campaignDescription, setCampaignDescription]: any = useState("");
   const [beneficiaryAddress, setBeneficiaryAddress]: any = useState("");
@@ -65,7 +65,8 @@ const Create = (props: Props) => {
   const { state } = useContext(AuthContext);
 
   const [mRValue, setMRValue]: any = useState(false);
-  const { addCampaign, getReadOnlyContract } = useContractService();
+  const { addCampaign, getReadOnlyContract, getLogs, parseEvents } =
+    useContractService();
   const { postRequest } = useApiService();
 
   function classNames(...classes: string[]) {
@@ -138,6 +139,18 @@ const Create = (props: Props) => {
   });
 
   useEffect(() => {
+    // init campaign id with the last value from the blockchain
+    if (campaignID === "") {
+      getLogs()
+        .then((events: any) => {
+          let parsedEvents: any = parseEvents(events);
+          const value = parsedEvents[parsedEvents.length - 1].args._campaignId;
+          setCampaignID(convertFromBigNumberToNumber(value + 1));
+        })
+        .catch(function (err: any) {
+          console.log(err);
+        });
+    }
     const connectEvent = async () => {
       const readOnlyContract = await getReadOnlyContract();
       const myCampaignEvent = readOnlyContract.on(

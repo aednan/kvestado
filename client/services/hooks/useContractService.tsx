@@ -171,6 +171,29 @@ export default function useContractService(props?: Props) {
     }
   }
 
+  const getLogs = async () => {
+    // https://docs.soliditylang.org/en/v0.8.4/abi-spec.html#events
+    // topics[0]: keccak(EVENT_NAME+"("+EVENT_ARGS.map(canonical_type_of).join(",")+")")
+    // 0xd8762e1294e388f7530291bd0b5b3c98c73b1a82b4b8deeccbe4ff126f155a58 = MyCampaign event
+    // Retrieve the last campaign id from the event topic
+    var filter = {
+      fromBlock: 0,
+      topics: [
+        "0xd8762e1294e388f7530291bd0b5b3c98c73b1a82b4b8deeccbe4ff126f155a58",
+      ],
+      toBlock: "latest",
+    };
+    return state.provider.getLogs(filter);
+  };
+
+  const parseEvents = (events: any) => {
+    let abi = FundContract.abi;
+    let iface = new ethers.utils.Interface(abi);
+    return events.map((log: any) => {
+      return iface.parseLog(log);
+    });
+  };
+
   return {
     addCampaign,
     contribute,
@@ -181,5 +204,7 @@ export default function useContractService(props?: Props) {
     getMyContribution,
     getContribution,
     getReadOnlyContract,
+    getLogs,
+    parseEvents,
   };
 }

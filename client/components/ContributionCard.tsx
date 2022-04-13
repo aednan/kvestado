@@ -37,7 +37,9 @@ const ContributionCard = (props: Props) => {
                       </span>
                     </div>
                   </div>
-                  <p className="mt-1 text-sm text-gray-500">Campaign-id: 42</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Campaign-id: {contribution.campaignId}
+                  </p>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
                   <p className="font-roboto text-[0.70rem]  font-semibold text-gray-500">

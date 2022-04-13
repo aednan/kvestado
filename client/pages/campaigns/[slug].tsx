@@ -1,6 +1,8 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { json } from "stream/consumers";
 import ContributionSidebar from "../../components/ContributionSidebar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SliderButton from "../../components/SliderButton";
@@ -9,7 +11,9 @@ import useResource from "../../services/hooks/useResource";
 
 // import Markdown from "react-markdown";
 
-type props = {};
+type props = {
+  initialData: any;
+};
 
 function Campaign(props: props) {
   // Contribution slider
@@ -25,6 +29,7 @@ function Campaign(props: props) {
     },
     skip: slugValue ? false : true,
     withCredentials: false,
+    fallbackData: props.initialData,
   });
 
   useEffect(() => {
@@ -70,6 +75,54 @@ function Campaign(props: props) {
   ) : (
     <LoadingSpinner />
   );
+}
+
+export async function getStaticPaths() {
+  const instance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/`,
+    timeout: 1500,
+  });
+  let response: any = [];
+  try {
+    response = await axios.get(
+      "http://localhost:8080/contract/api/get_campaigns_slugs"
+    );
+    response = response.data;
+  } catch (error: any) {
+    // console.log(error);
+  }
+
+  return {
+    paths: response,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps(context: any) {
+  const instance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/`,
+    timeout: 1500,
+  });
+  let response: any = [];
+  try {
+    response = await instance.get("contract/api/get_campaign", {
+      params: { slug: context.params.slug },
+    });
+    response = response.data;
+  } catch (error: any) {
+    // console.log(error);
+  }
+
+  if (response.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { initialData: response }, // will be passed to the page component as props
+    // revalidate: 10,
+  };
 }
 
 export default Campaign;

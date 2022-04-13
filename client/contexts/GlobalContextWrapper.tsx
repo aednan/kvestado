@@ -18,6 +18,9 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const [bottomScrollDetected, setBottomScrollDetected] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
+  // see layout
+  const [scrollResetToShow, setScrollResetToShow] = useState(false);
+
   const { connectWallet, restrictedRoutes } = useWeb3Service();
 
   // Night mode state
@@ -60,6 +63,8 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
           setNModeEnabled,
           bottomScrollDetected,
           setBottomScrollDetected,
+          setScrollResetToShow,
+          scrollResetToShow,
         }}
       >
         {children}

@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import InputField from "./InputField";
@@ -8,6 +8,7 @@ import CampaignInfoCard from "./CampaignInfoCard";
 import useApiService from "../services/hooks/useApiService";
 import useContractService from "../services/hooks/useContractService";
 import ContributionCard from "./ContributionCard";
+import AuthContext from "../contexts/AuthContext";
 
 type Props = {
   campaignId: number;
@@ -19,6 +20,8 @@ type Props = {
 export default function ContributionSidebar(props: Props) {
   const [contributionAmount, setContributionAmount] = useState("");
   const [submitNotAllowed, setSubmitNotAllowed] = useState(true);
+
+  const { state } = useContext(AuthContext);
 
   const { postRequest } = useApiService();
   const { contribute } = useContractService();
@@ -41,12 +44,14 @@ export default function ContributionSidebar(props: Props) {
   const saveContributionToAPI = async () => {
     if (contributionAmount.match("^(([0-9]+))(\\.[0-9]+)?$")) {
       // adding campaign to the blockchain
-      await contribute(
+      const response: any = await contribute(
         props.campaignOwnerWalletAddress,
         props.campaignId,
         Number(contributionAmount)
-      )
-        .then((res) => {
+      );
+      await state.provider
+        .waitForTransaction(response?.hash, 1)
+        .then((res: any) => {
           postRequest("contract/api/add_contribution", {
             campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
             campaignId: props.campaignId,
@@ -60,7 +65,7 @@ export default function ContributionSidebar(props: Props) {
               console.log(err);
             });
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log(err);
         });
     } else {

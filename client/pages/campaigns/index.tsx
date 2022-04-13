@@ -14,7 +14,7 @@ export default function Campaigns({}: Props) {
 
   const [pagination, setPagination] = useState({
     offset: 0,
-    pageSize: 8,
+    pageSize: 20,
   });
 
   const { data, mutate, error, loading } = useResource({

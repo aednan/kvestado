@@ -7,6 +7,8 @@ interface useStatePropsType {
   setNModeEnabled: React.Dispatch<SetStateAction<boolean>>;
   bottomScrollDetected: boolean;
   setBottomScrollDetected: React.Dispatch<SetStateAction<boolean>>;
+  setScrollResetToShow: Function;
+  scrollResetToShow: boolean;
 }
 
 export default React.createContext<useStatePropsType>({
@@ -16,4 +18,6 @@ export default React.createContext<useStatePropsType>({
   nModeEnabled: false,
   setBottomScrollDetected: () => {},
   bottomScrollDetected: false,
+  setScrollResetToShow: () => {},
+  scrollResetToShow: false,
 });

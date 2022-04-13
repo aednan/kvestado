@@ -21,16 +21,17 @@ export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
-  const [scrollResetToShow, setScrollResetToShow] = useState(false);
+  // const [scrollResetToShow, setScrollResetToShow] = useState(false);
 
-  const { setBottomScrollDetected } = useContext(UserSettingsContext);
+  const { setBottomScrollDetected, scrollResetToShow, setScrollResetToShow } =
+    useContext(UserSettingsContext);
 
   const { state } = useContext(AuthContext);
   // const { isScrolling } = useContext(AuthContext);
 
   const { connectWallet, restrictedRoutes } = useWeb3Service();
   // see campaigns infinite scroll implementation
-  const handleScroll = (event: any) => {
+  const handleScroll = (event?: any) => {
     if (divRef?.current?.scrollTop && divRef?.current?.scrollTop > 100) {
       setScrollResetToShow(true);
     } else {
@@ -97,10 +98,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <LoadingSpinner />
   ) : (
     <div className="fixed z-0 h-full min-h-screen w-full">
-      <ResetScrollButton
-        scrollResetToShow={scrollResetToShow}
-        divRef={divRef}
-      />
+      <ResetScrollButton divRef={divRef} />
       <CommandPalette />
       <Navbar />
       <div
@@ -115,3 +113,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+// Layout.getInitialProps = (otherProps: any) => {
+//   return { otherProps };
+// };

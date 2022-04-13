@@ -20,6 +20,10 @@ const CampaignInfoCard = (props: Props) => {
     raisedValue: number | string;
     minimumRaisedValue: number | string;
     state: string;
+    hasMinimumRaisedValue: string;
+    beneficiary: string;
+    owner: string;
+    expireAt: string;
   }>();
 
   const getPercentage = () => {
@@ -41,6 +45,7 @@ const CampaignInfoCard = (props: Props) => {
         // console.log(res?.raisedValue);
         // console.log(res?.minimumRaisedValue);
         // console.log(res?.state);
+        // console.log(res?.hasMinimumRaisedValue);
         setCampaignInfo({
           raisedValue: parseEthFromBigInt(res?.raisedValue),
           minimumRaisedValue: parseEthFromBigInt(res?.minimumRaisedValue),
@@ -54,10 +59,16 @@ const CampaignInfoCard = (props: Props) => {
               : res?.state === 3
               ? "EXPIRED"
               : "NONE",
+          hasMinimumRaisedValue: res?.hasMinimumRaisedValue
+            ? "REQUIRED"
+            : "NOT REQUIRED",
+          beneficiary: res?.owner,
+          owner: res?.beneficiary,
+          expireAt: `${new Date(convertFromBigNumberToNumber(res?.expireAt))}`,
         });
       }
     );
-  }, []);
+  }, [props]);
 
   return (
     <div className="flex flex-col space-y-4 pl-2">
@@ -75,17 +86,65 @@ const CampaignInfoCard = (props: Props) => {
             {campaignInfo?.minimumRaisedValue}
           </span>
         </div>{" "}
-        goal
+        goal.
       </span>
 
       <div className="px-3">
         <ProgressBar progress={getPercentage()} />
       </div>
 
-      <span className="pl-3">
-        Campaign State:{" "}
-        <span className="font-bold text-sky-500">{campaignInfo?.state}</span>
+      <span className="pl-3 font-roboto font-medium text-gray-700">
+        Campaign State:
+        <span className="pl-2 font-bold text-sky-500">
+          {campaignInfo?.state}
+        </span>
       </span>
+      <span className="pl-3 font-roboto font-medium text-gray-700 ">
+        Minimum Raised Value:
+        <span className="pl-2 font-bold text-sky-500">
+          {campaignInfo?.hasMinimumRaisedValue}
+        </span>
+      </span>
+      <span className="pl-3 font-roboto font-medium text-gray-700 ">
+        Expire on:
+        <span className="pl-2 font-bold text-sky-500">
+          {campaignInfo?.expireAt}
+        </span>
+      </span>
+
+      <div className=" mx-auto w-full max-w-md">
+        <label className="mb-1 block pl-3 font-roboto font-medium text-gray-700">
+          Owner Wallet Address
+        </label>
+        <input
+          disabled
+          value={campaignInfo?.owner}
+          className="
+            h-14
+            w-full
+rounded-lg border bg-slate-100 p-4  text-center font-roboto
+text-sm text-gray-400 drop-shadow-sm
+"
+          placeholder="Wallet not connected"
+        />
+      </div>
+
+      <div className=" mx-auto w-full max-w-md">
+        <label className="mb-1 block pl-3 font-roboto font-medium text-gray-700">
+          Beneficiary Wallet Address
+        </label>
+        <input
+          disabled
+          value={campaignInfo?.beneficiary}
+          className="
+            h-14
+            w-full
+rounded-lg border bg-slate-100 p-4  text-center font-roboto
+text-sm text-gray-400 drop-shadow-sm 
+"
+          placeholder="Wallet not connected"
+        />
+      </div>
     </div>
   );
 };

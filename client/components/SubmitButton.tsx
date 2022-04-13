@@ -18,7 +18,7 @@ const SubmitButton = (props: Props) => {
   return (
     <button
       onClick={props.onClick}
-      disabled={submitNotAllowed}
+      disabled={submitNotAllowed ? false : submitNotAllowed}
       className={props.className}
     >
       {props.title}

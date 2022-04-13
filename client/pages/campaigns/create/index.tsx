@@ -1,5 +1,4 @@
 import { Switch } from "@headlessui/react";
-import { BigNumber } from "ethers";
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -87,30 +86,44 @@ const Create = (props: Props) => {
     // values check should be done before submit
 
     // adding campaign to the blockchain
-    await addCampaign(
+    const response: any = await addCampaign(
       beneficiaryAddress,
       campaignUrl,
       mRValue,
       amount,
       expireTime
-    ).then((res) => {
-      console.log(res);
-    });
+    );
+    // .then((res) => {
+    //   console.log(res);
+    // });
 
-    // persist the added campaign to the database
-    postRequest("contract/api/add_campaign", {
-      id: campaignID,
-      coverPicturePath: coverImage,
-      title: campaignTitle,
-      description: campaignDescription,
-      beneficiaryAddress: beneficiaryAddress,
-      expireAfter: expireTime,
-      amount: amount,
-      minimumRaisedValueRequired: mRValue,
-      slug: slug,
-    }).catch((err) => {
-      console.log(err?.response.data.message);
-    });
+    // wait for one confirmation before being stored in the Api database
+    await state.provider
+      .waitForTransaction(response?.hash, 1)
+      .then((res: any) => {
+        let parsedEvents: any = parseEvents(res.logs);
+        const value = parsedEvents[0].args._campaignId;
+        console.log(convertFromBigNumberToNumber(value));
+
+        // persist the added campaign to the database
+        postRequest("contract/api/add_campaign", {
+          id: convertFromBigNumberToNumber(value),
+          coverPicturePath: coverImage,
+          title: campaignTitle,
+          description: campaignDescription,
+          beneficiaryAddress: beneficiaryAddress,
+          expireAfter: expireTime,
+          amount: amount,
+          minimumRaisedValueRequired: mRValue,
+          slug: slug,
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err?.response.data.message);
+          });
+      });
 
     //
   };
@@ -140,30 +153,32 @@ const Create = (props: Props) => {
 
   useEffect(() => {
     // init campaign id with the last value from the blockchain
-    if (campaignID === "") {
-      getLogs()
-        .then((events: any) => {
-          let parsedEvents: any = parseEvents(events);
-          const value = parsedEvents[parsedEvents.length - 1].args._campaignId;
-          setCampaignID(convertFromBigNumberToNumber(value + 1));
-        })
-        .catch(function (err: any) {
-          console.log(err);
-        });
-    }
-    const connectEvent = async () => {
-      const readOnlyContract = await getReadOnlyContract();
-      const myCampaignEvent = readOnlyContract.on(
-        "MyCampaign",
-        (campaignOwner: any, campaignId: BigNumber) => {
-          // to get the last campaign id from the blockchain
-          setCampaignID(convertFromBigNumberToNumber(campaignId) + 1);
-        }
-      );
+    // if (campaignID === "") {
+    //   getLogs()
+    //     .then((events: any) => {
+    //       let parsedEvents: any = parseEvents(events);
+    //       const value = parsedEvents[parsedEvents.length - 1].args._campaignId;
+    //       setCampaignID(convertFromBigNumberToNumber(value + 1));
+    //     })
+    //     .catch(function (err: any) {
+    //       console.log(err);
+    //     });
+    // }
 
-      // console.log(myCampaignEvent);
-    };
-    connectEvent();
+    // const connectEvent = async () => {
+    //   const readOnlyContract = await getReadOnlyContract();
+    //   const myCampaignEvent = readOnlyContract.on(
+    //     "MyCampaign",
+    //     (campaignOwner: any, campaignId: BigNumber) => {
+    //       // to get the last campaign id from the blockchain
+    //       setCampaignID(convertFromBigNumberToNumber(campaignId) + 1);
+    //     }
+    //   );
+
+    //   // console.log(myCampaignEvent);
+    // };
+    // connectEvent();
+
     return () => {
       // myCampaignEvent
     };

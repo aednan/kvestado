@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                                 .mvcMatchers(HttpMethod.GET,"/favicon.ico" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaigns" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaign" ).permitAll()
+                                .mvcMatchers(HttpMethod.GET,"/contract/api/get_campaigns_slugs" ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .cors()

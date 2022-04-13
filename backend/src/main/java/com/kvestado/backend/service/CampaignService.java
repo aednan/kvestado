@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CampaignService {
@@ -121,5 +122,16 @@ public class CampaignService {
                     campaignDTOs.add(campaignToCampaignDTO(campaign));
                 });
         return new PageImpl<CampaignDTO>(campaignDTOs,campaigns.getPageable(),campaigns.getTotalPages());
+    }
+
+
+    public List<String> getCampaignsSlugs () {
+//       StringBuilder campaignsSlugsJsonFormatted = new StringBuilder();
+//        campaignsSlugsJsonFormatted.append("[");
+//     campaignRepository.findAll().parallelStream().forEach(campaign -> {
+//         campaignsSlugsJsonFormatted.append("{\"params\": { \"slug\":\"" + campaign.getSlug() + "\"}}," );
+//      });
+//        campaignsSlugsJsonFormatted.append("{\"params\": { \"slug\":\" \"}}]");
+        return campaignRepository.findAll().parallelStream().map(campaign -> "/campaigns/" + campaign.getSlug()).collect(Collectors.toList());
     }
 }

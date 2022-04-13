@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/contract/api")
@@ -112,6 +113,20 @@ public class ContractController {
     }
 
 
+
+    // for server side rendering in the frontend
+    @GetMapping("/get_campaigns_slugs")
+    @CrossOrigin(methods = RequestMethod.GET)
+    public ResponseEntity<List<String>> getCampaignsSlugs() {
+//       String campaignsSlugsJsonFormatted = "";
+//        try {
+//            campaignsSlugsJsonFormatted = campaignService.getCampaignsSlugs();
+//        }catch (Exception ex) {
+//            ex.printStackTrace();
+//            return ResponseEntity.badRequest().build();
+//        }
+        return ResponseEntity.ok(campaignService.getCampaignsSlugs());
+    }
 
 
 

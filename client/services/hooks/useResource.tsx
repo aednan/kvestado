@@ -6,6 +6,7 @@ type Props = {
   params?: any;
   skip: boolean;
   withCredentials: boolean;
+  fallbackData?: any;
 };
 
 export default function useResource(props: Props) {
@@ -18,6 +19,7 @@ export default function useResource(props: Props) {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       revalidateOnReconnect: true,
+      fallbackData: props.fallbackData,
     }
   );
 

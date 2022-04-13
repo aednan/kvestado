@@ -29,11 +29,20 @@ export default function CommandPalette() {
     { id: 4, title: "Settings", description: "Navigate to profile settings" },
     { id: 5, title: "Profile", description: "Navigate to your profile" },
     { id: 6, title: "Docs", description: "Open documentation" },
+    {
+      id: 7,
+      title: "Withdrawal",
+      description: "Withdrawal funds collected through the campaign",
+    },
   ];
 
   const filteredData = query
     ? cPData.filter((data) => {
-        if ((data.id === 4 || data.id === 5) && !state.isAuthenticated) return;
+        if (
+          (data.id === 4 || data.id === 5 || data.id === 7) &&
+          !state.isAuthenticated
+        )
+          return;
         if (
           state.isAuthenticated &&
           data.id === 5 &&
@@ -70,6 +79,10 @@ export default function CommandPalette() {
       case 6:
         commandPaletteContext.setCPaletteOpen(false);
         router.push("/docs");
+        break;
+      case 7:
+        commandPaletteContext.setCPaletteOpen(false);
+        router.push("/user/withdraw");
         break;
       default:
         break;

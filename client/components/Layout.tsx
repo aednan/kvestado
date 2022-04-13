@@ -113,7 +113,3 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-// Layout.getInitialProps = (otherProps: any) => {
-//   return { otherProps };
-// };

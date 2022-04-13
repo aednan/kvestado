@@ -114,18 +114,18 @@ public class ContractController {
 
 
 
-    // for server side rendering in the frontend
+    // For server side rendering in the frontend
     @GetMapping("/get_campaigns_slugs")
     @CrossOrigin(methods = RequestMethod.GET)
     public ResponseEntity<List<String>> getCampaignsSlugs() {
-//       String campaignsSlugsJsonFormatted = "";
-//        try {
-//            campaignsSlugsJsonFormatted = campaignService.getCampaignsSlugs();
-//        }catch (Exception ex) {
-//            ex.printStackTrace();
-//            return ResponseEntity.badRequest().build();
-//        }
-        return ResponseEntity.ok(campaignService.getCampaignsSlugs());
+       List<String> campaignsSlugs = new ArrayList<>();
+        try {
+            campaignsSlugs = campaignService.getCampaignsSlugs();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(campaignsSlugs);
     }
 
 

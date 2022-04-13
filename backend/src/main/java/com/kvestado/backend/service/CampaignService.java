@@ -124,14 +124,8 @@ public class CampaignService {
         return new PageImpl<CampaignDTO>(campaignDTOs,campaigns.getPageable(),campaigns.getTotalPages());
     }
 
-
+    // For server side rendering in the frontend
     public List<String> getCampaignsSlugs () {
-//       StringBuilder campaignsSlugsJsonFormatted = new StringBuilder();
-//        campaignsSlugsJsonFormatted.append("[");
-//     campaignRepository.findAll().parallelStream().forEach(campaign -> {
-//         campaignsSlugsJsonFormatted.append("{\"params\": { \"slug\":\"" + campaign.getSlug() + "\"}}," );
-//      });
-//        campaignsSlugsJsonFormatted.append("{\"params\": { \"slug\":\" \"}}]");
         return campaignRepository.findAll().parallelStream().map(campaign -> "/campaigns/" + campaign.getSlug()).collect(Collectors.toList());
     }
 }

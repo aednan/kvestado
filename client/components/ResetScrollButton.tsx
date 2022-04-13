@@ -8,15 +8,8 @@ type Props = {
 };
 
 const ResetScrollButton = (props: Props) => {
-  const { scrollResetToShow, setScrollResetToShow } =
-    useContext(UserSettingsContext);
-  // scrollResetToShow === true;
-  useEffect(() => {
-    // console.log(props.otherProps);
-    // console.log(otherProps);
-    // setScrollResetToShow(scrollResetToShow ? false : true);
-    // console.log(scrollResetToShow);
-  }, []);
+  const { scrollResetToShow } = useContext(UserSettingsContext);
+  useEffect(() => {}, []);
   return (
     <button
       className="block disabled:hidden"
@@ -28,7 +21,4 @@ const ResetScrollButton = (props: Props) => {
   );
 };
 
-// ResetScrollButton.getInitialProps = (otherProps: any) => {
-//   return { otherProps: { a: "-" } };
-// };
 export default ResetScrollButton;

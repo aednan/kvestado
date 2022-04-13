@@ -78,7 +78,7 @@ contract Fund is Ownable{
 
          uint withdrawnAmount = campaign[msg.sender][_campaignId].raisedValue;    
 
-         campaign[msg.sender][_campaignId].raisedValue = 0;
+        //  campaign[msg.sender][_campaignId].raisedValue = 0;
          campaign[msg.sender][_campaignId].state = State.CLOSED;
 
          emit Withdrawal(msg.sender, campaign[msg.sender][_campaignId].beneficiary, _campaignId, withdrawnAmount);

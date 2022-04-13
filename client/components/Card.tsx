@@ -85,10 +85,10 @@ export default function Card(props: Props) {
                 <div className=" relative aspect-square w-full  overflow-hidden  rounded-md rounded-b-none bg-gray-200 ">
                   <div className="absolute bottom-2 left-0 max-h-7 max-w-[12rem] items-center overflow-clip bg-white px-1  align-middle shadow-md outline outline-1 outline-gray-300 group-hover:bg-cyan-100 ">
                     <span className="h-full w-full select-none font-roboto text-base font-bold">
-                      by{" "}
+                      ID{" "}
                     </span>
                     <span className=" max-w-sm select-all font-roboto text-base font-thin text-gray-900">
-                      KVESTADO
+                      {product.id}
                     </span>
                   </div>
                   <Link href={`/campaigns/${product.slug}`} passHref>

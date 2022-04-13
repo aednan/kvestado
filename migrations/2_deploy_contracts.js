@@ -1,5 +1,5 @@
-var Fund = artifacts.require("./Fund.sol");
+var Kvestado = artifacts.require("./Kvestado.sol");
 
-module.exports = function(deployer) {
-  deployer.deploy(Fund);
+module.exports = function (deployer) {
+  deployer.deploy(Kvestado);
 };

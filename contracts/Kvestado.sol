@@ -15,7 +15,7 @@ import "openzeppelin-solidity/contracts/access/Ownable.sol";
 // For gas optimization, the logic for user contracts, or user contribution should be done outside the blockchain by searching campaign or contribution
 
 
-contract Fund is Ownable{
+contract Kvestado is Ownable{
 
     constructor() {
         super;
@@ -44,11 +44,11 @@ contract Fund is Ownable{
    
     enum State {
         ACTIVE,
-        // if date passed and minimumRaisedValue rechead or or the entire raised value is withdrawn
+        // if the entire raised value is withdrawn
         CLOSED,
-       // if policy not respected
+        // if policy not respected
         SUSPENDED,
-        // if date passed and minimumRaisedValue not rechead
+        // if expireAfter date is exceeded and minimumRaisedValue not rechead
         EXPIRED
     }
 
@@ -148,9 +148,12 @@ contract Fund is Ownable{
      // and refund for contributors will be enabled through refundClaim function
      function suspendCampaign(address _campaignOwner, uint _campaignId ) external onlyOwner{
         
-        require(campaign[_campaignOwner][_campaignId].state != State.CLOSED,
-         "The campaign is already closed, a state change isn't allowed");
+        require(campaign[_campaignOwner][_campaignId].state == State.SUSPENDED,
+         "The campaign is already suspended, a state change isn't needed");
 
+        require(campaign[_campaignOwner][_campaignId].state != State.CLOSED,
+         "The campaign is closed, a state change isn't allowed");
+        
         campaign[_campaignOwner][_campaignId].state = State.SUSPENDED;
         emit SuspendedCampaign(_campaignOwner, _campaignId);
      } 

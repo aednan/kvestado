@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
 import { useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
-import FundContract from "../../contracts/Fund.json";
+import KvestadoContract from "../../contracts/Kvestado.json";
 
 type Props = {};
 
 export default function useContractService(props?: Props) {
-  const contractAddress = FundContract.networks["5777"].address;
+  const contractAddress = KvestadoContract.networks["5777"].address;
 
   let readOnlyContractInstance: any = undefined;
   let readWriteContractInstance: any = undefined;
@@ -17,7 +17,7 @@ export default function useContractService(props?: Props) {
     if (readOnlyContractInstance === undefined) {
       readOnlyContractInstance = new ethers.Contract(
         contractAddress,
-        FundContract.abi,
+        KvestadoContract.abi,
         state.provider
       );
       return readOnlyContractInstance;
@@ -29,7 +29,7 @@ export default function useContractService(props?: Props) {
     if (readWriteContractInstance === undefined) {
       readWriteContractInstance = new ethers.Contract(
         contractAddress,
-        FundContract.abi,
+        KvestadoContract.abi,
         state.provider.getSigner()
       );
       return readWriteContractInstance;
@@ -187,7 +187,7 @@ export default function useContractService(props?: Props) {
   };
 
   const parseEvents = (events: any) => {
-    let abi = FundContract.abi;
+    let abi = KvestadoContract.abi;
     let iface = new ethers.utils.Interface(abi);
     return events.map((log: any) => {
       return iface.parseLog(log);

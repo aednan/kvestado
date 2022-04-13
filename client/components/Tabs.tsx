@@ -34,11 +34,11 @@ export default function Tabs() {
               key={category}
               className={({ selected }) =>
                 classNames(
-                  "w-full  rounded-b-xl  border-t-2 bg-white py-2.5 font-roboto text-lg font-medium leading-5 text-gray-500",
+                  "w-full rounded-b-xl border-t-2  bg-white py-2.5 font-roboto text-lg font-medium leading-5 text-gray-500 hover:bg-slate-50",
                   "ring-0 focus:outline-none ",
                   selected
-                    ? "border-blue-400 bg-white text-blue-400"
-                    : "  hover:text-blue-400"
+                    ? "border-blue-400 bg-white text-sky-700"
+                    : "  hover:text-sky-700"
                 )
               }
             >
@@ -52,7 +52,7 @@ export default function Tabs() {
               key={category.id}
               className={classNames(
                 "rounded-xl bg-white p-3",
-                "h-[34rem] overflow-y-auto overflow-x-hidden border-2 border-slate-200 ring-0 ring-white ring-opacity-60 ring-offset-2 focus:outline-none"
+                "h-[34rem] overflow-y-auto overflow-x-hidden border-slate-200 ring-0 ring-white ring-opacity-60 ring-offset-2 focus:outline-none"
               )}
             >
               {category.id === "campaign" && !campaignLoading && (

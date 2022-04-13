@@ -71,6 +71,15 @@ function Campaign(props: props) {
           {data?.description}
         </ReactMarkdown>
       </article>
+
+      {state.isAuthenticated && (
+        <span
+          onClick={() => setOpenContribution(true)}
+          className="mx-auto mb-10 w-full max-w-[12rem] cursor-pointer select-none rounded-md border py-2 px-7 text-center font-roboto text-lg  font-bold text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
+        >
+          Contribute
+        </span>
+      )}
     </>
   ) : (
     <LoadingSpinner />

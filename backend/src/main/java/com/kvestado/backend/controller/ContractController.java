@@ -86,12 +86,12 @@ public class ContractController {
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/get_campaigns")
+    @GetMapping("/{random}/get_campaigns")
     @CrossOrigin(methods = RequestMethod.GET)
-    public ResponseEntity<Page<CampaignDTO>> getCampaigns(@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize) {
+    public ResponseEntity<Page<CampaignDTO>> getCampaigns(@PathVariable(required = true) boolean random ,@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize) {
          Page<CampaignDTO> page = new PageImpl<CampaignDTO>(new ArrayList<>());
        try {
-           page = campaignService.getCampaignsPage(offset,pageSize);
+           page = campaignService.getCampaignsPage(offset,pageSize, random);
        }catch (Exception ex) {
            ex.printStackTrace();
            return ResponseEntity.badRequest().build();

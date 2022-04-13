@@ -24,7 +24,15 @@ const CampaignInfoCard = (props: Props) => {
     beneficiary: string;
     owner: string;
     expireAt: string;
-  }>();
+  }>({
+    raisedValue: "",
+    minimumRaisedValue: "",
+    state: "",
+    hasMinimumRaisedValue: "",
+    beneficiary: "",
+    owner: "",
+    expireAt: "",
+  });
 
   const getPercentage = () => {
     if (
@@ -46,6 +54,7 @@ const CampaignInfoCard = (props: Props) => {
         // console.log(res?.minimumRaisedValue);
         // console.log(res?.state);
         // console.log(res?.hasMinimumRaisedValue);
+        // console.log(res?.expireAfter);
         setCampaignInfo({
           raisedValue: parseEthFromBigInt(res?.raisedValue),
           minimumRaisedValue: parseEthFromBigInt(res?.minimumRaisedValue),
@@ -64,7 +73,9 @@ const CampaignInfoCard = (props: Props) => {
             : "NOT REQUIRED",
           beneficiary: res?.owner,
           owner: res?.beneficiary,
-          expireAt: `${new Date(convertFromBigNumberToNumber(res?.expireAt))}`,
+          expireAt: `${new Date(
+            convertFromBigNumberToNumber(res?.expireAfter)
+          )}`,
         });
       }
     );
@@ -96,7 +107,10 @@ const CampaignInfoCard = (props: Props) => {
       <span className="pl-3 font-roboto font-medium text-gray-700">
         Campaign State:
         <span className="pl-2 font-bold text-sky-500">
-          {campaignInfo?.state}
+          {new Date() >= new Date(campaignInfo?.expireAt) &&
+          campaignInfo?.state === "ACTIVE"
+            ? "EXPIRED"
+            : campaignInfo?.state}
         </span>
       </span>
       <span className="pl-3 font-roboto font-medium text-gray-700 ">

@@ -18,4 +18,5 @@ https://faucets.chain.link/rinkeby
 https://faucet.egorfine.com/
 https://faucet.metamask.io/
 
+truffle migrate --network rinkeby
 truffle migrate --reset --network rinkeby

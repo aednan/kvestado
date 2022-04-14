@@ -7,7 +7,6 @@ import { FaEthereum } from "react-icons/fa";
 import CampaignInfoCard from "./CampaignInfoCard";
 import useApiService from "../services/hooks/useApiService";
 import useContractService from "../services/hooks/useContractService";
-import ContributionCard from "./ContributionCard";
 import AuthContext from "../contexts/AuthContext";
 
 type Props = {
@@ -44,30 +43,34 @@ export default function ContributionSidebar(props: Props) {
   const saveContributionToAPI = async () => {
     if (contributionAmount.match("^(([0-9]+))(\\.[0-9]+)?$")) {
       // adding campaign to the blockchain
-      const response: any = await contribute(
-        props.campaignOwnerWalletAddress,
-        props.campaignId,
-        Number(contributionAmount)
-      );
-      await state.provider
-        .waitForTransaction(response?.hash, 1)
-        .then((res: any) => {
-          postRequest("contract/api/add_contribution", {
-            campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
-            campaignId: props.campaignId,
-            amount: contributionAmount,
-          })
-            .then((res) => {
-              setContributionAmount("");
-              console.log(res);
+      try {
+        const response: any = await contribute(
+          props.campaignOwnerWalletAddress,
+          props.campaignId,
+          Number(contributionAmount)
+        );
+        await state.provider
+          .waitForTransaction(response?.hash, 1)
+          .then((res: any) => {
+            postRequest("contract/api/add_contribution", {
+              campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
+              campaignId: props.campaignId,
+              amount: contributionAmount,
             })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
+              .then((res) => {
+                setContributionAmount("");
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       console.log(console.log("Amount is required"));
     }

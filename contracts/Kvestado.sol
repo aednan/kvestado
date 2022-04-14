@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.11;
+pragma solidity ^0.8.13;
 
 /// @title A title that should describe the contract/interface
 /// @author The name of the author
@@ -78,7 +78,6 @@ contract Kvestado is Ownable{
 
          uint withdrawnAmount = campaign[msg.sender][_campaignId].raisedValue;    
 
-        //  campaign[msg.sender][_campaignId].raisedValue = 0;
          campaign[msg.sender][_campaignId].state = State.CLOSED;
 
          emit Withdrawal(msg.sender, campaign[msg.sender][_campaignId].beneficiary, _campaignId, withdrawnAmount);

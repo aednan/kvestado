@@ -4,7 +4,7 @@
 
 https://rinkeby.etherscan.io/address/0x33e74eadf9123ffcb932b32963d543c1aba5c475
 
-#### Metamaks
+#### Metamask
 
 to show test networks in metamsk:
 Advanced:

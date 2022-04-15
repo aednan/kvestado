@@ -269,7 +269,7 @@ export default function Navbar() {
                         await connectWallet();
                       }
                     }}
-                    className="cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black"
+                    className="cursor-pointer font-roboto text-3xl font-black text-[#8a939b]  hover:text-black"
                   />
                 )}
               </div>

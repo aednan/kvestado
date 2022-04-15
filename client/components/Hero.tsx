@@ -19,7 +19,7 @@ export default function Hero({}: Props) {
             <span className="block font-roboto font-normal xl:inline">
               Designed{" "}
             </span>
-            <span className="block font-roboto font-thin text-indigo-600 xl:inline">
+            <span className="block font-roboto font-thin text-sky-500 xl:inline">
               To Do Good
             </span>
           </h1>
@@ -48,7 +48,7 @@ export default function Hero({}: Props) {
                 </span>
               )}
               <Link href="/campaigns" passHref>
-                <span className="cursor-pointer pl-4 font-roboto font-bold text-indigo-300 transition-transform hover:scale-105">
+                <span className="cursor-pointer pl-4 font-roboto font-bold text-sky-500 transition-transform hover:scale-105">
                   Discover &rarr;
                 </span>
               </Link>

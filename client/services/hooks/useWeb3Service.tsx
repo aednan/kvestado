@@ -299,20 +299,20 @@ export default function useWeb3Service(props?: Props) {
     // window.ethereum.on("networkChanged", onNetworkChange);
 
     // check user session if logged in
-    if (state.isAuthenticated) {
-      userAuthenticationPostTemplate("login")
-        .then((res) => {
-          if (
-            Object.keys(state.userInfo).length == 0 ||
-            state.userInfo.username === ""
-          )
-            updateUser();
-        })
-        .catch((err) => {
-          console.log("Session not valid");
-          logout();
-        });
-    }
+    // if (state.isAuthenticated) {
+    //   userAuthenticationPostTemplate("login")
+    //     .then((res) => {
+    //       if (
+    //         Object.keys(state.userInfo).length == 0 ||
+    //         state.userInfo.username === ""
+    //       )
+    //         updateUser();
+    //     })
+    //     .catch((err) => {
+    //       console.log("Session not valid");
+    //       logout();
+    //     });
+    // }
 
     return () => {
       window.ethereum?.removeListener("accountsChanged", onWalletAddressChange);

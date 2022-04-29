@@ -10,9 +10,11 @@ server:
       cookie:
         name: KVESTADOSESSIONID
         http-only: true
+#        host-only: true
         secure: true
         # as long as in dev mode and the server is not running in the same domain
         same-site: NONE
+        domain: kvestado.ga
 #        path: /
 #        max-age: 30M
 

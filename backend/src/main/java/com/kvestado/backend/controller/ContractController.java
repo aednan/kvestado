@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contract/api")
-@CrossOrigin(origins = {"http://localhost:8081","https://vercel.app"}, methods = {RequestMethod.OPTIONS},
+@CrossOrigin(origins = {"http://localhost:8081","https://kvestado.vercel.app","https://kvestado.ga"}, methods = {RequestMethod.OPTIONS},
         allowCredentials = "true", allowedHeaders = {"*"})
 public class ContractController {
 

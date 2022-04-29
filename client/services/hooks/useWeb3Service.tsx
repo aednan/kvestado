@@ -178,37 +178,41 @@ export default function useWeb3Service(props?: Props) {
   }
 
   async function logout() {
-    // try {
-    //   // clear cookies or jwt token
-    //   // Authentication will be done using the cookie
-    //   await userAuthenticationPostTemplate("logout");
-    //   // await logoutAPI();
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // // reset swr cache
-    // // userMutation({});
-    // // mutate(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/user/userinfo`);
-    // // reset state
-    // setAuthentication(false);
-    // setProvider({});
-    // setWalletAddress("");
-    // setDisableSubmitBtn(false);
-    // setUserInfo({});
-    // // redirect user to home page only when route required authentication
-    // // route from hook doesn't retrieve the correct path.
-    // // ex: Access the Frontend for the first time, authenticate the user,
-    // // navigate to the user settings via the option in the navigation bar,
-    // // switch to another wallet account in Metamask.
-    // // The initial route value is retained
-    // //****** */
-    // // asPath: include current route & query
-    // // pathname: include only current route
-    // if (await Router.asPath.match(restrictedRoutes)) {
-    //   route.replace("/");
-    // }
-    // // clear local storage authentication
-    // localStorage.clear();
+    try {
+      // clear cookies or jwt token
+      // Authentication will be done using the cookie
+      await userAuthenticationPostTemplate("logout");
+      // await logoutAPI();
+    } catch (error) {
+      console.log(error);
+    }
+    // reset swr cache
+    // userMutation({});
+    // mutate(`${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/user/userinfo`);
+
+    // reset state
+    setAuthentication(false);
+    setProvider({});
+    setWalletAddress("");
+    setDisableSubmitBtn(false);
+    setUserInfo({});
+
+    // redirect user to home page only when route required authentication
+    // route from hook doesn't retrieve the correct path.
+    // ex: Access the Frontend for the first time, authenticate the user,
+    // navigate to the user settings via the option in the navigation bar,
+    // switch to another wallet account in Metamask.
+    // The initial route value is retained
+    //****** */
+    // asPath: include current route & query
+    // pathname: include only current route
+
+    if (await Router.asPath.match(restrictedRoutes)) {
+      route.replace("/");
+    }
+
+    // clear local storage authentication
+    localStorage.clear();
   }
 
   // async function login(
@@ -295,20 +299,20 @@ export default function useWeb3Service(props?: Props) {
     // window.ethereum.on("networkChanged", onNetworkChange);
 
     // check user session if logged in
-    // if (state.isAuthenticated) {
-    //   userAuthenticationPostTemplate("login")
-    //     .then((res) => {
-    //       if (
-    //         Object.keys(state.userInfo).length == 0 ||
-    //         state.userInfo.username === ""
-    //       )
-    //         updateUser();
-    //     })
-    //     .catch((err) => {
-    //       console.log("Session not valid");
-    //       logout();
-    //     });
-    // }
+    if (state.isAuthenticated) {
+      userAuthenticationPostTemplate("login")
+        .then((res) => {
+          if (
+            Object.keys(state.userInfo).length == 0 ||
+            state.userInfo.username === ""
+          )
+            updateUser();
+        })
+        .catch((err) => {
+          console.log("Session not valid");
+          logout();
+        });
+    }
 
     return () => {
       window.ethereum?.removeListener("accountsChanged", onWalletAddressChange);

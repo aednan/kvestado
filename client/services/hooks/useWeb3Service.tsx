@@ -103,49 +103,49 @@ export default function useWeb3Service(props?: Props) {
     setDisableSubmitBtn(true);
     // let id = setTimeout(redirectCallBack, 10000);
     try {
-      // if (window.ethereum) {
-      // const accounts: any = await withTimeoutWrapper(
-      //   () =>
-      //     window.ethereum.request({
-      //       method: "eth_requestAccounts",
-      //     }),
-      //   10000,
-      //   redirectCallBack
-      // );
+      if (window.ethereum) {
+        // const accounts: any = await withTimeoutWrapper(
+        //   () =>
+        //     window.ethereum.request({
+        //       method: "eth_requestAccounts",
+        //     }),
+        //   10000,
+        //   redirectCallBack
+        // );
 
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      if (accounts.length > 0) {
-        setWalletAddress(accounts[0]);
-        setProvider(provider);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setProvider(provider);
+        }
+        //
+
+        // clearTimeout(id);
+        // Delay
+
+        if (
+          !localStorage.getItem("Authenticated") &&
+          (await userAuthentication(provider))
+        ) {
+          // setDisableSubmitBtn(true);
+          // const auth = ;
+          // if (auth === true) {
+          setAuthentication(true);
+          localStorage.setItem("Authenticated", "true");
+          // To reconnect user after page refresh if already authenticated
+        } else if (localStorage.getItem("Authenticated")) {
+          setAuthentication(true);
+        }
+      } else {
+        // TODO show alert
+        console.log("Metamask isn't installed");
+        // route.push("/campaigns/");
+        // route.replace("/");
       }
-      //
-
-      // clearTimeout(id);
-      // Delay
-
-      if (
-        !localStorage.getItem("Authenticated") &&
-        (await userAuthentication(provider))
-      ) {
-        // setDisableSubmitBtn(true);
-        // const auth = ;
-        // if (auth === true) {
-        setAuthentication(true);
-        localStorage.setItem("Authenticated", "true");
-        // To reconnect user after page refresh if already authenticated
-      } else if (localStorage.getItem("Authenticated")) {
-        setAuthentication(true);
-      }
-      // } else {
-      //   // TODO show alert
-      //   console.log("Metamask isn't installed");
-      //   // route.push("/campaigns/");
-      //   // route.replace("/");
-      // }
     } catch (error: any) {
       // if the route require authentication && user decline connection
       // redirect to home page

@@ -215,28 +215,6 @@ export default function useWeb3Service(props?: Props) {
     localStorage.clear();
   }
 
-  // async function login(
-  //   url: string,
-  //   walletAddress: string,
-  //   signedMessage: string
-  // ) {
-  //   const response = await axios.post(url, null, {
-  //     headers: {
-  //       Authorization: `Basic ${btoa(walletAddress + ":" + signedMessage)}`,
-  //     },
-  //     withCredentials: true,
-  //   });
-  //   return response.data;
-  // }
-
-  // async function backendLogout(url: string) {
-  //   await axios.post(url, null, {
-  //     headers: {
-  //       Authorization: `Basic `,
-  //     },
-  //   });
-  // }
-
   async function userAuthenticationPostTemplate(
     url: string,
     authorization?: { username: string; password: string } | undefined
@@ -250,17 +228,6 @@ export default function useWeb3Service(props?: Props) {
     });
     return response.data;
   }
-  // async function logoutAPI() {
-  //   const response = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_KVESTADO_API_URL}/logout`,
-  //     null,
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   return response.data;
-  // }
-
   //**** */
 
   useEffect(() => {

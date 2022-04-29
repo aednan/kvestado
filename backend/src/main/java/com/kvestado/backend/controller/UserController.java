@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:8081","https://kvestado.vercel.app"}, methods = {RequestMethod.OPTIONS},
+@CrossOrigin(origins = {"http://localhost:8081","https://vercel.app"}, methods = {RequestMethod.OPTIONS},
         allowCredentials = "true", allowedHeaders = {"*"})
 public class UserController {
 

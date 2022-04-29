@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8081","https://kvestado.vercel.app"}, methods = {RequestMethod.OPTIONS},
+@CrossOrigin(origins = {"http://localhost:8081","https://vercel.app"}, methods = {RequestMethod.OPTIONS},
         allowCredentials = "true", allowedHeaders = {"*"})
 public class MainController {
 

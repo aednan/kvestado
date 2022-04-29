@@ -211,8 +211,9 @@ export default function useWeb3Service(props?: Props) {
       route.replace("/");
     }
 
-    // clear local storage authentication
+    // clear local & session storage authentication
     localStorage.clear();
+    sessionStorage.clear();
   }
 
   // async function login(

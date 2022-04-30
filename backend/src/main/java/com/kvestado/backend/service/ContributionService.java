@@ -30,7 +30,7 @@ public class ContributionService {
             List<ContributionDTO> contributionDTOs = new ArrayList<>();
             Page<Contribution> contributions = contributionRepository.findByUser(new User(authentication.getName()), PageRequest.of(offset,pageSize));
             contributions
-                    .stream().parallel().forEach(contribution -> {
+                    .stream().parallel().filter(Contribution::getValid).forEach(contribution -> {
                         contributionDTOs.add(contributionToContributionDTO(contribution));
                     });
             return new PageImpl<ContributionDTO>(contributionDTOs,contributions.getPageable(),contributions.getTotalPages());

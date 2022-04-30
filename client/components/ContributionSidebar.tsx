@@ -48,26 +48,44 @@ export default function ContributionSidebar(props: Props) {
           props.campaignId,
           Number(contributionAmount)
         );
-        await state.provider
-          .waitForTransaction(response?.hash, 1)
-          .then((res: any) => {
-            postRequest("contract/api/add_contribution", {
-              transactionHash: response?.hash,
-              campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
-              campaignId: props.campaignId,
-              amount: contributionAmount,
-            })
-              .then((res) => {
-                setContributionAmount("");
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+
+        postRequest("contract/api/add_contribution", {
+          transactionHash: response?.hash,
+          campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
+          campaignId: props.campaignId,
+          amount: contributionAmount,
+        })
+          .then((res) => {
+            setContributionAmount("");
+            // alert Transaction started
+            console.log(res);
           })
-          .catch((err: any) => {
+          .catch((err) => {
+            // please check your transaction on etherscan and add it again
             console.log(err);
           });
+
+        // await state.provider
+        //   .waitForTransaction(response?.hash, 1)
+        //   .then((res: any) => {
+        //     postRequest("contract/api/add_contribution", {
+        //       transactionHash: response?.hash,
+        //       campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
+        //       campaignId: props.campaignId,
+        //       amount: contributionAmount,
+        //     })
+        //       .then((res) => {
+        //         setContributionAmount("");
+        //         console.log(res);
+        //       })
+        //       .catch((err) => {
+        //         console.log(err);
+        //       });
+        //   })
+        //   .catch((err: any) => {
+        //     console.log(err);
+        //   });
+        //
       } catch (error) {
         console.log(error);
       }

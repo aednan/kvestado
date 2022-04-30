@@ -54,11 +54,11 @@ public class CampaignService {
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
        Page<Campaign> pCampaigns = campaignRepository.findAll(PageRequest.of(offset,pageSize));
        if(random){
-           pCampaigns.stream().parallel().forEach(campaign -> {
+           pCampaigns.stream().parallel().filter(Campaign::getValid).forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));
                });
        }else{
-           pCampaigns.stream().sequential().forEach(campaign -> {
+           pCampaigns.stream().sequential().filter(Campaign::getValid).forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));
                });}
      return new PageImpl<CampaignDTO>(campaignDTOs,pCampaigns.getPageable(),pCampaigns.getTotalPages());
@@ -66,7 +66,7 @@ public class CampaignService {
 
     public CampaignDTO getCampaign(String slug) {
        Optional<Campaign> campaign = campaignRepository.findBySlug(slug);
-       if(campaign.isPresent())
+       if(campaign.isPresent() && campaign.get().getValid())
            return campaignToCampaignDTO(campaign.get());
       return null;
     }
@@ -131,7 +131,7 @@ public class CampaignService {
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
        Page<Campaign> campaigns = campaignRepository.findByUser(new User(authentication.getName()),PageRequest.of(offset,pageSize));
         campaigns
-                .stream().parallel().forEach(campaign -> {
+                .stream().parallel().filter(Campaign::getValid).forEach(campaign -> {
                     campaignDTOs.add(campaignToCampaignDTO(campaign));
                 });
         return new PageImpl<CampaignDTO>(campaignDTOs,campaigns.getPageable(),campaigns.getTotalPages());
@@ -139,6 +139,6 @@ public class CampaignService {
 
     // For server side rendering in the frontend
     public List<String> getCampaignsSlugs () {
-        return campaignRepository.findAll().parallelStream().map(campaign -> "/campaigns/" + campaign.getSlug()).collect(Collectors.toList());
+        return campaignRepository.findAll().parallelStream().filter(Campaign::getValid).map(campaign -> "/campaigns/" + campaign.getSlug()).collect(Collectors.toList());
     }
 }

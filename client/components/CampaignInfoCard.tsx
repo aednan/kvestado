@@ -50,11 +50,6 @@ const CampaignInfoCard = (props: Props) => {
   useEffect(() => {
     getCampaign(props.campaignOwnerWalletAddress, props.campaignId).then(
       (res: any) => {
-        // console.log(res?.raisedValue);
-        // console.log(res?.minimumRaisedValue);
-        // console.log(res?.state);
-        // console.log(res?.hasMinimumRaisedValue);
-        // console.log(res?.expireAfter);
         setCampaignInfo({
           raisedValue: parseEthFromBigInt(res?.raisedValue),
           minimumRaisedValue: parseEthFromBigInt(res?.minimumRaisedValue),

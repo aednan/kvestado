@@ -17,7 +17,8 @@ export default function Campaigns(props: Props) {
 
   const [pagination, setPagination] = useState({
     offset: 0,
-    pageSize: 16,
+    // to be updated to 16
+    pageSize: 8,
   });
 
   const { data, mutate, error, loading } = useResource({
@@ -32,12 +33,13 @@ export default function Campaigns(props: Props) {
     if (data != undefined) {
       if (bottomScrollDetected && !data.last && !data.first) {
         setPagination({
-          offset: pagination.offset + 8,
-          pageSize: 8,
+          offset: 0,
+          pageSize: pagination.pageSize + 8,
         });
-        // console.log("last");
+        console.log("last");
         // TODO: show loading animation
         // load more campaigns
+        mutate();
       }
     }
   }, [data, bottomScrollDetected, pagination.offset]);

@@ -1,6 +1,5 @@
 import { Switch } from "@headlessui/react";
-import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import InputField from "../../../components/InputField";
 import SubmitButton from "../../../components/SubmitButton";
@@ -9,7 +8,6 @@ import useApiService from "../../../services/hooks/useApiService";
 import useContractService from "../../../services/hooks/useContractService";
 import {
   isEmptyOrContainsSpaceOnly,
-  convertFromBigNumberToNumber,
   generateCampaignSlug,
   getEpochExpireTime,
   uploadImage,
@@ -19,7 +17,6 @@ type Props = {};
 
 const Create = (props: Props) => {
   const [photo, setPhoto]: any = useState(null);
-  const [campaignID, setCampaignID]: any = useState("");
   const [campaignTitle, setCampaignTitle]: any = useState("");
   const [campaignDescription, setCampaignDescription]: any = useState("");
   const [beneficiaryAddress, setBeneficiaryAddress]: any = useState("");
@@ -64,7 +61,7 @@ const Create = (props: Props) => {
   const { state } = useContext(AuthContext);
 
   const [mRValue, setMRValue]: any = useState(false);
-  const { addCampaign, parseEvents } = useContractService();
+  const { addCampaign } = useContractService();
   const { postRequest } = useApiService();
 
   function classNames(...classes: string[]) {
@@ -92,40 +89,41 @@ const Create = (props: Props) => {
       amount,
       expireTime
     );
-    // .then((res) => {
-    //   console.log(res);
-    // });
 
-    // wait for one confirmation before being stored in the Api database
-    await state.provider
-      .waitForTransaction(response?.hash, 1)
-      .then((res: any) => {
-        let parsedEvents: any = parseEvents(res.logs);
-        const value = parsedEvents[0].args._campaignId;
-        console.log(convertFromBigNumberToNumber(value));
-
-        // persist the added campaign to the database
-        postRequest("contract/api/add_campaign", {
-          // id: convertFromBigNumberToNumber(value),
-          transactionHash: response?.hash,
-          coverPicturePath: coverImage,
-          title: campaignTitle,
-          description: campaignDescription,
-          beneficiaryAddress: beneficiaryAddress,
-          expireAfter: expireTime,
-          amount: amount,
-          minimumRaisedValueRequired: mRValue,
-          slug: slug,
-        })
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err?.response.data.message);
-          });
+    //persist the added campaign to the database
+    postRequest("contract/api/add_campaign", {
+      // id: convertFromBigNumberToNumber(value),
+      transactionHash: response?.hash,
+      coverPicturePath: coverImage,
+      title: campaignTitle,
+      description: campaignDescription,
+      beneficiaryAddress: beneficiaryAddress,
+      expireAfter: expireTime,
+      amount: amount,
+      minimumRaisedValueRequired: mRValue,
+      slug: slug,
+    })
+      .then((res) => {
+        // transaction started
+        clearAll();
+        console.log(res);
+      })
+      .catch((err) => {
+        // please check your transaction on etherscan and add it again
+        console.log(err?.response.data.message);
       });
 
-    //
+    // Transaction confirmation listener will be done in the backend
+  };
+
+  const clearAll = () => {
+    setCampaignTitle("");
+    setCampaignDescription("");
+    setBeneficiaryAddress("");
+    setExpireAfter("");
+    setAmount("");
+    setPhoto(null);
+    setMRValue(false);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -150,39 +148,6 @@ const Create = (props: Props) => {
       console.log("photo added");
     },
   });
-
-  useEffect(() => {
-    // init campaign id with the last value from the blockchain
-    // if (campaignID === "") {
-    //   getLogs()
-    //     .then((events: any) => {
-    //       let parsedEvents: any = parseEvents(events);
-    //       const value = parsedEvents[parsedEvents.length - 1].args._campaignId;
-    //       setCampaignID(convertFromBigNumberToNumber(value + 1));
-    //     })
-    //     .catch(function (err: any) {
-    //       console.log(err);
-    //     });
-    // }
-
-    // const connectEvent = async () => {
-    //   const readOnlyContract = await getReadOnlyContract();
-    //   const myCampaignEvent = readOnlyContract.on(
-    //     "MyCampaign",
-    //     (campaignOwner: any, campaignId: BigNumber) => {
-    //       // to get the last campaign id from the blockchain
-    //       setCampaignID(convertFromBigNumberToNumber(campaignId) + 1);
-    //     }
-    //   );
-
-    //   // console.log(myCampaignEvent);
-    // };
-    // connectEvent();
-
-    return () => {
-      // myCampaignEvent
-    };
-  }, []);
 
   return (
     <div className="my-16 flex justify-center">

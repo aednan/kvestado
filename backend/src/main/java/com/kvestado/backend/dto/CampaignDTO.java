@@ -2,7 +2,8 @@ package com.kvestado.backend.dto;
 
 public class CampaignDTO {
 
-    private Long id;
+    // Transaction receipt
+    private String transactionHash;
     private String coverPicturePath;
     private String campaignOwner;
     private String title;
@@ -18,8 +19,8 @@ public class CampaignDTO {
     public CampaignDTO() {
     }
 
-    public CampaignDTO(Long id,String campaignOwner,String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
-        this.id = id;
+    public CampaignDTO(String transactionHash,String campaignOwner,String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
+        this.transactionHash = transactionHash;
         this.campaignOwner = campaignOwner;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -57,12 +58,12 @@ public class CampaignDTO {
         this.slug = slug;
     }
 
-    public Long getId() {
-        return id;
+    public String getTransactionHash() {
+        return transactionHash;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTransactionHash(String transactionHash) {
+        this.transactionHash = transactionHash;
     }
 
     public String getCoverPicturePath() {

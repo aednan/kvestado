@@ -4,6 +4,7 @@ import com.kvestado.backend.dao.CampaignRepository;
 import com.kvestado.backend.dto.CampaignDTO;
 import com.kvestado.backend.exception.OperationNotAllowedException;
 import com.kvestado.backend.model.Campaign;
+import com.kvestado.backend.model.PendingTransaction;
 import com.kvestado.backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,11 +24,16 @@ public class CampaignService {
 
     @Autowired
     CampaignRepository campaignRepository;
+    @Autowired
+    Web3Service web3Service;
 
    public void createNewCampaign(CampaignDTO campaignDTO, Authentication authentication) throws OperationNotAllowedException {
        checkCampaignValidity(campaignDTO);
+       LocalDate createdAt = LocalDate.now();
+
        Campaign campaign = new Campaign(
-               campaignDTO.getId(),
+               campaignDTO.getTransactionHash(),
+               null,
                campaignDTO.getCoverPicturePath(),
                campaignDTO.getTitle(),
                campaignDTO.getDescription(),
@@ -37,9 +43,11 @@ public class CampaignService {
                campaignDTO.getMinimumRaisedValueRequired(),
                new User(authentication.getName()),
                campaignDTO.getSlug(),
-               LocalDate.now()
+               createdAt,
+               false
        );
        campaignRepository.save(campaign);
+       web3Service.addAPendingTransaction(new PendingTransaction(campaignDTO.getTransactionHash(),createdAt));
    }
 
    public Page<CampaignDTO> getCampaignsPage(int offset, int pageSize, boolean random){
@@ -66,7 +74,7 @@ public class CampaignService {
 
     private CampaignDTO campaignToCampaignDTO(Campaign campaign){
        return new CampaignDTO(
-               campaign.getId(),
+               campaign.getTransactionHash(),
                campaign.getUser().getUsername(),
                campaign.getCoverPicturePath(),
                campaign.getTitle(),
@@ -82,8 +90,9 @@ public class CampaignService {
 
     public void checkCampaignValidity(CampaignDTO campaignDTO) throws OperationNotAllowedException {
 
-        if (campaignDTO.getId() == null){
-            throw new OperationNotAllowedException("missing_id_value");
+        if ( campaignDTO.getTransactionHash() == null ||
+                campaignDTO.getTransactionHash().isEmpty() || campaignDTO.getTransactionHash().isBlank()){
+            throw new OperationNotAllowedException("missing_transactionHash_value");
         }
         if (campaignDTO.getAmount() == null){
             throw new OperationNotAllowedException("missing_amount_value");

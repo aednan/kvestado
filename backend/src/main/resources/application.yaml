@@ -15,7 +15,7 @@ server:
         # as long as in dev mode and the server is not running in the same domain
         # only when frontend and backend domain matches
         same-site: STRICT
-        domain: kvestado.ga
+#        domain: kvestado.ga
 #        path: /
 #        max-age: 30M
 

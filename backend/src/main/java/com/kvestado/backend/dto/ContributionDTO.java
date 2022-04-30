@@ -3,14 +3,16 @@ package com.kvestado.backend.dto;
 public class ContributionDTO {
 
     private Long campaignId;
+    private String transactionHash;
     private String campaignOwnerWalletAddress;
     private Double amount;
 
     public ContributionDTO() {
     }
 
-    public ContributionDTO(Long campaignId, String campaignOwnerWalletAddress, Double amount) {
+    public ContributionDTO(Long campaignId,String transactionHash ,String campaignOwnerWalletAddress, Double amount) {
         this.campaignId = campaignId;
+        this.transactionHash = transactionHash;
         this.campaignOwnerWalletAddress = campaignOwnerWalletAddress;
         this.amount = amount;
     }
@@ -39,5 +41,13 @@ public class ContributionDTO {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getTransactionHash() {
+        return transactionHash;
+    }
+
+    public void setTransactionHash(String transactionHash) {
+        this.transactionHash = transactionHash;
     }
 }

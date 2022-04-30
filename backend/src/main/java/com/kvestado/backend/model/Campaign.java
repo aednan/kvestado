@@ -9,7 +9,8 @@ public class Campaign implements Serializable {
 
     // After creating a campaign, the blockchain returns the ID, to be stored in the database
     @Id
-    private Long id;
+    private String transactionHash;
+    private Long campaignId;
     private String coverPicturePath;
     private String title;
     @Column(columnDefinition = "TEXT")
@@ -22,14 +23,20 @@ public class Campaign implements Serializable {
     @Column(unique = true)
     private String slug;
     private LocalDate createdAt;
+    // valid if and only if the transaction status = success and confirmed
+    private Boolean valid = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Campaign() {
     }
-    public Campaign(Long id, String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired, User user, String slug,LocalDate createdAt) {
-        this.id = id;
+    public Campaign(String transactionHash,Long campaignId, String coverPicturePath,
+                    String title, String description, String beneficiaryAddress,
+                    Long expireAfter, Double amount, Boolean minimumRaisedValueRequired,
+                    User user, String slug,LocalDate createdAt, Boolean valid) {
+        this.transactionHash = transactionHash;
+        this.campaignId = campaignId;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
         this.description = description;
@@ -40,6 +47,7 @@ public class Campaign implements Serializable {
         this.user = user;
         this.slug = slug;
         this.createdAt = createdAt;
+        this.valid = valid;
     }
 
     public LocalDate getCreatedAt() {
@@ -66,12 +74,20 @@ public class Campaign implements Serializable {
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
+    public String getTransactionHash() {
+        return transactionHash;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTransactionHash(String transactionHash) {
+        this.transactionHash = transactionHash;
+    }
+
+    public Long getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(Long campaignId) {
+        this.campaignId = campaignId;
     }
 
     public String getCoverPicturePath() {
@@ -128,5 +144,14 @@ public class Campaign implements Serializable {
 
     public void setMinimumRaisedValueRequired(Boolean minimumRaisedValueRequired) {
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
+    }
+
+    public Boolean getValid() {
+        if(valid == null) return false;
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 }

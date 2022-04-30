@@ -6,7 +6,7 @@ import KvestadoContract from "../../contracts/Kvestado.json";
 type Props = {};
 
 export default function useContractService(props?: Props) {
-  const contractAddress = KvestadoContract.networks["4"].address;
+  const contractAddress = KvestadoContract.networks["5777"].address;
 
   let readOnlyContractInstance: any = undefined;
   let readWriteContractInstance: any = undefined;

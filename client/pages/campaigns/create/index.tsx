@@ -64,8 +64,7 @@ const Create = (props: Props) => {
   const { state } = useContext(AuthContext);
 
   const [mRValue, setMRValue]: any = useState(false);
-  const { addCampaign, getReadOnlyContract, getLogs, parseEvents } =
-    useContractService();
+  const { addCampaign, parseEvents } = useContractService();
   const { postRequest } = useApiService();
 
   function classNames(...classes: string[]) {
@@ -107,7 +106,8 @@ const Create = (props: Props) => {
 
         // persist the added campaign to the database
         postRequest("contract/api/add_campaign", {
-          id: convertFromBigNumberToNumber(value),
+          // id: convertFromBigNumberToNumber(value),
+          transactionHash: response?.hash,
           coverPicturePath: coverImage,
           title: campaignTitle,
           description: campaignDescription,

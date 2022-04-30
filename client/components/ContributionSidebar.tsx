@@ -1,6 +1,6 @@
 import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
+import { HiOutlineX } from "react-icons/hi";
 import InputField from "./InputField";
 import { FaEthereum } from "react-icons/fa";
 import CampaignInfoCard from "./CampaignInfoCard";
@@ -118,7 +118,7 @@ export default function ContributionSidebar(props: Props) {
                           onClick={() => props.setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
-                          <XIcon className="h-8 w-8" aria-hidden="true" />
+                          <HiOutlineX className="h-8 w-8" aria-hidden="true" />
                         </span>
                       </div>
                     </div>

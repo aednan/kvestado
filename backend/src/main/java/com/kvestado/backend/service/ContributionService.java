@@ -1,11 +1,10 @@
 package com.kvestado.backend.service;
 
 import com.kvestado.backend.dao.ContributionRepository;
-import com.kvestado.backend.dto.CampaignDTO;
 import com.kvestado.backend.dto.ContributionDTO;
 import com.kvestado.backend.exception.OperationNotAllowedException;
-import com.kvestado.backend.model.Campaign;
 import com.kvestado.backend.model.Contribution;
+import com.kvestado.backend.model.PendingTransaction;
 import com.kvestado.backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +22,9 @@ public class ContributionService {
 
     @Autowired
     ContributionRepository contributionRepository;
+
+    @Autowired
+    Web3Service web3Service;
 
         public Page<ContributionDTO> getUserContributions(Authentication authentication, int offset, int pageSize ){
             List<ContributionDTO> contributionDTOs = new ArrayList<>();
@@ -36,6 +39,7 @@ public class ContributionService {
     private ContributionDTO contributionToContributionDTO(Contribution contribution) {
             return new ContributionDTO(
                     contribution.getCampaignId(),
+                    contribution.getTransactionHash(),
                     contribution.getCampaignOwnerWalletAddress(),
                     contribution.getAmount()
             );
@@ -45,12 +49,14 @@ public class ContributionService {
           checkContributionValidity(contributionDTO);
           Contribution contribution = new Contribution(
           contributionDTO.getCampaignId(),
+          contributionDTO.getTransactionHash(),
           contributionDTO.getCampaignOwnerWalletAddress(),
           contributionDTO.getAmount(),
-          new User(authentication.getName())
+          new User(authentication.getName()),
+                  false
           );
-
           contributionRepository.save(contribution);
+          web3Service.addAPendingTransaction(new PendingTransaction(contributionDTO.getTransactionHash(), LocalDate.now()));
       }
 
     public void checkContributionValidity(ContributionDTO contributionDTO) throws OperationNotAllowedException {

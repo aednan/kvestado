@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <GlobalContextWrapper>
       <Head>
-        <title>Kvestado</title>
+        <title>Kvestado - Crowdfunding</title>
       </Head>
       <Layout>
         <Component {...pageProps} />

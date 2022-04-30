@@ -13,7 +13,8 @@ server:
 #        host-only: true
         secure: true
         # as long as in dev mode and the server is not running in the same domain
-        same-site: NONE
+        # only when frontend and backend domain matches
+        same-site: STRICT
         domain: kvestado.ga
 #        path: /
 #        max-age: 30M

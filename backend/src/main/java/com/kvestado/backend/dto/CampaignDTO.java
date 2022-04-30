@@ -4,6 +4,7 @@ public class CampaignDTO {
 
     // Transaction receipt
     private String transactionHash;
+    private String campaignId;
     private String coverPicturePath;
     private String campaignOwner;
     private String title;
@@ -19,8 +20,9 @@ public class CampaignDTO {
     public CampaignDTO() {
     }
 
-    public CampaignDTO(String transactionHash,String campaignOwner,String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
+    public CampaignDTO(String transactionHash, String campaignId,String campaignOwner,String coverPicturePath, String title, String description, String beneficiaryAddress, Long expireAfter, Double amount, Boolean minimumRaisedValueRequired,String slug, String createdAt) {
         this.transactionHash = transactionHash;
+        this.campaignId = campaignId;
         this.campaignOwner = campaignOwner;
         this.coverPicturePath = coverPicturePath;
         this.title = title;
@@ -127,5 +129,13 @@ public class CampaignDTO {
     public void setMinimumRaisedValueRequired(Boolean minimumRaisedValueRequired) {
         if(minimumRaisedValueRequired == null) minimumRaisedValueRequired = false;
         this.minimumRaisedValueRequired = minimumRaisedValueRequired;
+    }
+
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
     }
 }

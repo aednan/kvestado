@@ -52,6 +52,7 @@ export default function ContributionSidebar(props: Props) {
           .waitForTransaction(response?.hash, 1)
           .then((res: any) => {
             postRequest("contract/api/add_contribution", {
+              transactionHash: response?.hash,
               campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
               campaignId: props.campaignId,
               amount: contributionAmount,

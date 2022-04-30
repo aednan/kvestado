@@ -1,5 +1,7 @@
 package com.kvestado.backend.service;
 
+import com.kvestado.backend.dao.CampaignRepository;
+import com.kvestado.backend.dao.ContributionRepository;
 import com.kvestado.backend.dao.PendingTransactionRepository;
 import com.kvestado.backend.model.PendingTransaction;
 import io.reactivex.Flowable;
@@ -9,21 +11,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.EventEncoder;
+import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Uint;
-import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.http.HttpService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 @Scope("singleton")
@@ -31,6 +31,10 @@ public class Web3Service {
 
     @Autowired
     private PendingTransactionRepository pendingTransactionRepository;
+    @Autowired
+    private CampaignRepository campaignRepository;
+    @Autowired
+    private ContributionRepository contributionRepository;
 
     private HashMap<String,PendingTransaction> pendingTransactions = new HashMap<>();
 // for production
@@ -50,7 +54,7 @@ public class Web3Service {
     new Event("MyCampaign", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Uint>(false) {}))
     );
     private final String MY_CONTRIBUTION =  EventEncoder.encode(
-    new Event("MyContribution", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {},new TypeReference<Address>(true) {}, new TypeReference<Uint>(false) {}))
+    new Event("MyContribution", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {},new TypeReference<Address>(true) {}, new TypeReference<Uint>(true) {}, new TypeReference<Uint>(false) {}))
     );
     private final String SUSPENDED_CAMPAIGN =  EventEncoder.encode(
     new Event("SuspendedCampaign", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Uint>(true) {}))
@@ -59,7 +63,7 @@ public class Web3Service {
     new Event("RefundedAmount", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Uint>(true) {},new TypeReference<Address>(true) {}, new TypeReference<Uint>(false) {} ))
     );
     private final String WITHDRAWAL =  EventEncoder.encode(
-    new Event("Withdrawal", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Uint>(true) {},new TypeReference<Uint>(false) {}, new TypeReference<Uint>(false) {} ))
+    new Event("Withdrawal", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint>(false) {},new TypeReference<Uint>(false) {}))
     );
 
     @EventListener
@@ -92,24 +96,24 @@ public class Web3Service {
            getWeb3EventLogsFlowable().subscribe(log -> {
             String eventHash = log.getTopics().get(0);
 
-            System.out.println(log);
-
-            //
-               System.out.println("***********************");
-               System.out.println(MY_CAMPAIGN);
-               System.out.println(eventHash);
-               System.out.println("***********************");
+               // TODO: to update the starting block, listOfPending should be empty to select the last transaction block as starting one
 
           PendingTransaction pendingTransaction = pendingTransactions.get(log.getTransactionHash());
 
           if(pendingTransaction != null) {
             // MyCampaign Event
+              // eventHash == MyCampaign event hash value = first element from topics
             if(eventHash.equalsIgnoreCase(MY_CAMPAIGN)){
-                System.out.println("Here MY_CAMPAIGN");
+//                Address arg1 = (Address) FunctionReturnDecoder.decodeIndexedValue(log.getTopics().get(1), new TypeReference<Address>() {});
+                Uint uIntCampaignId = (Uint) FunctionReturnDecoder.decodeIndexedValue(log.getData(), new TypeReference<Uint>() {});
+                campaignRepository.updateCampaignValueAndIdValues(true, uIntCampaignId.getValue().toString(),pendingTransaction.getHash());
+                pendingTransactionRepository.delete(pendingTransaction);
             }
             // MyContribution Event
             else if(eventHash.equalsIgnoreCase(MY_CONTRIBUTION)){
-                System.out.println("Here MY_CONTRIBUTION");
+                Uint campaignId = (Uint) FunctionReturnDecoder.decodeIndexedValue(log.getTopics().get(3), new TypeReference<Uint>() {});
+                contributionRepository.updateValidValue(true, campaignId.getValue().longValue());
+                pendingTransactionRepository.delete(pendingTransaction);
             }
             // SuspendedCampaign Event
            else if(eventHash.equalsIgnoreCase(SUSPENDED_CAMPAIGN)){

@@ -75,6 +75,7 @@ public class CampaignService {
     private CampaignDTO campaignToCampaignDTO(Campaign campaign){
        return new CampaignDTO(
                campaign.getTransactionHash(),
+               campaign.getCampaignId().toString(),
                campaign.getUser().getUsername(),
                campaign.getCoverPicturePath(),
                campaign.getTitle(),

@@ -40,11 +40,11 @@ function Campaign(props: props) {
 
   return !loading && data !== undefined ? (
     <>
-      {state.isAuthenticated && (
+      {state.isAuthenticated && data.campaignId !== undefined && (
         <>
           <SliderButton setOpenContribution={setOpenContribution} />
           <ContributionSidebar
-            campaignId={data.id}
+            campaignId={data.campaignId}
             campaignOwnerWalletAddress={data.campaignOwner}
             open={openContribution}
             setOpen={setOpenContribution}
@@ -61,7 +61,11 @@ function Campaign(props: props) {
             <img
               // layout="fill"
               alt="campaign_cover"
-              src={`${process.env.NEXT_PUBLIC_URLENDPOINT}${data.coverPicturePath}`}
+              src={
+                data.coverPicturePath
+                  ? `${process.env.NEXT_PUBLIC_URLENDPOINT}${data.coverPicturePath}`
+                  : "/img/campaignD.png"
+              }
               className=" mx-auto rounded-md "
             />
           </div>

@@ -15,6 +15,9 @@ public class PendingTransaction {
     public PendingTransaction() {
     }
 
+    public PendingTransaction(String hash) {
+        this.hash = hash;
+    }
     public PendingTransaction(String hash, LocalDate dateOfCreation) {
         this.hash = hash;
         this.dateOfCreation = dateOfCreation;

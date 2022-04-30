@@ -63,6 +63,9 @@ public class ContributionService {
         if (contributionDTO.getCampaignId() == null){
             throw new OperationNotAllowedException("missing_campaignId_value");
         }
+        if (contributionDTO.getTransactionHash() == null || contributionDTO.getTransactionHash().isEmpty() || contributionDTO.getTransactionHash().isEmpty() ){
+            throw new OperationNotAllowedException("missing_transactionHash_value");
+        }
         if (contributionDTO.getAmount() == null){
             throw new OperationNotAllowedException("missing_amount_value");
         }

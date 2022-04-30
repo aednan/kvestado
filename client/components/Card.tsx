@@ -3,9 +3,9 @@ import React from "react";
 
 type Props = {
   title: string;
-  products: [
+  items: [
     {
-      id: string;
+      campaignId: string;
       coverPicturePath: string;
       title: string;
       description: string;
@@ -25,11 +25,11 @@ export default function Card(props: Props) {
         <h2 className="self-center border-y-2 py-1 text-center font-roboto text-2xl font-bold tracking-tight text-gray-900 ring-0">
           {props.title}
         </h2>
-        {props.products && props.products.length > 0 && (
+        {props.items && props.items.length > 0 && (
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {props.products.map((product: any) => (
+            {props.items.map((item: any) => (
               <div
-                key={product.id}
+                key={item.campaignId}
                 className=" group divide-y overflow-hidden rounded-2xl border-2 border-gray-100 hover:shadow-md"
               >
                 <div className=" relative aspect-square w-full  overflow-hidden  rounded-md rounded-b-none bg-gray-200 ">
@@ -38,13 +38,17 @@ export default function Card(props: Props) {
                       ID{" "}
                     </span>
                     <span className=" max-w-sm select-all font-roboto text-base font-thin text-gray-900">
-                      {product.id}
+                      {item.campaignId}
                     </span>
                   </div>
-                  <Link href={`/campaigns/${product.slug}`} passHref>
+                  <Link href={`/campaigns/${item.slug}`} passHref>
                     <img
                       // layout="fill"
-                      src={`${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${product.coverPicturePath}`}
+                      src={
+                        item.coverPicturePath
+                          ? `${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${item.coverPicturePath}`
+                          : "/img/campaignD.png"
+                      }
                       alt="Campaign"
                       className="h-full w-full cursor-pointer object-fill object-center"
                     />
@@ -53,7 +57,7 @@ export default function Card(props: Props) {
                 <div className="flex h-40 flex-col justify-between px-6 py-4">
                   <div className="flex flex-col  space-y-3 ">
                     <div className="max-h-12 items-center justify-between overflow-clip ">
-                      <h2 className="font-semibold ">{product.title}</h2>
+                      <h2 className="font-semibold ">{item.title}</h2>
                     </div>
                     {/* <div className="max-h-[4.5rem] overflow-y-auto overflow-x-hidden text-base text-gray-600">
                       {product.description}
@@ -61,9 +65,9 @@ export default function Card(props: Props) {
                   </div>
                   <div className="flex flex-col">
                     <span className="max-w-md overflow-clip py-3 text-sm font-semibold tracking-wide text-gray-800">
-                      {product.createdAt}
+                      {item.createdAt}
                     </span>
-                    <Link href={`/campaigns/${product.slug}`}>
+                    <Link href={`/campaigns/${item.slug}`}>
                       <a className="bottom-0 inline-block border-separate cursor-pointer border-t pt-3 pb-1 text-center font-roboto text-sm font-semibold text-blue-500 hover:font-bold hover:text-blue-600 hover:drop-shadow-md">
                         View Campaign &rarr;
                       </a>

@@ -56,7 +56,7 @@ export default function Tabs() {
               )}
             >
               {category.id === "campaign" && !campaignLoading && (
-                <Card products={campaignData?.content} title="" />
+                <Card items={campaignData?.content} title="" />
               )}
               {category.id === "contribution" && !campaignLoading && (
                 <ContributionCard contributions={contributionData?.content} />

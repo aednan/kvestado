@@ -1,6 +1,5 @@
 import React from "react";
 import { FaEthereum } from "react-icons/fa";
-import { RiExchangeFundsFill } from "react-icons/ri";
 
 type Props = {
   contributions: [
@@ -22,10 +21,6 @@ const ContributionCard = (props: Props) => {
               key={contribution.campaignId}
               className="flex min-w-[24rem] max-w-[24rem] rounded-md border-2 py-6 shadow-md"
             >
-              {/* <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md  border-gray-200">
-                <RiExchangeFundsFill className="h-full w-full text-sky-800" />
-              </div> */}
-
               <div className="ml-4 flex flex-1 flex-col ">
                 <div>
                   <div className="flex justify-between  font-roboto text-lg font-bold text-gray-900">
@@ -42,11 +37,9 @@ const ContributionCard = (props: Props) => {
                   </p>
                 </div>
 
-                {/* <div className="flex flex-1 items-end justify-between "> */}
                 <p className="font-roboto text-sm font-medium text-gray-500">
                   {contribution.campaignOwnerWalletAddress}
                 </p>
-                {/* </div> */}
               </div>
             </li>
           ))}

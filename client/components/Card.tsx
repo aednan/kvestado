@@ -1,55 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
-// const products = [
-//   {
-//     id: 1,
-//     title: "Basic Tee",
-//     slug: "#",
-//     imageSrc:
-//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-//     imageAlt: "Front of men's Basic Tee in black.",
-//     createdAt: "02/02/2022",
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-//   },
-//   {
-//     id: 2,
-//     title: "Basic Tee",
-//     slug: "#",
-//     imageSrc:
-//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-//     imageAlt: "Front of men's Basic Tee in black.",
-//     createdAt: "02/02/2022",
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-//   },
-//   {
-//     id: 3,
-//     title: "Basic Tee",
-//     slug: "#",
-//     imageSrc:
-//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-//     imageAlt: "Front of men's Basic Tee in black.",
-//     createdAt: "02/02/2022",
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-//   },
-//   {
-//     id: 4,
-//     title: "Basic Tee",
-//     slug: "#",
-//     imageSrc:
-//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-//     imageAlt: "Front of men's Basic Tee in black.",
-//     createdAt: "02/02/2022",
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-//   },
-
-//   // More products...
-// ];
 
 type Props = {
   title: string;

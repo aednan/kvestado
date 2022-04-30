@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
@@ -9,7 +8,7 @@ type Props = {};
 export default function Hero({}: Props) {
   const { state } = useContext(AuthContext);
 
-  const { connectWallet, userAuthentication } = useWeb3Service();
+  const { connectWallet } = useWeb3Service();
 
   return (
     <div className=" relative flex h-full w-full justify-evenly py-16 ">
@@ -52,19 +51,6 @@ export default function Hero({}: Props) {
                   Discover &rarr;
                 </span>
               </Link>
-              {/* 
-              // test userAuthentication
-              <span
-                onClick={async () =>
-                  await userAuthentication(
-                    "8126e09f-a374-41b9-a359-23451dd01002",
-                    state.provider
-                  )
-                }
-                className="cursor-pointer bg-white"
-              >
-                sdjkfkjsdkjfkj
-              </span> */}
             </div>
           </div>
         </div>

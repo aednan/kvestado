@@ -61,10 +61,6 @@ export default function Tabs() {
               {category.id === "contribution" && !campaignLoading && (
                 <ContributionCard contributions={contributionData?.content} />
               )}
-
-              {/* {category.id === "contribution" && !contributionLoading && (
-                <Card products={contributionData?.content} title="" />
-              )} */}
             </Tab.Panel>
           ))}
         </Tab.Panels>

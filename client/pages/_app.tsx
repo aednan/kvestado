@@ -6,14 +6,16 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <GlobalContextWrapper>
+    <>
       <Head>
         <title>Kvestado - Crowdfunding</title>
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </GlobalContextWrapper>
+      <GlobalContextWrapper>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </GlobalContextWrapper>
+    </>
   );
 }
 

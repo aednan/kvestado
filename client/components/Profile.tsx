@@ -5,7 +5,6 @@ import React from "react";
 import Link from "next/link";
 import useUser from "../services/hooks/useUser";
 import LoadingSpinner from "./LoadingSpinner";
-import Image from "next/image";
 
 type Props = {};
 

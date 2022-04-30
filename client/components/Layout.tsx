@@ -21,13 +21,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   const divRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
-  // const [scrollResetToShow, setScrollResetToShow] = useState(false);
 
   const { setBottomScrollDetected, scrollResetToShow, setScrollResetToShow } =
     useContext(UserSettingsContext);
 
   const { state } = useContext(AuthContext);
-  // const { isScrolling } = useContext(AuthContext);
 
   const { connectWallet, restrictedRoutes } = useWeb3Service();
   // see campaigns infinite scroll implementation
@@ -92,9 +90,6 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return !loaded ||
     (router.asPath.match(restrictedRoutes) && !state.isAuthenticated) ? (
-    // <div className="flex h-full min-h-screen w-full  bg-gray-100">
-    //   <ImSpinner2 className="m-auto animate-[spin_1.5s_linear_infinite] cursor-default text-9xl" />
-    // </div>
     <LoadingSpinner />
   ) : (
     <div className="fixed z-0 h-full min-h-screen w-full">
@@ -106,7 +101,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         ref={divRef}
         className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth pt-16 "
       >
-        {/* <Header /> */}
         {children}
         <Footer />
       </div>

@@ -2,7 +2,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { json } from "stream/consumers";
 import ContributionSidebar from "../../components/ContributionSidebar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SliderButton from "../../components/SliderButton";

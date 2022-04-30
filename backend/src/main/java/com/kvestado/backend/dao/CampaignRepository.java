@@ -23,6 +23,6 @@ public interface CampaignRepository extends JpaRepository<Campaign,Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Campaign campaign set campaign.valid = :valid, campaign.campaignId= :campaignId where campaign.transactionHash = :transactionHash")
-    void updateCampaignValueAndIdValues(@Param("valid") boolean valid, @Param("campaignId") String campaignId, @Param("transactionHash") String transactionHash);
+    void updateCampaignValueAndIdValues(@Param("valid") boolean valid, @Param("campaignId") Long campaignId, @Param("transactionHash") String transactionHash);
     // int to return id
 }

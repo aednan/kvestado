@@ -104,9 +104,8 @@ public class Web3Service {
             // MyCampaign Event
               // eventHash == MyCampaign event hash value = first element from topics
             if(eventHash.equalsIgnoreCase(MY_CAMPAIGN)){
-//                Address arg1 = (Address) FunctionReturnDecoder.decodeIndexedValue(log.getTopics().get(1), new TypeReference<Address>() {});
                 Uint uIntCampaignId = (Uint) FunctionReturnDecoder.decodeIndexedValue(log.getData(), new TypeReference<Uint>() {});
-                campaignRepository.updateCampaignValueAndIdValues(true, uIntCampaignId.getValue().toString(),pendingTransaction.getHash());
+                campaignRepository.updateCampaignValueAndIdValues(true, uIntCampaignId.getValue().longValue(),pendingTransaction.getHash());
                 pendingTransactionRepository.delete(pendingTransaction);
             }
             // MyContribution Event

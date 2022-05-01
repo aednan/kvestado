@@ -14,12 +14,12 @@ export default function useApiService(props?: Props) {
 
   const { logout } = useWeb3Service();
 
-  async function postRequest(url: string, body: any) {
+  async function postRequest(url: string, body: any, withCredentials: boolean) {
     try {
       const response = await instance.post(`${url}`, body, {
-        withCredentials: true,
+        withCredentials: withCredentials,
       });
-
+      return response;
       // console.log(response);
     } catch (error: any) {
       if (error?.response?.status === "401") logout();

@@ -89,12 +89,16 @@ const Settings = (props: Props) => {
         );
       }
 
-      postRequest("user/profile", {
-        username,
-        email,
-        about,
-        pictureUrl: pictureUrl,
-      })
+      postRequest(
+        "user/profile",
+        {
+          username,
+          email,
+          about,
+          pictureUrl: pictureUrl,
+        },
+        true
+      )
         .then((res) => {
           mutate(
             { ...data, username, email, about, pictureUrl: pictureUrl },

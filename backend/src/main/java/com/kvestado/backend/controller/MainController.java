@@ -1,5 +1,8 @@
 package com.kvestado.backend.controller;
 
+import com.kvestado.backend.dto.ContributionDTO;
+import com.kvestado.backend.exception.OperationNotAllowedException;
+import com.kvestado.backend.model.EmailSubscriber;
 import com.kvestado.backend.service.CustomUserDetailsService;
 import com.kvestado.backend.service.ToolsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +63,18 @@ public class MainController {
     }
 
 
+    @PostMapping("/subscribe_newsletter")
+    @CrossOrigin(methods = RequestMethod.POST)
+    public ResponseEntity<String> newsletterEmailSubscription(@RequestBody(required = true) EmailSubscriber emailSubscriber){
+        try {
+            customUserDetailsService.subscribeNewsletter(emailSubscriber);
+            return ResponseEntity.ok().body("Subscription Successful");
+        }catch (OperationNotAllowedException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Please try again later");
+        }
+    }
 
 
  }

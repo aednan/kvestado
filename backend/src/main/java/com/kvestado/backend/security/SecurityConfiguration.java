@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .mvcMatchers(HttpMethod.GET,"/request_challenge" ).permitAll()
+                                .mvcMatchers(HttpMethod.POST,"/subscribe_newsletter" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/favicon.ico" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/contract/api/true/get_campaigns" ).permitAll()
                                 .mvcMatchers(HttpMethod.GET,"/contract/api/false/get_campaigns" ).permitAll()

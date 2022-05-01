@@ -49,12 +49,16 @@ export default function ContributionSidebar(props: Props) {
           Number(contributionAmount)
         );
 
-        postRequest("contract/api/add_contribution", {
-          transactionHash: response?.hash,
-          campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
-          campaignId: props.campaignId,
-          amount: contributionAmount,
-        })
+        postRequest(
+          "contract/api/add_contribution",
+          {
+            transactionHash: response?.hash,
+            campaignOwnerWalletAddress: props.campaignOwnerWalletAddress,
+            campaignId: props.campaignId,
+            amount: contributionAmount,
+          },
+          true
+        )
           .then((res) => {
             setContributionAmount("");
             // alert Transaction started

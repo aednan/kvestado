@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { MdMail } from "react-icons/md";
+import useApiService from "../services/hooks/useApiService";
 import { checkEmail, classNames } from "../services/ToolsService";
 
 type Props = {};
@@ -9,8 +10,26 @@ const Newsletter = (props: Props) => {
   const [email, setEmail] = useState("");
   const [isValidEmail, setValidEmail] = useState(true);
 
+  const { postRequest } = useApiService();
+
   const handleSubmit = (e: any) => {
-    setEmail("");
+    postRequest(
+      "subscribe_newsletter",
+      {
+        email: email,
+      },
+      false
+    )
+      .then((res: any) => {
+        setEmail("");
+        // alert Transaction started
+        // console.log(res);
+      })
+      .catch((err) => {
+        // please check your transaction on etherscan and add it again
+        console.log(err.data);
+      });
+
     e.preventDefault();
   };
 

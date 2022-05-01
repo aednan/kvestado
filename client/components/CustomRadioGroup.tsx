@@ -4,6 +4,7 @@ type RadioGroupProps = {
   selected: { id: string; name: string; description: string };
   options: { id: string; name: string; description: string }[];
   setSelected: any;
+  clear?: Function;
 };
 
 export default function CustomRadioGroup(props: RadioGroupProps) {
@@ -12,7 +13,15 @@ export default function CustomRadioGroup(props: RadioGroupProps) {
   return (
     <div className="w-full px-4 pb-5">
       <div className="mx-auto w-full max-w-md">
-        <RadioGroup value={props.selected} onChange={props.setSelected}>
+        <RadioGroup
+          value={props.selected}
+          onChange={(v) => {
+            props.setSelected(v);
+            if (props.clear !== undefined) {
+              props.clear();
+            }
+          }}
+        >
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="space-y-2">
             {props.options.map((option) => (

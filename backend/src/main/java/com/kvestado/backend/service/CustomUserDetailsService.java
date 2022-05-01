@@ -1,6 +1,9 @@
 package com.kvestado.backend.service;
 
+import com.kvestado.backend.dao.EmailSubscriberRepository;
 import com.kvestado.backend.dao.UserRepository;
+import com.kvestado.backend.exception.OperationNotAllowedException;
+import com.kvestado.backend.model.EmailSubscriber;
 import com.kvestado.backend.model.User;
 import com.kvestado.backend.security.ECSignatureVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    EmailSubscriberRepository emailSubscriberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String walletAddress) throws UsernameNotFoundException {
@@ -45,7 +50,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         throw new BadCredentialsException("User doesn't exist");
     }
 
-//    public void updateUser(){
-//    }
+    public void subscribeNewsletter(EmailSubscriber emailSubscriber) throws OperationNotAllowedException {
+        if(emailSubscriber.getEmail() == null || emailSubscriber.getEmail().isEmpty() || emailSubscriber.getEmail().isBlank()) throw new OperationNotAllowedException("Email is required");
+        emailSubscriberRepository.save(emailSubscriber);
+    }
 
 }

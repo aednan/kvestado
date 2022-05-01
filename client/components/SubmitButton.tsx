@@ -12,13 +12,13 @@ type Props = {
 const SubmitButton = (props: Props) => {
   const [submitNotAllowed, setSubmitNotAllowed] = useState(true);
   useEffect(() => {
-    setSubmitNotAllowed(props.validityCheck() ? true : false);
+    setSubmitNotAllowed(props.validityCheck());
   }, [props]);
 
   return (
     <button
       onClick={props.onClick}
-      disabled={submitNotAllowed ? false : submitNotAllowed}
+      disabled={submitNotAllowed}
       className={props.className}
     >
       {props.title}

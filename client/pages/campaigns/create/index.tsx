@@ -1,9 +1,8 @@
 import { Switch } from "@headlessui/react";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import InputField from "../../../components/InputField";
 import SubmitButton from "../../../components/SubmitButton";
-import AuthContext from "../../../contexts/AuthContext";
 import useApiService from "../../../services/hooks/useApiService";
 import useContractService from "../../../services/hooks/useContractService";
 import {
@@ -23,6 +22,7 @@ const Create = (props: Props) => {
   const [expireAfter, setExpireAfter]: any = useState("");
   const [amount, setAmount]: any = useState("");
 
+  // if true submit button should be disabled
   const checkValuesBeforeSubmit = () => {
     let check = false;
     if (isEmptyOrContainsSpaceOnly(campaignTitle)) {
@@ -54,11 +54,8 @@ const Create = (props: Props) => {
       check = true;
     }
 
-    // setSubmitNotAllowed(check);
     return check;
   };
-
-  const { state } = useContext(AuthContext);
 
   const [mRValue, setMRValue]: any = useState(false);
   const { addCampaign } = useContractService();
@@ -91,18 +88,22 @@ const Create = (props: Props) => {
     );
 
     //persist the added campaign to the database
-    postRequest("contract/api/add_campaign", {
-      // id: convertFromBigNumberToNumber(value),
-      transactionHash: response?.hash,
-      coverPicturePath: coverImage,
-      title: campaignTitle,
-      description: campaignDescription,
-      beneficiaryAddress: beneficiaryAddress,
-      expireAfter: expireTime,
-      amount: amount,
-      minimumRaisedValueRequired: mRValue,
-      slug: slug,
-    })
+    postRequest(
+      "contract/api/add_campaign",
+      {
+        // id: convertFromBigNumberToNumber(value),
+        transactionHash: response?.hash,
+        coverPicturePath: coverImage,
+        title: campaignTitle,
+        description: campaignDescription,
+        beneficiaryAddress: beneficiaryAddress,
+        expireAfter: expireTime,
+        amount: amount,
+        minimumRaisedValueRequired: mRValue,
+        slug: slug,
+      },
+      true
+    )
       .then((res) => {
         // transaction started
         clearAll();
@@ -325,7 +326,7 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             <SubmitButton
               title="Create"
               validityCheck={checkValuesBeforeSubmit}
-              // disabled={submitNotAllowed}
+              // disabled={submitDisabled}
               onClick={createCampaign}
               state={[
                 campaignDescription,

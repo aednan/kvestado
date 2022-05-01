@@ -11,7 +11,7 @@ export default function Hero({}: Props) {
   const { connectWallet } = useWeb3Service();
 
   return (
-    <div className=" relative flex h-full w-full justify-evenly py-16 ">
+    <div className=" relative flex h-full w-full justify-evenly pt-16  lg:pb-16 ">
       <main className=" flex min-w-[50%] items-center justify-center  px-4">
         <div className=" flex w-full flex-col items-center justify-center  sm:text-center md:w-full md:max-w-fit lg:text-left">
           <h1 className="  text-center text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">

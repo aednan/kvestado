@@ -87,7 +87,7 @@ export default function Campaigns(props: Props) {
       {data?.content?.length > 0 ? (
         <Card items={data?.content} title="FEATURED PROJECTS" />
       ) : (
-        <div className="mx-auto py-24 font-roboto text-4xl font-thin">
+        <div className="mx-auto py-24 font-roboto text-xl font-semibold text-slate-400">
           NO RESULTS FOUND
         </div>
       )}

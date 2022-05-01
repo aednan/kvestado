@@ -22,33 +22,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [loaded, setLoaded] = useState(true);
 
-  const { setBottomScrollDetected, scrollResetToShow, setScrollResetToShow } =
+  const { scrollResetToShow, setScrollResetToShow } =
     useContext(UserSettingsContext);
 
   const { state } = useContext(AuthContext);
 
   const { connectWallet, restrictedRoutes } = useWeb3Service();
-  // // see campaigns infinite scroll implementation
-  // const handleScroll = (event?: any) => {
-  //   if (divRef?.current?.scrollTop && divRef?.current?.scrollTop > 100) {
-  //     setScrollResetToShow(true);
-  //   } else {
-  //     setScrollResetToShow(false);
-  //   }
-
-  //   if (router.asPath.match("^/campaigns/$")) {
-  //     if (
-  //       divRef.current?.scrollTop != undefined &&
-  //       divRef.current?.getBoundingClientRect().bottom != undefined &&
-  //       divRef.current?.scrollTop >
-  //         divRef.current?.getBoundingClientRect().bottom - 150
-  //     ) {
-  //       setBottomScrollDetected(true);
-  //     } else {
-  //       setBottomScrollDetected(false);
-  //     }
-  //   }
-  // };
 
   useEffect(() => {
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
@@ -66,7 +45,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       // on route navigation only
       // window scrolling is disabled. This resets the scrolling within the div with ref: divRef
       resetScroll(divRef);
-      setBottomScrollDetected(false);
       // after page loaded
       setLoaded(true);
     };
@@ -84,7 +62,6 @@ export default function Layout({ children }: { children: ReactNode }) {
     connectWallet,
     restrictedRoutes,
     router.events,
-    setBottomScrollDetected,
     state.isSubmitBtnDisabled,
   ]);
 

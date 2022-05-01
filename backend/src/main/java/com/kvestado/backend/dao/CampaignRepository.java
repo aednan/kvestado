@@ -18,7 +18,7 @@ public interface CampaignRepository extends JpaRepository<Campaign,Long> {
 
     public Optional<Campaign> findBySlug(String slug);
     public Page<Campaign> findByUser(User user, Pageable pageable);
-
+    public Page<Campaign> findByTitleContaining(String name, Pageable pageable);
 
     @Transactional
     @Modifying

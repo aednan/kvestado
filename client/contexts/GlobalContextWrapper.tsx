@@ -15,7 +15,6 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
   const [provider, setProvider] = useState(null);
   const [walletAddress, setWalletAddress]: any = useState("");
   // scroll bottom detection
-  const [bottomScrollDetected, setBottomScrollDetected] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
   // see layout
@@ -61,8 +60,6 @@ const GlobalContextWrapper = ({ children }: { children: ReactNode }) => {
           setCPaletteOpen,
           nModeEnabled,
           setNModeEnabled,
-          bottomScrollDetected,
-          setBottomScrollDetected,
           setScrollResetToShow,
           scrollResetToShow,
         }}

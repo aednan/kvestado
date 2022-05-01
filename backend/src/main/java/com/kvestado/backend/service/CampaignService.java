@@ -50,10 +50,10 @@ public class CampaignService {
        web3Service.addAPendingTransaction(new PendingTransaction(campaignDTO.getTransactionHash(),createdAt));
    }
 
-   public Page<CampaignDTO> getCampaignsPage(int page, int pageSize, boolean random){
+   public Page<CampaignDTO> getCampaignsPage(int page, int pageSize, boolean random, String filter){
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
       // ,Sort.Direction.ASC, "transactionHash"
-       Page<Campaign> pCampaigns = campaignRepository.findAll(PageRequest.of(page,pageSize));
+       Page<Campaign> pCampaigns = campaignRepository.findByTitleContaining(filter,PageRequest.of(page,pageSize));
        if(random){
            pCampaigns.stream().parallel().filter(Campaign::getValid).forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));

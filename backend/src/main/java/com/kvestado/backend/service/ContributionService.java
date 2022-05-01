@@ -33,7 +33,7 @@ public class ContributionService {
                     .stream().parallel().filter(Contribution::getValid).forEach(contribution -> {
                         contributionDTOs.add(contributionToContributionDTO(contribution));
                     });
-            return new PageImpl<ContributionDTO>(contributionDTOs,contributions.getPageable(),contributions.getTotalPages());
+            return new PageImpl<ContributionDTO>(contributionDTOs,contributions.getPageable(),contributions.getTotalElements());
         }
 
     private ContributionDTO contributionToContributionDTO(Contribution contribution) {

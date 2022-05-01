@@ -11,14 +11,12 @@ type Props = {
 };
 
 export default function Campaigns(props: Props) {
-  const divRef = useRef<HTMLDivElement>(null);
-
-  const { bottomScrollDetected } = useContext(UserSettingsContext);
+  // const { bottomScrollDetected } = useContext(UserSettingsContext);
 
   const [pagination, setPagination] = useState({
     offset: 0,
     // to be updated to 16
-    pageSize: 8,
+    pageSize: 4,
   });
 
   const { data, mutate, error, loading } = useResource({
@@ -29,24 +27,44 @@ export default function Campaigns(props: Props) {
     fallbackData: props.initialData,
   });
 
+  const loadMore = () => {
+    console.log(data);
+    setPagination({
+      offset: 0,
+      pageSize: pagination.pageSize + 4,
+    });
+
+    // console.log(pagination.pageSize);
+    mutate(data);
+  };
+
   useEffect(() => {
-    if (data != undefined) {
-      if (bottomScrollDetected && !data.last && !data.first) {
-        setPagination({
-          offset: 0,
-          pageSize: pagination.pageSize + 8,
-        });
-        console.log("last");
-        // TODO: show loading animation
-        // load more campaigns
-        mutate();
-      }
-    }
-  }, [data, bottomScrollDetected, pagination.offset]);
+    // if (data != undefined) {
+    //   if (bottomScrollDetected && !data.last && !data.first) {
+    //     setPagination({
+    //       offset: 0,
+    //       pageSize: pagination.pageSize + 8,
+    //     });
+    //     console.log("last");
+    //     // TODO: show loading animation
+    //     // load more campaigns
+    //     // mutate();
+    //   }
+    // }
+  }, []);
 
   return (!loading && data !== undefined) || error ? (
     <div className="flex flex-col gap-0 pt-7 pb-28">
       <Card items={data?.content} title="Campaigns" />
+      <div className=" flex justify-center">
+        <button
+          onClick={loadMore}
+          className=" cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg"
+        >
+          Load MORE
+        </button>
+      </div>
+
       {/* <div className=" flex justify-center">
         <Link href="/campaigns">
           <a className=" font-mono items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 text-base font-bold text-slate-700 hover:border-cyan-600 hover:text-cyan-600 md:text-lg">

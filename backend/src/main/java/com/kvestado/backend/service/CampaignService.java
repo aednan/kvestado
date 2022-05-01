@@ -50,9 +50,10 @@ public class CampaignService {
        web3Service.addAPendingTransaction(new PendingTransaction(campaignDTO.getTransactionHash(),createdAt));
    }
 
-   public Page<CampaignDTO> getCampaignsPage(int offset, int pageSize, boolean random){
+   public Page<CampaignDTO> getCampaignsPage(int page, int pageSize, boolean random){
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
-       Page<Campaign> pCampaigns = campaignRepository.findAll(PageRequest.of(offset,pageSize));
+      // ,Sort.Direction.ASC, "transactionHash"
+       Page<Campaign> pCampaigns = campaignRepository.findAll(PageRequest.of(page,pageSize));
        if(random){
            pCampaigns.stream().parallel().filter(Campaign::getValid).forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));
@@ -61,7 +62,7 @@ public class CampaignService {
            pCampaigns.stream().sequential().filter(Campaign::getValid).forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));
                });}
-     return new PageImpl<CampaignDTO>(campaignDTOs,pCampaigns.getPageable(),pCampaigns.getTotalPages());
+     return new PageImpl<CampaignDTO>(campaignDTOs,pCampaigns.getPageable(),pCampaigns.getTotalElements());
    }
 
     public CampaignDTO getCampaign(String slug) {
@@ -134,7 +135,7 @@ public class CampaignService {
                 .stream().parallel().filter(Campaign::getValid).forEach(campaign -> {
                     campaignDTOs.add(campaignToCampaignDTO(campaign));
                 });
-        return new PageImpl<CampaignDTO>(campaignDTOs,campaigns.getPageable(),campaigns.getTotalPages());
+        return new PageImpl<CampaignDTO>(campaignDTOs,campaigns.getPageable(),campaigns.getTotalElements());
     }
 
     // For server side rendering in the frontend

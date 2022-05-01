@@ -28,27 +28,27 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { state } = useContext(AuthContext);
 
   const { connectWallet, restrictedRoutes } = useWeb3Service();
-  // see campaigns infinite scroll implementation
-  const handleScroll = (event?: any) => {
-    if (divRef?.current?.scrollTop && divRef?.current?.scrollTop > 100) {
-      setScrollResetToShow(true);
-    } else {
-      setScrollResetToShow(false);
-    }
+  // // see campaigns infinite scroll implementation
+  // const handleScroll = (event?: any) => {
+  //   if (divRef?.current?.scrollTop && divRef?.current?.scrollTop > 100) {
+  //     setScrollResetToShow(true);
+  //   } else {
+  //     setScrollResetToShow(false);
+  //   }
 
-    if (router.asPath.match("^/campaigns/$")) {
-      if (
-        divRef.current?.scrollTop != undefined &&
-        divRef.current?.getBoundingClientRect().bottom != undefined &&
-        divRef.current?.scrollTop >
-          divRef.current?.getBoundingClientRect().bottom - 150
-      ) {
-        setBottomScrollDetected(true);
-      } else {
-        setBottomScrollDetected(false);
-      }
-    }
-  };
+  //   if (router.asPath.match("^/campaigns/$")) {
+  //     if (
+  //       divRef.current?.scrollTop != undefined &&
+  //       divRef.current?.getBoundingClientRect().bottom != undefined &&
+  //       divRef.current?.scrollTop >
+  //         divRef.current?.getBoundingClientRect().bottom - 150
+  //     ) {
+  //       setBottomScrollDetected(true);
+  //     } else {
+  //       setBottomScrollDetected(false);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const handleRouteChangeStart = (url: any, { shallow }: any) => {
@@ -97,7 +97,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <CommandPalette />
       <Navbar />
       <div
-        onScroll={handleScroll}
+        // onScroll={handleScroll}
         ref={divRef}
         className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth pt-16 "
       >

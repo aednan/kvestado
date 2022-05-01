@@ -88,10 +88,11 @@ public class ContractController {
 
     @GetMapping("/{random}/get_campaigns")
     @CrossOrigin(methods = RequestMethod.GET)
-    public ResponseEntity<Page<CampaignDTO>> getCampaigns(@PathVariable(required = true) boolean random ,@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize, @RequestParam(required = false) String filter) {
+    public ResponseEntity<Page<CampaignDTO>> getCampaigns(@PathVariable(required = true) boolean random ,@RequestParam(required = true) int offset,@RequestParam(required = true) int pageSize, @RequestParam(required = false) String filter, @RequestParam(required = false) String by) {
          Page<CampaignDTO> page = new PageImpl<CampaignDTO>(new ArrayList<>());
        try {
-           page = campaignService.getCampaignsPage(offset,pageSize, random, filter == null?"":filter);
+
+           page = campaignService.getCampaignsPage(offset,pageSize, random, filter == null?"":filter.trim(), by);
        }catch (Exception ex) {
            ex.printStackTrace();
            return ResponseEntity.badRequest().build();

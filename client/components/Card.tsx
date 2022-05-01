@@ -42,16 +42,18 @@ export default function Card(props: Props) {
                     </span>
                   </div>
                   <Link href={`/campaigns/${item.slug}`} passHref>
-                    <img
-                      // layout="fill"
-                      src={
-                        item.coverPicturePath
-                          ? `${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${item.coverPicturePath}`
-                          : "/img/campaignD.png"
-                      }
-                      alt="Campaign"
-                      className="h-full w-full cursor-pointer object-fill object-center"
-                    />
+                    <a>
+                      <img
+                        // layout="fill"
+                        src={
+                          item.coverPicturePath
+                            ? `${process.env.NEXT_PUBLIC_URLENDPOINT}/tr:w-300,h-300${item.coverPicturePath}`
+                            : "/img/campaignD.png"
+                        }
+                        alt="Campaign"
+                        className="h-full w-full cursor-pointer object-fill object-center"
+                      />
+                    </a>
                   </Link>
                 </div>
                 <div className="flex h-40 flex-col justify-between px-6 py-4">

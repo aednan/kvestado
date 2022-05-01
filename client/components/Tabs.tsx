@@ -52,7 +52,7 @@ export default function Tabs() {
               key={category.id}
               className={classNames(
                 "rounded-xl bg-white p-3",
-                "h-[34rem] overflow-y-auto overflow-x-hidden border-slate-200 ring-0 ring-white ring-opacity-60 ring-offset-2 focus:outline-none"
+                "h-[35rem] overflow-y-auto overflow-x-hidden border-slate-200 ring-0 ring-white ring-opacity-60 ring-offset-2 focus:outline-none"
               )}
             >
               {category.id === "campaign" && !campaignLoading && (

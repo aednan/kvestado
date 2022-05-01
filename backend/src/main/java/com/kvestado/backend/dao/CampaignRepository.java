@@ -14,11 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-public interface CampaignRepository extends JpaRepository<Campaign,Long> {
+public interface CampaignRepository extends JpaRepository<Campaign,String> {
 
     public Optional<Campaign> findBySlug(String slug);
     public Page<Campaign> findByUser(User user, Pageable pageable);
-    public Page<Campaign> findByTitleContaining(String name, Pageable pageable);
+    public Page<Campaign> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+    public Page<Campaign> findByCampaignId(Long CampaignId, Pageable pageable);
+    public Page<Campaign> findByBeneficiaryAddressIgnoreCase(String beneficiaryAddress, Pageable pageable);
 
     @Transactional
     @Modifying

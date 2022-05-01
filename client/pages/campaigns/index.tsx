@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import Card from "../../components/Card";
+import CustomRadioGroup from "../../components/CustomRadioGroup";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import useResource from "../../services/hooks/useResource";
 // import Hero from "../../components/Hero";
@@ -9,6 +10,25 @@ import useResource from "../../services/hooks/useResource";
 type Props = {
   initialData: any;
 };
+
+// for the custom radio group
+const options = [
+  {
+    id: "TITLE",
+    name: "PROJECT TITLE",
+    description: "Search By Project Title",
+  },
+  {
+    id: "ID",
+    name: "PROJECT ID",
+    description: "Search By Project ID or Campaign ID",
+  },
+  {
+    id: "ADDRESS",
+    name: "WALLET ADDRESS",
+    description: "Search By Campaign's Owner wallet Address",
+  },
+];
 
 export default function Campaigns(props: Props) {
   const [pagination, setPagination] = useState({
@@ -18,53 +38,40 @@ export default function Campaigns(props: Props) {
   });
   const [filter, setFilter] = useState("");
 
+  // for the custom radio group
+  const [selected, setSelected] = useState(options[0]);
+
   const { data, mutate, error, loading } = useResource({
     resourcePath: "contract/api/false/get_campaigns",
-    params: { ...pagination, filter },
+    params: { ...pagination, filter, by: selected.id },
     skip: false,
     withCredentials: false,
     fallbackData: props.initialData,
   });
 
-  // const applyFilter = (e: any) => {
-  //   console.log(e.target.value);
-
-  //   setFilter(e.target.value);
-  //   // mutate(data, true);
-
-  //   mutateG("contract/api/false/get_campaigns");
-  // };
-  // const loadMore = () => {
-  //   setPagination({
-  //     offset: 0,
-  //     pageSize: pagination.pageSize + 4,
-  //   });
-  //   mutate();
-  // };
-  // const activateLoadMore = () => {
-  //   if (pagination.pageSize === 8) {
-  //     setPagination({
-  //       offset: 0,
-  //       pageSize: pagination.pageSize + 4,
-  //     });
-  //   }
-  // };
-
   useEffect(() => {
     mutate();
-  }, [mutate, filter, pagination.pageSize]);
+  }, [mutate, filter, pagination.pageSize, selected]);
 
   return (!loading && data !== undefined) || error ? (
-    <div className="flex flex-col justify-center  gap-0 pt-7 pb-28">
-      <div className=" flex flex-col justify-center space-y-5 py-16 px-5 text-4xl">
-        <span className="mx-auto font-roboto font-bold ">DISCOVER</span>
-        <span className="mx-auto text-center font-roboto text-2xl font-normal text-sky-500">
+    <div className="flex flex-col justify-center  gap-0 pt-20 pb-36">
+      <div className=" flex flex-col justify-center space-y-2 px-5 pb-12 ">
+        <span className="mx-auto font-roboto text-6xl font-bold ">
+          DISCOVER
+        </span>
+        <span className="mx-auto text-center font-roboto text-2xl font-medium text-sky-800">
           Projects from creators working to build a more beautiful future.
         </span>
       </div>
-      <div className="flex justify-center space-x-3">
+
+      <CustomRadioGroup
+        selected={selected}
+        setSelected={setSelected}
+        options={options}
+      />
+      <div className="flex justify-center space-x-3 px-4">
         {/* select box */}
-        <div className="group flex cursor-pointer items-center gap-2 rounded-sm border border-slate-300 px-4 md:w-[28rem]  ">
+        <div className="group flex w-[28rem] cursor-pointer items-center gap-2 rounded-sm border border-slate-300 px-4  ">
           <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
           <input
             onChange={(e) => {

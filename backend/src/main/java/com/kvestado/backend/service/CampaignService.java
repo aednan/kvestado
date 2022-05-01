@@ -13,9 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -50,10 +52,25 @@ public class CampaignService {
        web3Service.addAPendingTransaction(new PendingTransaction(campaignDTO.getTransactionHash(),createdAt));
    }
 
-   public Page<CampaignDTO> getCampaignsPage(int page, int pageSize, boolean random, String filter){
+   public Page<CampaignDTO> getCampaignsPage(int page, int pageSize, boolean random, String filter, String by){
        List<CampaignDTO> campaignDTOs = new ArrayList<>();
       // ,Sort.Direction.ASC, "transactionHash"
-       Page<Campaign> pCampaigns = campaignRepository.findByTitleContaining(filter,PageRequest.of(page,pageSize));
+
+       Page<Campaign> pCampaigns = new PageImpl(new ArrayList(),PageRequest.of(0,1),0);
+       if(by == null) by = "";
+       switch (by.toUpperCase()){
+           case "ID":
+               if(!filter.matches("^([0-9]+)$")) break;
+               pCampaigns = campaignRepository.findByCampaignId(Long.valueOf(filter),PageRequest.of(page,pageSize));
+               break;
+           case "ADDRESS":
+               pCampaigns = campaignRepository.findByBeneficiaryAddressIgnoreCase(filter,PageRequest.of(page,pageSize));
+               break;
+           default:
+               pCampaigns = campaignRepository.findByTitleContainingIgnoreCase(filter,PageRequest.of(page,pageSize));
+               break;
+       }
+
        if(random){
            pCampaigns.stream().parallel().filter(Campaign::getValid).forEach(campaign -> {
                    campaignDTOs.add(campaignToCampaignDTO(campaign));

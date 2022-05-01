@@ -22,7 +22,7 @@ export default function Card(props: Props) {
   return (
     <div className="pb-2">
       <div className="mx-auto flex max-w-sm flex-col rounded-lg py-4 px-4 sm:max-w-2xl  sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="self-center border-y-2 py-1 text-center font-roboto text-2xl font-bold tracking-tight text-gray-900 ring-0">
+        <h2 className="self-center border-y-2 py-2 text-center font-roboto text-3xl font-thin tracking-tight text-gray-900 ring-0">
           {props.title}
         </h2>
         {props.items && props.items.length > 0 && (

@@ -190,7 +190,7 @@ const Settings = (props: Props) => {
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         {/* <button onClick={getImageUrl}>Upload it</button> */}
         <span className="mb-10 text-center font-roboto text-4xl font-black">
-          Profile Settings
+          PROFILE SETTINGS
         </span>
         <div className="mx-auto w-full max-w-md ">
           <div className="mb-1 flex items-center justify-between pr-2">

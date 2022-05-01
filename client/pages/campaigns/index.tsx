@@ -1,5 +1,7 @@
+import { Combobox } from "@headlessui/react";
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { MdSearch } from "react-icons/md";
 import Card from "../../components/Card";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import UserSettingsContext from "../../contexts/UserSettingsContext";
@@ -16,7 +18,7 @@ export default function Campaigns(props: Props) {
   const [pagination, setPagination] = useState({
     offset: 0,
     // to be updated to 16
-    pageSize: 4,
+    pageSize: 8,
   });
 
   const { data, mutate, error, loading } = useResource({
@@ -28,50 +30,63 @@ export default function Campaigns(props: Props) {
   });
 
   const loadMore = () => {
-    console.log(data);
     setPagination({
       offset: 0,
       pageSize: pagination.pageSize + 4,
     });
-
-    // console.log(pagination.pageSize);
-    mutate(data);
+    mutate();
+  };
+  const activateLoadMore = () => {
+    if (pagination.pageSize === 8) {
+      setPagination({
+        offset: 0,
+        pageSize: pagination.pageSize + 4,
+      });
+    }
   };
 
-  useEffect(() => {
-    // if (data != undefined) {
-    //   if (bottomScrollDetected && !data.last && !data.first) {
-    //     setPagination({
-    //       offset: 0,
-    //       pageSize: pagination.pageSize + 8,
-    //     });
-    //     console.log("last");
-    //     // TODO: show loading animation
-    //     // load more campaigns
-    //     // mutate();
-    //   }
-    // }
-  }, []);
+  useEffect(() => {}, [pagination]);
 
   return (!loading && data !== undefined) || error ? (
-    <div className="flex flex-col gap-0 pt-7 pb-28">
-      <Card items={data?.content} title="Campaigns" />
-      <div className=" flex justify-center">
-        <button
-          onClick={loadMore}
-          className=" cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg"
-        >
-          Load MORE
-        </button>
+    <div className="flex flex-col justify-center  gap-0 pt-7 pb-28">
+      <div className=" flex flex-col justify-center space-y-5 py-16 px-5 text-4xl">
+        <span className="mx-auto font-roboto font-bold ">DISCOVER</span>
+        <span className="mx-auto text-center font-roboto text-2xl font-normal text-sky-500">
+          Projects from creators working to build a more beautiful future.
+        </span>
       </div>
-
-      {/* <div className=" flex justify-center">
-        <Link href="/campaigns">
-          <a className=" font-mono items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 text-base font-bold text-slate-700 hover:border-cyan-600 hover:text-cyan-600 md:text-lg">
-            VIEW MORE
-          </a>
-        </Link>
-      </div> */}
+      <div className="flex justify-center space-x-3">
+        {/* select box */}
+        <div className="group flex cursor-pointer items-center gap-2 rounded-sm border border-slate-300 px-4 md:w-[28rem]  ">
+          <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
+          <input
+            className="h-12 w-full border-0 bg-transparent text-xl  text-gray-800
+            placeholder:font-roboto placeholder:text-lg placeholder:text-gray-400
+             focus:border-none focus:outline-none focus:ring-0 "
+            placeholder="Search"
+          />
+        </div>
+      </div>
+      {data?.content.length > 0 ? (
+        <Card items={data?.content} title="FEATURED PROJECTS" />
+      ) : (
+        <div className="mx-auto py-24 font-roboto text-4xl font-thin">
+          NO RESULTS FOUND
+        </div>
+      )}
+      {!data.last && (
+        <div className=" flex justify-center">
+          <button
+            onMouseEnter={
+              pagination.pageSize === 8 ? activateLoadMore : undefined
+            }
+            onClick={loadMore}
+            className=" cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg"
+          >
+            Load MORE
+          </button>
+        </div>
+      )}
     </div>
   ) : (
     <LoadingSpinner />

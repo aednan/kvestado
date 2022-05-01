@@ -15,7 +15,7 @@ export default function Campaigns({}: Props) {
 
   return !loading && data !== undefined && data?.content.length > 0 ? (
     <div className="flex flex-col gap-0 pt-7 pb-28">
-      <Card items={data?.content} title="Existing Campaigns" />
+      <Card items={data?.content} title="EXISTING CAMPAIGNS" />
       <div className=" flex justify-center">
         <Link href="/campaigns">
           <a className=" items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg">

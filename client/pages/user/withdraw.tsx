@@ -31,8 +31,8 @@ const Withdraw = (props: Props) => {
   return (
     <div className="my-16 flex justify-center">
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
-        <span className="mb-20 text-center font-roboto text-4xl font-black">
-          Capital Withdrawal
+        <span className="mb-8 self-center border-y-2 py-3 text-center font-roboto text-4xl font-thin tracking-tight text-gray-900 ring-0">
+          CAPITAL WITHDRAWAL
         </span>
         <InputField
           title="Campaign ID *"

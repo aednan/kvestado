@@ -153,7 +153,7 @@ const Create = (props: Props) => {
     <div className="my-16 flex justify-center">
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         <span className="mb-10 text-center font-roboto text-4xl font-black">
-          New Campaign
+          NEW CAMPAIGN
         </span>
         <div className="mx-auto w-full max-w-md ">
           <div className="mb-1 flex items-center justify-between pr-2">

@@ -3,9 +3,13 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import CustomDialogBox from "../../../components/CustomDialogBox";
 import InputField from "../../../components/InputField";
+import CustomNotification, {
+  customToast,
+} from "../../../components/CustomNotification";
 import SubmitButton from "../../../components/SubmitButton";
 import useApiService from "../../../services/hooks/useApiService";
 import useContractService from "../../../services/hooks/useContractService";
+
 import {
   isEmptyOrContainsSpaceOnly,
   generateCampaignSlug,
@@ -111,11 +115,19 @@ const Create = (props: Props) => {
     )
       .then((res) => {
         // transaction started
+        customToast({
+          content: "Successfully Submitted",
+          type: "SUCCESS",
+        });
         clearAll();
         console.log(res);
       })
       .catch((err) => {
         // please check your transaction on etherscan and add it again
+        customToast({
+          content: "Try again later",
+          type: "ERROR",
+        });
         console.log(err?.response.data.message);
       });
 
@@ -159,6 +171,7 @@ const Create = (props: Props) => {
 
   return (
     <div className="my-16 flex justify-center">
+      <CustomNotification />
       <CustomDialogBox
         transactionHash={transactionHash}
         isOpen={isDialogBOpen}

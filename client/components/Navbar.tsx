@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useContext } from "react";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   AiFillGithub,

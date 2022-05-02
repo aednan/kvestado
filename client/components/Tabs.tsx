@@ -6,8 +6,6 @@ import Card from "./Card";
 import ContributionCard from "./ContributionCard";
 
 export default function Tabs() {
-  const [selectedTab, setSelectedTab] = useState("");
-
   const [cPagination, setCPagination] = useState({
     offset: 0,
     pageSize: 8,
@@ -44,13 +42,13 @@ export default function Tabs() {
   });
 
   const handleScroll = () => {
-    if (selectedTab == "Campaigns" && !campaignData?.last) {
+    if (!campaignData?.last) {
       setCPagination({
         offset: 0,
         pageSize: cPagination.pageSize + 4,
       });
     }
-    if (selectedTab == "Contributions" && !contributionData?.last) {
+    if (!contributionData?.last) {
       setCaPagination({
         offset: 0,
         pageSize: caPagination.pageSize + 4,
@@ -59,10 +57,10 @@ export default function Tabs() {
   };
 
   useEffect(() => {
-    if (selectedTab == "Campaigns" && !campaignData?.last) {
+    if (!campaignData?.last) {
       cMutate();
     }
-    if (selectedTab == "Contributions" && !contributionData?.last) {
+    if (!contributionData?.last) {
       contributionMutate();
     }
   }, [
@@ -72,7 +70,6 @@ export default function Tabs() {
     caPagination.pageSize,
     campaignData?.last,
     contributionData?.last,
-    selectedTab,
   ]);
 
   return (
@@ -83,9 +80,6 @@ export default function Tabs() {
             <Tab
               key={category}
               className={({ selected }) => {
-                if (selected) {
-                  setSelectedTab(category);
-                }
                 return classNames(
                   "w-full rounded-b-xl border-t-2  bg-white py-2.5 font-roboto text-lg font-medium leading-5 text-gray-500 hover:bg-slate-50",
                   "ring-0 focus:outline-none ",

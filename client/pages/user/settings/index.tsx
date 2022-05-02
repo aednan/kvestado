@@ -2,6 +2,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import CustomNotification, {
+  customToast,
+} from "../../../components/CustomNotification";
 import InputField from "../../../components/InputField";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import AuthContext from "../../../contexts/AuthContext";
@@ -51,6 +54,10 @@ const Settings = (props: Props) => {
     maxFiles: 1,
     onDropRejected: () => {
       // TODO: alert
+      customToast({
+        content: "Multiple files aren't allowed",
+        type: "INFO",
+      });
       console.log("multiple files aren't allowed");
     },
     onDrop: (acceptedFiles) => {
@@ -63,6 +70,10 @@ const Settings = (props: Props) => {
     },
     onDropAccepted: () => {
       // TODO: alert photo added
+      customToast({
+        content: "Photo added successfully",
+        type: "SUCCESS",
+      });
       console.log("photo added");
     },
   });
@@ -71,11 +82,19 @@ const Settings = (props: Props) => {
     if (!validUsername.is) {
       // TO DO alert, username required
       console.log("username is required");
+      customToast({
+        content: "Username is required",
+        type: "INFO",
+      });
       return;
     }
     if (!validEmail.is) {
       // TO DO alert, email required
       console.log("email is required");
+      customToast({
+        content: "Email is required",
+        type: "INFO",
+      });
       return;
     }
     let pictureUrl = data.pictureUrl;
@@ -111,8 +130,16 @@ const Settings = (props: Props) => {
             about,
             pictureUrl: pictureUrl,
           });
+          customToast({
+            content: "Saved Successfully",
+            type: "SUCCESS",
+          });
         })
         .catch((err) => {
+          customToast({
+            content: "Try again later",
+            type: "ERROR",
+          });
           console.log(err);
         });
 
@@ -121,6 +148,10 @@ const Settings = (props: Props) => {
       // console.log(data.email);
     } catch (error) {
       //
+      customToast({
+        content: "Try again later",
+        type: "ERROR",
+      });
       console.log(error);
     }
   };
@@ -191,6 +222,7 @@ const Settings = (props: Props) => {
 
   return !loading && data !== undefined ? (
     <div className="my-16 flex justify-center">
+      <CustomNotification />
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         {/* <button onClick={getImageUrl}>Upload it</button> */}
         <span className="mb-10 text-center font-roboto text-4xl font-black">

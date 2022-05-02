@@ -47,7 +47,7 @@ export default function CustomRadioGroup(props: RadioGroupProps) {
                         <div className="text-sm">
                           <RadioGroup.Label
                             as="p"
-                            className={`font-medium  ${
+                            className={`font-roboto font-medium ${
                               checked ? "text-white" : "text-gray-900"
                             }`}
                           >
@@ -55,7 +55,7 @@ export default function CustomRadioGroup(props: RadioGroupProps) {
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
-                            className={`inline ${
+                            className={`inline font-roboto ${
                               checked ? "text-sky-100" : "text-gray-500"
                             }`}
                           >

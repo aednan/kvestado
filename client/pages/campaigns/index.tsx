@@ -26,7 +26,7 @@ const options = [
   {
     id: "ADDRESS",
     name: "WALLET ADDRESS",
-    description: "Search By Campaign's Owner wallet Address",
+    description: "Search by Campaign Beneficiary Wallet Address",
   },
 ];
 

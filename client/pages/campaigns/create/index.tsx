@@ -1,5 +1,5 @@
 import { Switch } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import CustomDialogBox from "../../../components/CustomDialogBox";
 import InputField from "../../../components/InputField";
@@ -16,6 +16,7 @@ import {
   getEpochExpireTime,
   uploadImage,
 } from "../../../services/ToolsService";
+import UserSettingsContext from "../../../contexts/UserSettingsContext";
 
 type Props = {};
 
@@ -73,6 +74,7 @@ const Create = (props: Props) => {
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
   }
+
   //
   const createCampaign = async () => {
     if (checkValuesBeforeSubmit()) return;
@@ -270,15 +272,19 @@ const Create = (props: Props) => {
               <span className="text-xs md:text-sm">(Markdown)</span> *
             </label>
 
-            <button
-              disabled={campaignDescription === "" ? true : false}
-              className="
-cursor-pointer select-none rounded-md border
-py-1 px-2 font-medium text-gray-700 shadow-sm hover:bg-slate-50 hover:shadow-md  disabled:cursor-default disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none
-"
+            <a
+              className={classNames(
+                campaignDescription === ""
+                  ? "pointer-events-none cursor-default bg-slate-100 text-gray-400 hover:shadow-none"
+                  : " cursor-pointer text-gray-700 hover:bg-slate-50 hover:shadow-md",
+                " select-none rounded-md border px-2 py-1 font-medium  shadow-sm  "
+              )}
+              href={`/campaigns/preview?data=${btoa(campaignDescription)}`}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Preview
-            </button>
+            </a>
           </div>
           <textarea
             value={campaignDescription}
@@ -345,14 +351,19 @@ focus:ring-0 focus:drop-shadow-md lg:placeholder:text-lg
             </Switch>
           </Switch.Group>
           <div className="mt-7 flex w-full justify-center space-x-2 ">
-            <button
-              disabled={campaignDescription === "" ? true : false}
-              className="
-              cursor-pointer select-none rounded-md border
-              py-2 px-9 font-roboto text-lg font-bold text-gray-700 shadow-sm hover:bg-slate-50  hover:shadow-md disabled:cursor-default disabled:bg-slate-100 disabled:text-gray-400 disabled:hover:shadow-none"
+            <a
+              className={classNames(
+                campaignDescription === ""
+                  ? "pointer-events-none cursor-default bg-slate-100 text-gray-400 hover:shadow-none"
+                  : " cursor-pointer text-gray-700 hover:bg-slate-50  hover:shadow-md ",
+                " select-none rounded-md border py-2  px-9 font-roboto text-lg font-bold shadow-sm "
+              )}
+              href={`/campaigns/preview?data=${btoa(campaignDescription)}`}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Preview
-            </button>
+            </a>
             <SubmitButton
               title="Create"
               validityCheck={checkValuesBeforeSubmit}

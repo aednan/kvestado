@@ -40,6 +40,14 @@ function Campaign(props: props) {
 
   return !loading && data !== undefined ? (
     <>
+      <div className="fixed top-20 left-0 max-h-6 w-6 max-w-[12rem] items-center overflow-hidden bg-white px-1 align-middle shadow-md outline outline-1 outline-gray-300 hover:w-fit group-hover:bg-cyan-100 ">
+        <span className="h-full w-full select-none font-roboto text-base font-bold">
+          ID{" "}
+        </span>
+        <span className=" max-w-sm select-all overflow-hidden font-roboto text-base font-bold text-sky-600">
+          {data.campaignId}
+        </span>
+      </div>
       {state.isAuthenticated && data.campaignId !== undefined && (
         <>
           <SliderButton setOpenContribution={setOpenContribution} />

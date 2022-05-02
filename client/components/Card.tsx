@@ -33,7 +33,7 @@ export default function Card(props: Props) {
                 className=" group divide-y overflow-hidden rounded-2xl border-2 border-gray-100 hover:shadow-md"
               >
                 <div className=" relative aspect-square w-full  overflow-hidden  rounded-md rounded-b-none bg-gray-200 ">
-                  <div className="absolute bottom-2 left-0 max-h-7 max-w-[12rem] items-center overflow-clip bg-white px-1  align-middle shadow-md outline outline-1 outline-gray-300 group-hover:bg-cyan-100 ">
+                  <div className="absolute bottom-2 left-0 max-h-6 max-w-[12rem] items-center overflow-clip bg-white px-1  align-middle shadow-md outline outline-1 outline-gray-300 group-hover:bg-cyan-100 ">
                     <span className="h-full w-full select-none font-roboto text-base font-bold">
                       ID{" "}
                     </span>

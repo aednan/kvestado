@@ -36,7 +36,14 @@ export default function Footer() {
           >
             <AiFillGithub className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
           </a>
-          <AiFillTwitterCircle className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
+
+          <a
+            href="https://twitter.com/aednaan"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <AiFillTwitterCircle className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
+          </a>
           <AiFillRedditCircle className=" cursor-pointer text-3xl font-black text-[#8a939b] hover:text-black " />
         </div>
       </div>

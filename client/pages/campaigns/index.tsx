@@ -71,8 +71,8 @@ export default function Campaigns(props: Props) {
       />
       <div className="flex justify-center space-x-3 px-4">
         {/* select box */}
-        <div className="group flex w-[28rem] cursor-pointer items-center gap-2 rounded-sm border border-slate-300 px-4  ">
-          <MdSearch className="text-3xl text-gray-400 group-hover:text-gray-800" />
+        <div className="group flex w-[28rem] cursor-pointer items-center gap-2 rounded-sm border border-slate-300 px-4   ">
+          <MdSearch className="text-3xl text-gray-400 group-hover:text-sky-800" />
           <input
             onChange={(e) => {
               setFilter(e.target.value);

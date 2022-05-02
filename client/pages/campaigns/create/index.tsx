@@ -1,6 +1,7 @@
 import { Switch } from "@headlessui/react";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import CustomDialogBox from "../../../components/CustomDialogBox";
 import InputField from "../../../components/InputField";
 import SubmitButton from "../../../components/SubmitButton";
 import useApiService from "../../../services/hooks/useApiService";
@@ -15,6 +16,10 @@ import {
 type Props = {};
 
 const Create = (props: Props) => {
+  // CustomDialogBox
+  const [isDialogBOpen, setIsDialogBOpen] = useState(false);
+  const [transactionHash, setTransactionHash] = useState("");
+
   const [photo, setPhoto]: any = useState(null);
   const [campaignTitle, setCampaignTitle]: any = useState("");
   const [campaignDescription, setCampaignDescription]: any = useState("");
@@ -114,6 +119,8 @@ const Create = (props: Props) => {
         console.log(err?.response.data.message);
       });
 
+    setTransactionHash(response?.hash);
+    setIsDialogBOpen(true);
     // Transaction confirmation listener will be done in the backend
   };
 
@@ -152,6 +159,15 @@ const Create = (props: Props) => {
 
   return (
     <div className="my-16 flex justify-center">
+      <CustomDialogBox
+        transactionHash={transactionHash}
+        isOpen={isDialogBOpen}
+        setIsOpen={setIsDialogBOpen}
+        description="To view the progress of your transaction, please use the
+        following transaction Hash, Once your transaction is
+        confirmed in the blockchain, your campaign will be
+        listed on KVESTADO."
+      />
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         <span className="mb-10 text-center font-roboto text-4xl font-black">
           NEW CAMPAIGN
@@ -237,7 +253,8 @@ const Create = (props: Props) => {
         <div className=" mx-auto w-full max-w-md ">
           <div className="mb-1 flex items-center justify-between px-2">
             <label className="font-medium text-gray-700">
-              Campaign description (Markdown) *
+              Campaign description{" "}
+              <span className="text-xs md:text-sm">(Markdown)</span> *
             </label>
 
             <button

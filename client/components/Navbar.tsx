@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   AiFillGithub,
@@ -67,13 +67,10 @@ export default function Navbar() {
   const { connectWallet, logout } = useWeb3Service();
 
   return (
-    <Disclosure
-      as="nav"
-      className="fixed z-20 w-full overflow-x-hidden bg-transparent"
-    >
+    <Disclosure as="nav" className="fixed z-20 w-full overflow-x-hidden ">
       {({ open }) => (
         <>
-          <div className=" fixed mx-auto w-full flex-initial bg-white px-2 shadow-md sm:px-4 lg:px-8 ">
+          <div className=" fixed z-50 mx-auto w-full flex-initial  bg-white px-2 shadow-md sm:px-4 lg:px-8 ">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -105,7 +102,7 @@ export default function Navbar() {
                     alt="Workflow"
                   /> */}
                 </div>
-                <div className=" hidden w-full pr-10 sm:ml-6 sm:block">
+                <div className="hidden w-full bg-white pr-10 sm:ml-6 sm:block">
                   <div className=" flex space-x-6 ">
                     <PopoverComponent />
 
@@ -278,14 +275,14 @@ export default function Navbar() {
 
           {/* <Transition.Root> */}
           <Transition
-            enter="transition ease-in-out duration-[650ms] transform"
+            enter="transition ease-in-out duration-[400ms] transform"
             enterFrom="-translate-y-full opacity-0"
             enterTo="translate-y-0 opacity-100"
-            leave="transition ease-in-out duration-[650ms] transform"
+            leave="transition ease-in-out duration-[100ms] transform"
             leaveFrom="translate-y-0 opacity-100"
             leaveTo="-translate-y-full opacity-0"
           >
-            <Disclosure.Panel className=" h-screen overflow-auto bg-white pt-20 sm:hidden">
+            <Disclosure.Panel className="z-0 h-screen overflow-auto bg-white pt-20 sm:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3 text-center">
                 <div
                   onClick={() => {

@@ -25,6 +25,14 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { scrollResetToShow, setScrollResetToShow } =
     useContext(UserSettingsContext);
 
+  const handleScroll = (event?: any) => {
+    if (divRef?.current?.scrollTop && divRef?.current?.scrollTop > 100) {
+      setScrollResetToShow(true);
+    } else {
+      setScrollResetToShow(false);
+    }
+  };
+
   const { state } = useContext(AuthContext);
 
   const { connectWallet, restrictedRoutes } = useWeb3Service();
@@ -74,7 +82,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <CommandPalette />
       <Navbar />
       <div
-        // onScroll={handleScroll}
+        onScroll={handleScroll}
         ref={divRef}
         className="-z-20 flex h-full w-full flex-col overflow-auto scroll-smooth pt-16 "
       >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { classNames } from "../services/ToolsService";
 import useResource from "../services/hooks/useResource";
@@ -6,16 +6,34 @@ import Card from "./Card";
 import ContributionCard from "./ContributionCard";
 
 export default function Tabs() {
-  const { data: campaignData, loading: campaignLoading } = useResource({
+  const [selectedTab, setSelectedTab] = useState("");
+
+  const [cPagination, setCPagination] = useState({
+    offset: 0,
+    pageSize: 8,
+  });
+  const [caPagination, setCaPagination] = useState({
+    offset: 0,
+    pageSize: 8,
+  });
+  const {
+    mutate: cMutate,
+    data: campaignData,
+    loading: campaignLoading,
+  } = useResource({
     resourcePath: "contract/api/get_my_campaigns",
-    params: { offset: 0, pageSize: 4 },
+    params: cPagination,
     skip: false,
     withCredentials: true,
   });
 
-  const { data: contributionData, loading: contributionLoading } = useResource({
+  const {
+    mutate: contributionMutate,
+    data: contributionData,
+    loading: contributionLoading,
+  } = useResource({
     resourcePath: "contract/api/get_my_contributions",
-    params: { offset: 0, pageSize: 4 },
+    params: caPagination,
     skip: false,
     withCredentials: true,
   });
@@ -25,6 +43,38 @@ export default function Tabs() {
     Contributions: { id: "contribution" },
   });
 
+  const handleScroll = () => {
+    if (selectedTab == "Campaigns" && !campaignData?.last) {
+      setCPagination({
+        offset: 0,
+        pageSize: cPagination.pageSize + 4,
+      });
+    }
+    if (selectedTab == "Contributions" && !contributionData?.last) {
+      setCaPagination({
+        offset: 0,
+        pageSize: caPagination.pageSize + 4,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (selectedTab == "Campaigns" && !campaignData?.last) {
+      cMutate();
+    }
+    if (selectedTab == "Contributions" && !contributionData?.last) {
+      contributionMutate();
+    }
+  }, [
+    cMutate,
+    contributionMutate,
+    cPagination.pageSize,
+    caPagination.pageSize,
+    campaignData?.last,
+    contributionData?.last,
+    selectedTab,
+  ]);
+
   return (
     <div className="mx-auto w-11/12 ">
       <Tab.Group>
@@ -32,15 +82,18 @@ export default function Tabs() {
           {Object.keys(categories).map((category) => (
             <Tab
               key={category}
-              className={({ selected }) =>
-                classNames(
+              className={({ selected }) => {
+                if (selected) {
+                  setSelectedTab(category);
+                }
+                return classNames(
                   "w-full rounded-b-xl border-t-2  bg-white py-2.5 font-roboto text-lg font-medium leading-5 text-gray-500 hover:bg-slate-50",
                   "ring-0 focus:outline-none ",
                   selected
                     ? "border-blue-400 bg-white text-sky-700"
                     : "  hover:text-sky-700"
-                )
-              }
+                );
+              }}
             >
               {category}
             </Tab>
@@ -49,6 +102,8 @@ export default function Tabs() {
         <Tab.Panels className="mt-2">
           {Object.values(categories).map((category) => (
             <Tab.Panel
+              // ref={tabRef}
+              onScroll={handleScroll}
               key={category.id}
               className={classNames(
                 "rounded-xl bg-white p-3",
@@ -56,7 +111,9 @@ export default function Tabs() {
               )}
             >
               {category.id === "campaign" && !campaignLoading && (
-                <Card items={campaignData?.content} title="" />
+                <>
+                  <Card items={campaignData?.content} title="" />
+                </>
               )}
               {category.id === "contribution" && !campaignLoading && (
                 <ContributionCard contributions={contributionData?.content} />
@@ -65,6 +122,22 @@ export default function Tabs() {
           ))}
         </Tab.Panels>
       </Tab.Group>
+
+      {/* {!campaignData?.last && (
+        <div className=" flex justify-center pt-16">
+          <button
+            onClick={() => {
+              setPagination({
+                offset: 0,
+                pageSize: pagination.pageSize + 4,
+              });
+            }}
+            className=" cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg"
+          >
+            Load MORE
+          </button>
+        </div>
+      )} */}
     </div>
   );
 }

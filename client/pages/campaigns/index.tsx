@@ -94,9 +94,6 @@ export default function Campaigns(props: Props) {
       {!data.last && (
         <div className=" flex justify-center">
           <button
-            // onMouseEnter={
-            //   pagination.pageSize === 8 ? activateLoadMore : undefined
-            // }
             onClick={() => {
               setPagination({
                 offset: 0,

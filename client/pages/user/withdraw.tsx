@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import CustomDialogBox from "../../components/CustomDialogBox";
 import CustomRadioGroup from "../../components/CustomRadioGroup";
 import InputField from "../../components/InputField";
 import AuthContext from "../../contexts/AuthContext";
@@ -21,6 +22,10 @@ const options = [
 ];
 
 const Withdraw = (props: Props) => {
+  // CustomDialogBox
+  const [isDialogBOpen, setIsDialogBOpen] = useState(false);
+  const [transactionHash, setTransactionHash] = useState("");
+
   const [campaignID, setCampaignID]: any = useState("");
   const [campaignOwnerAddress, setCampaignOwnerAddress]: any = useState("");
 
@@ -48,9 +53,12 @@ const Withdraw = (props: Props) => {
 
   const handleRefund = async () => {
     if (!checkBeforeSubmit()) return;
+    setTransactionHash("");
     try {
       const receipt = await refundClaim(campaignOwnerAddress, campaignID);
 
+      setTransactionHash(receipt?.hash);
+      setIsDialogBOpen(true);
       state.provider.waitForTransaction(receipt?.hash, 1).then((res: any) => {
         console.log("Refund successful");
       });
@@ -63,9 +71,12 @@ const Withdraw = (props: Props) => {
   const handleWithdraw = async () => {
     if (!checkBeforeSubmit()) return;
 
+    setTransactionHash("");
     try {
       const receipt = await withdraw(campaignID);
 
+      setTransactionHash(receipt?.hash);
+      setIsDialogBOpen(true);
       state.provider.waitForTransaction(receipt?.hash, 1).then((res: any) => {
         console.log("Withdrawal successful");
       });
@@ -77,6 +88,13 @@ const Withdraw = (props: Props) => {
 
   return (
     <div className="my-16 flex justify-center">
+      <CustomDialogBox
+        transactionHash={transactionHash}
+        isOpen={isDialogBOpen}
+        setIsOpen={setIsDialogBOpen}
+        description="To view the progress of your transaction, please use the
+        following transaction Hash."
+      />
       <div className=" flex w-11/12 flex-col justify-center space-y-7  sm:w-3/4 md:w-2/4">
         <span className="mb-8 self-center border-y-2 py-3 text-center font-roboto text-4xl font-thin tracking-tight text-gray-900 ring-0">
           {selected.name}

@@ -69,7 +69,7 @@ export default function CustomDialogBox(props: Props) {
 
                       <div className="my-5 mx-auto max-w-[26] overflow-hidden font-roboto text-xs font-semibold text-sky-700">
                         <a
-                          href={`https://etherscan.io/tx/${props.transactionHash}`}
+                          href={`${process.env.NEXT_PUBLIC_NETWORK}/tx/${props.transactionHash}`}
                           rel="noopener noreferrer"
                           target="_blank"
                         >

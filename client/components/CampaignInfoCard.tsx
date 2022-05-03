@@ -74,7 +74,7 @@ const CampaignInfoCard = (props: Props) => {
         });
       }
     );
-  }, [getCampaign, props]);
+  }, [props]);
 
   return (
     <div className="flex flex-col space-y-4 pl-2">

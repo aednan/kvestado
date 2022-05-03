@@ -10,3 +10,13 @@ spring:
     database-platform: "org.hibernate.dialect.PostgreSQLDialect"
     hibernate:
       ddl-auto: "update"
+
+# BC_PROJECT_ID: env variable should be set:  Deployment server
+# rinkeby contract address
+web3:
+  blockchain:
+    node: ${BC_NODE}
+  contract:
+    address: ${BC_CONTRACT_ADDRESS}
+# "0x4c3c3293a547c9eB33059e0F8122147CC2602C6e"
+# https://rinkeby.infura.io/v3/${PROJECT_ID}

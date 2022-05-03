@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.FunctionReturnDecoder;
@@ -36,12 +37,11 @@ public class Web3Service {
     @Autowired
     private ContributionRepository contributionRepository;
 
-    private HashMap<String,PendingTransaction> pendingTransactions = new HashMap<>();
-// for production
-//  private final Web3j web3Client = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/03926cf21c0c424c91ea4e0ed9bbf368"));
-    // for dev, to be removed
-    private final Web3j web3Client = Web3j.build(new HttpService("http://localhost:7545"));
+//    @Value("${web3.contract.address}")
+    private String contractAddress;
 
+    private final Web3j web3Client;
+    private HashMap<String,PendingTransaction> pendingTransactions = new HashMap<>();
     private Flowable<Log> web3EventLogsFlowable = null;
 
 // event MyCampaign(address indexed _campaignOwner, uint _campaignId);
@@ -66,13 +66,20 @@ public class Web3Service {
     new Event("Withdrawal", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint>(false) {},new TypeReference<Uint>(false) {}))
     );
 
+    public Web3Service(Environment environment) {
+        this.contractAddress = environment.getProperty("web3.contract.address");
+        this.web3Client = Web3j.build(new HttpService(environment.getProperty("web3.blockchain.node")));
+    }
+
     @EventListener
     public void startSubscription(ApplicationStartedEvent event){
+        try {
         pendingTransactionRepository.findAll().stream().parallel().forEach(pTx -> {
             pendingTransactions.put(pTx.getHash(),pTx);
         });
         getWeb3EventLogsFlowable();
         eventsSubscription();
+        } catch (Exception e){}
     }
 
     public Flowable<Log> getWeb3EventLogsFlowable() {
@@ -80,9 +87,7 @@ public class Web3Service {
             // should be edited to start from the last saved block
             EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST,
                     DefaultBlockParameterName.LATEST,
-                  // "0x2aca7e2c6c403B38Bd80834b40eDB2841e918aa9"
-                    // for dev only, to be edited
-            "0x8C6fAF89Fa0f06B5E3C3B4d1c04467F51A5251FB"
+                    contractAddress
             );
             web3EventLogsFlowable = web3Client.ethLogFlowable(filter);
         }
@@ -93,7 +98,8 @@ public class Web3Service {
         getWeb3EventLogsFlowable().blockingSubscribe();
     }
     public void eventsSubscription () {
-           getWeb3EventLogsFlowable().subscribe(log -> {
+           getWeb3EventLogsFlowable()
+                   .subscribe(log -> {
             String eventHash = log.getTopics().get(0);
 
                // TODO: to update the starting block, listOfPending should be empty to select the last transaction block as starting one
@@ -129,7 +135,7 @@ public class Web3Service {
           }
 
 
-        });
+        }, err -> {err.printStackTrace();});
     }
 
     public void addAPendingTransaction(PendingTransaction pendingTransaction){
@@ -138,29 +144,5 @@ public class Web3Service {
         pendingTransactions.put(pendingTransaction.getHash(),pendingTransaction);
     }
 
-    //
-//        web3Client.transactionFlowable().subscribe(tx -> {
-//            System.out.println("YY");
-//            System.out.println(tx.getFrom());
-//            System.out.println("This is the hash");
-//            System.out.println(tx.getHash());
-//            System.out.println(tx.getS());
-//            System.out.println("This is the hash Z");
-//        });
-
-//        String address = "getMyAddress()";
-//        web3Client.transactionFlowable().subscribe({ tx ->
-//        if (tx.from == address || tx.to == address) {
-//            postValue(tx)
-//            Log.i("my", "from=${tx.from},to=${tx.to},myAddress=$address")
-//        } else {
-//            Log.d("others", "from=${tx.from},to=${tx.to},myAddress=$address")
-//        }
-//                }, { t -> t.printStackTrace() })
-
-//        web3Client.pendingTransactionFlowable().subscribe(tx -> {
-//            System.out.println("YY");
-//            System.out.println(tx);
-//        });
 
 }

@@ -15,3 +15,10 @@ server:
   servlet:
     session:
       same-site: NONE
+
+# Local node Ganache
+web3:
+  blockchain:
+    node: http://localhost:7545
+  contract:
+    address: "0x8C6fAF89Fa0f06B5E3C3B4d1c04467F51A5251FB"

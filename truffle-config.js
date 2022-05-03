@@ -17,7 +17,7 @@ module.exports = {
           `https://ropsten.infura.io/v3/${infuraProjectId}`
         ),
       network_id: 3, // Ropsten's id
-      gasLimit: 200000000000,
+      gasLimit: 200000000000000,
       gas: 5500000, // Ropsten has a lower block limit than mainnet
       confirmations: 2, // # of confirmations to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
@@ -31,7 +31,7 @@ module.exports = {
         ),
       network_id: 4,
       gas: 5500000,
-      gasLimit: 200000000000,
+      gasLimit: 200000000000000,
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true,
@@ -46,7 +46,7 @@ module.exports = {
       network_id: 5,
       gas: 5500000,
       // to avoid error code -32603 : Failed gas estimation
-      gasLimit: 200000000000,
+      gasLimit: 20000000000000,
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true,
@@ -60,10 +60,10 @@ module.exports = {
   compilers: {
     solc: {
       version: "^0.8.13",
-      optimizer: {
-        enabled: true,
-        runs: 200, // Optimize for how many times you intend to run the code
-      },
+      // optimizer: {
+      //   enabled: true,
+      //   runs: 200, // Optimize for how many times you intend to run the code
+      // },
       // evmVersion: <string>, // Default: "istanbul"
     },
   },

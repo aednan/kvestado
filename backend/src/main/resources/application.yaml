@@ -23,3 +23,4 @@ server:
 spring:
   profiles:
     active: ${SPRING_PACTIVE:dev}
+

@@ -1,0 +1,92 @@
+import ArticleLayout from "../../../components/MDXArticle/ArticleLayout";
+
+export const meta = {
+  title: "CHAPTER 2",
+  description: "Blockchain",
+  coverImage: "",
+  publishedAt: "MAY 01, 2022",
+  author: "ADNAN",
+  readTime: 5,
+  enabled: true,
+};
+
+export default ({ children }) => (
+  <ArticleLayout meta={meta}>{children}</ArticleLayout>
+);
+
+# Blockchain
+
+![Blockchain!](/img/docs/Bitcoin_Block_Data.svg "Block Data")
+
+> [Figure 1: Blockchain](https://en.wikipedia.org/wiki/Blockchain "Wiki").
+
+Blockchain is one of the most important technologies used on the Web 3.0. It aims to provide a
+public and non-centralized data store.
+Imagine a database where information is stored in blocks. These blocks can be copied and
+replicated to individual computers.
+All of these blocks are identical and are synchronized with each other. When someone adds or
+removes data, it changes the information in the entire chain.
+Blockchain is often referred to as an immutable, real-time record of transactions and ownership.
+But what does it mean? Basically, it's a reliable, hard-to-manipulate record of transactions - and a
+record of who owns what.
+New blocks with new information are always appended at the end of the chain, each addition has
+its own digital signature or hash value, which is a series of numbers and letters. The more
+confirmations (blocks added on top of that last block), the more difficult it becomes
+to manipulate it.
+The best way to explain how the blockchain works is to take a closer look at the community
+aspect. It is based on what is known as distributed ledger technology “DLT”.
+
+Each individual in the peer-to-peer network that together forms this ledger can view the same
+information in individual blocks.
+A transaction recorded on one computer or node is visible on every computer in the digital
+network. Everyone sees the same data. In addition, anyone can reject or verify what they see.
+For this reason, it is very difficult to hack the technology. The data is not controlled by just one
+computer, and a change in one block would mean that the entire chain that starts with that block
+would have to change its signature and be based on the new block hash.
+Everyone has a copy that is automatically updated, and everyone must verify the changes on the
+chain or network.
+
+(IBM, 2022) (Wikipedia, 2022)
+
+## 2.1 Bitcoin
+
+It is a cryptocurrency based on the blockchain technology that supports peer to peer transactions
+without interfering with third parties such as banks.
+it's a peer-to-peer network that uses proof-of-work to record a public history of transactions,
+which quickly becomes computationally infeasible for an attacker when honest nodes control the
+majority of CPU power.
+The nodes all operate at once with little coordination.
+They do not need to be identified because messages are not routed to a specific location and need
+only be delivered on a best effort basis.
+Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as evidence of
+what happened while they were away.
+They vote with their CPU power by accepting valid blocks by working on their extension, and
+rejecting invalid blocks by refusing to work on them.
+All necessary rules and incentives can be enforced with this consensus mechanism.
+
+(Bitcoin Whitepaper , 2022)
+
+## Ethereum Blockchain (Network)
+
+The Ethereum blockchain, just like Bitcoin, tracks the ownership of digital currency, but
+additionally specializes in the execution of programming code of various decentralized apps
+(DApps) such as voting systems, and payment methods.
+Ethereum allows users to create self-executing contracts, called smart contracts, that are
+automatically executed when certain preconditions are met. These actions can include releasing
+funds to appropriate parties, registering vehicles, sending notifications, or issuing a ticket.
+Like Bitcoin, Ethereum operates outside the influence of central authorities such as banks and
+governments.
+
+(Ethereum Whitepaper , 2022)
+
+## 2.3 Smart Contracts
+
+Smart contracts are computer code on the blockchain that allow the implementation of digital
+contracts that are executed automatically as soon as a certain event occurs.
+Smart contracts can thus be used to implement certain contracts automatically without the need
+to formalize a contract in writing.
+Once a smart contract is deployed on the network (Blockchain), it becomes immutable and
+cannot be changed. If the contract contains errors,
+a new contract should be created and migrated to it.
+
+(Ethereum Whitepaper , 2022)

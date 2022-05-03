@@ -1,0 +1,15 @@
+import ArticleLayout from "../../../components/MDXArticle/ArticleLayout";
+
+export const meta = {
+  title: "CHAPTER 7",
+  description: "Will be published soon",
+  coverImage: "",
+  publishedAt: "UNKNOWN",
+  author: "ADNAN",
+  readTime: 5,
+  enabled: false,
+};
+
+export default ({ children }) => (
+  <ArticleLayout meta={meta}>{children}</ArticleLayout>
+);

@@ -5,8 +5,10 @@ import KvestadoContract from "../../contracts/Kvestado.json";
 
 type Props = {};
 
+// localhost network 5777
+// rinkeby 4
 export default function useContractService(props?: Props) {
-  const contractAddress = KvestadoContract.networks["5777"].address;
+  const contractAddress = KvestadoContract.networks["4"].address;
 
   let readOnlyContractInstance: any = undefined;
   let readWriteContractInstance: any = undefined;

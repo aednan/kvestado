@@ -14,7 +14,7 @@ const Preview = (props: Props) => {
     }
   }, [router]);
   return (
-    <ReactMarkdown className="prose prose-stone mx-auto max-w-4xl px-5 py-20 prose-pre:max-h-80 prose-pre:overflow-auto prose-img:max-h-[70rem] prose-img:w-full prose-img:rounded-md lg:prose-xl">
+    <ReactMarkdown className="prose prose-stone mx-auto max-w-4xl px-5 py-20 prose-pre:max-h-80 prose-pre:overflow-auto prose-img:max-h-[70rem] prose-img:max-w-full prose-img:rounded-md lg:prose-xl">
       {previewData !== "" && previewData !== undefined
         ? atob(previewData)
         : " # NO RESULT FOUND"}

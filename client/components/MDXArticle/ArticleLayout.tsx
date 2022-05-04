@@ -16,7 +16,7 @@ const ArticleLayout = ({
           {/* Build und Ausführung des Java-Programms */}
         </h1>
       )}
-      <main className="prose prose-stone mx-auto max-w-5xl prose-pre:max-h-80 prose-pre:overflow-auto prose-img:max-h-[70rem] prose-img:w-full prose-img:rounded-md lg:prose-xl">
+      <main className="prose prose-stone mx-auto max-w-5xl prose-pre:max-h-80 prose-pre:overflow-auto prose-img:max-h-[70rem] prose-img:max-w-full prose-img:rounded-md lg:prose-xl">
         {children}
       </main>
     </article>

@@ -14,7 +14,7 @@ export default function Campaigns({}: Props) {
   });
 
   return !loading && data !== undefined && data?.content.length > 0 ? (
-    <div className="flex flex-col gap-y-5 pt-7 pb-28">
+    <div className="flex flex-col gap-y-10 pt-7 pb-28 md:gap-y-0">
       <Card items={data?.content} title="EXISTING CAMPAIGNS" />
       <div className=" flex justify-center py-3">
         <Link href="/campaigns">

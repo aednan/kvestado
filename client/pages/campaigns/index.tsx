@@ -92,7 +92,7 @@ export default function Campaigns(props: Props) {
         </div>
       )}
       {!data.last && (
-        <div className=" flex justify-center">
+        <div className=" z-0 flex justify-center py-3">
           <button
             onClick={() => {
               setPagination({

@@ -116,22 +116,6 @@ export default function Tabs() {
           ))}
         </Tab.Panels>
       </Tab.Group>
-
-      {/* {!campaignData?.last && (
-        <div className=" flex justify-center pt-16">
-          <button
-            onClick={() => {
-              setPagination({
-                offset: 0,
-                pageSize: pagination.pageSize + 4,
-              });
-            }}
-            className=" cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-transparent py-3 px-7 font-roboto text-base font-bold text-slate-700 hover:border-cyan-600 hover:bg-gray-50 hover:text-cyan-600 md:text-lg"
-          >
-            Load MORE
-          </button>
-        </div>
-      )} */}
     </div>
   );
 }

@@ -2,7 +2,6 @@ package com.kvestado.backend.service;
 
 import com.kvestado.backend.dao.UProfileRepository;
 import com.kvestado.backend.dao.USettingsPreferenceRepository;
-import com.kvestado.backend.dto.CampaignDTO;
 import com.kvestado.backend.dto.UProfileDTO;
 import com.kvestado.backend.dto.UserInfo;
 import com.kvestado.backend.exception.OperationNotAllowedException;

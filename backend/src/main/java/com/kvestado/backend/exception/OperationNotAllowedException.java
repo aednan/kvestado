@@ -1,7 +1,5 @@
 package com.kvestado.backend.exception;
 
-import org.springframework.http.ResponseEntity;
-
 public class OperationNotAllowedException extends Exception{
 
     /**

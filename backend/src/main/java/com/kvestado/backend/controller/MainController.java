@@ -1,6 +1,5 @@
 package com.kvestado.backend.controller;
 
-import com.kvestado.backend.dto.ContributionDTO;
 import com.kvestado.backend.exception.OperationNotAllowedException;
 import com.kvestado.backend.model.EmailSubscriber;
 import com.kvestado.backend.service.CustomUserDetailsService;

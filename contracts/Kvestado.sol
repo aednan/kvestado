@@ -48,7 +48,7 @@ contract Kvestado is Ownable{
         CLOSED,
         // if policy not respected
         SUSPENDED,
-        // if expireAfter date is exceeded and minimumRaisedValue not rechead
+        // if expireAfter date is exceeded and minimumRaisedValue is required and not rechead 
         EXPIRED
     }
 
@@ -70,7 +70,7 @@ contract Kvestado is Ownable{
      }
 
      // The withdrawal can be made only by the campaign owner and the amount will be sent to the beneficiary's address
-     // ownership checks isn't required, as the campaign is only found using the owner's address
+     // the campaign is only found using the owner's address
      function withdraw(uint _campaignId) external minValueCheck(campaign[msg.sender][_campaignId]) 
       {
 
@@ -115,7 +115,7 @@ contract Kvestado is Ownable{
                contribution[msg.sender][_campaignId].campaignId = _campaignId;
 
           // To update campaign state in case of:
-          // if "expireAfter" date passed and minimumRaisedValue not rechead
+          // if "expireAfter" date passed and and minimumRaisedValue is required and not rechead 
           Campaign memory _campaign = campaign[_campaignOwner][_campaignId];
           if(_campaign.expireAfter <= block.timestamp 
           && (_campaign.hasMinimumRaisedValue && _campaign.minimumRaisedValue > _campaign.raisedValue ))
